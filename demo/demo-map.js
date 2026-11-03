@@ -2,6 +2,12 @@
 (function () {
   'use strict';
   var D=window.BlindDemo;
+  // Pages may need longer than the original local-server timeout on a cold load.
+  MAP_SDK_LOAD_TIMEOUT_MS=60000;
+  ['loadStyleOnce','loadScriptOnce'].forEach(function(name){
+    var original=window[name];
+    window[name]=function(id,url){return original(id,url).catch(function(){var node=document.getElementById(id);if(node)node.remove();var error=new Error((name==='loadStyleOnce'?'三维样式':'三维脚本')+'加载失败：'+url);window._demo3DError=error.message;throw error;});};
+  });
   function data(name){return new URL('data/'+name,D.base).href;}
   var originalModules=window.loadGeoSceneModules;
   window.loadGeoSceneModules=function(){return originalModules().then(function(m){m.config.assetsPath=new URL('vendor/arcgis/esri/assets/',D.base).href;return m;});};
@@ -41,7 +47,7 @@
     window._demoLeafletMap=map;
     map.attributionControl.addAttribution('© OpenStreetMap contributors · 本地数据演示');
     return Promise.all(['parks.geojson','water.geojson','roads.geojson'].map(function(file){return D.json('data/'+file).then(function(fc){L.geoJSON(fc,{style:{color:file==='roads.geojson'?'#4f89a6':'#176077',weight:1.2,fillColor:file==='parks.geojson'?'#164e48':'#13516c',fillOpacity:.85}}).addTo(map);});})).then(function(){
-      parent.classList.add('demo-map-2d');var status=document.getElementById('sceneStatus');if(status)status.textContent='二维本地地图 · 当前设备未启用三维';
+      parent.classList.add('demo-map-2d');var status=document.getElementById('sceneStatus');if(status){status.textContent='二维本地地图 · 三维初始化未完成';status.title=window._demo3DError||status.title||'请查看控制台中的三维资源加载或 WebGL 错误';}
       (D.facilities.features||[]).filter(function(_,i){return i%6===0;}).forEach(function(f){L.circleMarker([f.lat,f.lon],{radius:3,color:'#60e6d0',weight:1}).bindPopup(f.name).addTo(map);});
       setTimeout(function(){map.invalidateSize();},100);return true;
     });

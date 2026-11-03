@@ -136,3 +136,30 @@ test('static artifact contains complete local map assets and no backend/environm
   for(const file of ['index.html','demo-runtime.js','demo-map.js','demo-mobile.js','vendor/arcgis/init.js','vendor/arcgis/esri/Map.js','vendor/arcgis/esri/views/SceneView.js','vendor/leaflet/leaflet.js','data/buildings.geojson','data/network-display.geojson','data/routes.json'])assert.ok(fs.existsSync(path.join(root,file)),file);
   for(const file of ['backend','.env','data/demo.db','backend/.env'])assert.equal(fs.existsSync(path.join(root,file)),false,file);
 });
+
+test('3D bootstrap references the packaged stylesheet, loader and CSS dependencies', async () => {
+  const p=page('Web管理端.html',new IDBFactory(),true);
+  try {
+    const requested=[];
+    p.w.loadStyleOnce=p.w.loadScriptOnce=async function(id,href){
+      requested.push(href);
+      const resource=path.join(root,new URL(href,p.w.document.baseURI).pathname.replace('/blind-navigation/',''));
+      assert.ok(fs.existsSync(resource),'3D startup resource exists: '+href);
+    };
+    p.w.require=function(ids,success){success(...ids.map(id=>id==='esri/config'?{}:function(){}));};
+    await p.w.loadGeoSceneModules();
+    const cssPath=requested.find(href=>href.endsWith('.css'));
+    assert.equal(cssPath,'./vendor/arcgis/esri/assets/esri/themes/dark/main.css');
+    const cssFile=path.join(root,cssPath);
+    const css=fs.readFileSync(cssFile,'utf8');
+    for(const m of css.matchAll(/url\(["']?([^"')]+)["']?\)/g)){
+      if(/^(data:|https?:|#|var\()/i.test(m[1]))continue;
+      const asset=path.resolve(path.dirname(cssFile),m[1].split(/[?#]/)[0]);
+      assert.ok(fs.existsSync(asset),'CSS dependency exists: '+m[1]);
+    }
+    const html=fs.readFileSync(path.join(root,'Web管理端.html'),'utf8');
+    assert.match(html,/web\.js\?v=[a-f0-9]{12}/);
+    assert.match(html,/demo-map\.js\?v=[a-f0-9]{12}/);
+    assert.ok(!fs.readFileSync(path.join(root,'demo-map.js'),'utf8').includes('当前设备未启用三维'));
+  }finally{p.close();}
+});

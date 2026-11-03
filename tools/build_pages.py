@@ -3,6 +3,7 @@ from pathlib import Path
 import json
 import re
 import shutil
+import hashlib
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'site-demo'
@@ -10,7 +11,7 @@ OUT = ROOT / 'site-demo'
 
 def write(path, text):
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text, encoding='utf-8')
+    path.write_text(text, encoding='utf-8', newline='\n')
 
 
 def build():
@@ -67,16 +68,29 @@ def build():
                 source = source.replace("' + ed." + field + " + '", "' + escapeMapText(ed." + field + ") + '")
             source = source.replace("var base = 'https://js.arcgis.com/4.30/';", "var base = './vendor/arcgis/';")
             source = source.replace("loadScriptOnce('geoscene-arcgis-js', base)", "loadScriptOnce('geoscene-arcgis-js', base + 'init.js')")
+            source = source.replace("base + 'esri/themes/dark/main.css'", "base + 'esri/assets/esri/themes/dark/main.css'")
             source = source.replace('<b>GeoScene</b>', '<b>离线案例</b>')
         else:
             source = source.replace('geoscene-safe-route','demo-safe-route').replace('GeoScene安全路线','安全权重案例').replace('GeoScene 无障碍安全路线已绘制','预设路线案例已绘制').replace('高德常规步行','距离优先案例').replace('普通步行兜底','预设路线案例')
             source = source.replace('实时导航','路线案例播报').replace('真实路线','路线案例')
+        source = source.replace('(backend-api)', '(browser-demo)')
         write(OUT / filename, source)
     for filename in ['road-visuals.js','water-visuals.js']:
         shutil.copy2(ROOT / filename, OUT / filename)
     for login in ['登录.html','移动端登录.html']:
         write(OUT / login, '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=./index.html"><title>进入盲行演示</title><a href="./index.html">进入在线演示</a></html>')
     write(OUT / '.nojekyll', '')
+    # A changed adapter/loader path must not reuse a visitor's old script cache.
+    def asset_version(match):
+        target = OUT / match.group(2).removeprefix('./')
+        if not target.is_file():
+            raise FileNotFoundError('Referenced demo asset is missing: ' + match.group(2))
+        digest = hashlib.sha256(target.read_bytes()).hexdigest()[:12]
+        return match.group(1) + match.group(2) + '?v=' + digest + match.group(3)
+    for html in OUT.glob('*.html'):
+        source = html.read_text(encoding='utf-8')
+        source = re.sub(r'''((?:src|href)=["'])(\./[^"']+\.(?:js|css))(?:\?[^"']*)?(["'])''', asset_version, source)
+        write(html, source)
     files = [p for p in OUT.rglob('*') if p.is_file()]
     print(json.dumps({'files':len(files),'MiB':round(sum(p.stat().st_size for p in files)/1048576,2),'artifact':str(OUT)},ensure_ascii=False))
 
