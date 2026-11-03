@@ -1,6 +1,6 @@
 # 盲行｜深圳福田无障碍出行与治理
 
-[![Tests](https://img.shields.io/github/actions/workflow/status/ichangli/blind-navigation/pages.yml?branch=main&label=Tests&logo=github)](https://github.com/ichangli/blind-navigation/actions/workflows/pages.yml)
+[![Tests & Pages](https://github.com/ichangli/blind-navigation/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/ichangli/blind-navigation/actions/workflows/pages.yml)
 
 面向深圳福田的无障碍出行与城市治理项目，包含 Web 三维管理端、移动端、Python 业务后端和 GIS 数据制作工具。
 
