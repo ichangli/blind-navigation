@@ -50,6 +50,12 @@
 
 [![可选图层演示：完整图层面板勾选公共厕所、社区公园与三类盲道事件，右侧三维地图显示对应标记](docs/images/layer-controls-hd.png)](docs/images/layer-controls-hd.png)
 
+## 下载静态演示包
+
+[Release 下载页](https://github.com/ichangli/blind-navigation/releases/latest)：Windows x64 用户下载 `BlindNavigation-StaticDemo-*-windows-x64.zip`，完整解压后双击“启动演示.bat”。无需安装 Python、GeoScene 或数据库；启动器只提供本机静态文件服务，地图及页面资源随包提供。
+
+页面数据保存在当前浏览器，路线为固定案例。三维效果依赖 WebGL，不支持时使用二维回退。不要在 ZIP 内直接运行，也不要直接双击 HTML。构建方法和验证范围见 [静态演示包说明](docs/静态演示包.md)。
+
 ## 两种运行方式
 
 | | Pages 静态演示 | 完整前后端 |
