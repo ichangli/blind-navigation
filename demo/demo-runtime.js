@@ -101,12 +101,16 @@
   }
   function caseFor(body) {
     var name = String(body.destination || '');
-    var found = loaded[4].find(function (c) { return c.caseId === body.caseId || name.includes(c.destination.replace('地铁站F口','')) || (name.includes('市民中心') && c.caseId === 'civic'); });
+    var reverse = false;
+    var found = loaded[4].find(function (c) { return c.caseId === body.caseId || name.includes(c.destination.replace('地铁站F口','')) || (name.includes('市民中心') && c.caseId === 'civic') || (name.includes('莲花山') && c.caseId === 'park'); });
     if (!found && body.destination && typeof body.destination === 'object') {
       found = loaded[4].find(function (c) { return Math.hypot(c.destinationLocation.lon-body.destination.lon,c.destinationLocation.lat-body.destination.lat)<.0001; });
+      if(!found&&body.origin){found=loaded[4].find(function(c){return Math.hypot(c.originLocation.lon-body.destination.lon,c.originLocation.lat-body.destination.lat)<.0001&&Math.hypot(c.destinationLocation.lon-body.origin.lon,c.destinationLocation.lat-body.origin.lat)<.0001;});reverse=Boolean(found);}
     }
     if (!found) failure('在线演示提供市民中心、莲花山公园、会展中心三个预设路线案例，请选择案例目的地。',422);
-    return clone(found);
+    var result=clone(found);
+    if(reverse){result.route.reverse();result.routeOptions.forEach(function(option){option.route.reverse();});var old=result.originLocation;result.originLocation=result.destinationLocation;result.destinationLocation=old;var oldName=result.origin;result.origin=result.destination;result.destination=oldName;result.instructions=['反向预设案例：从'+result.origin+'出发','沿地图案例路线查看道路与设施','到达'+result.destination+'；非现场实时导航'];}
+    return result;
   }
   function segmentDistance(lon, lat, line) {
     var best=Infinity, xscale=111320*Math.cos(lat*Math.PI/180);

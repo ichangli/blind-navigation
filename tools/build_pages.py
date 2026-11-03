@@ -70,6 +70,7 @@ def build():
             source = source.replace('<b>GeoScene</b>', '<b>离线案例</b>')
         else:
             source = source.replace('geoscene-safe-route','demo-safe-route').replace('GeoScene安全路线','安全权重案例').replace('GeoScene 无障碍安全路线已绘制','预设路线案例已绘制').replace('高德常规步行','距离优先案例').replace('普通步行兜底','预设路线案例')
+            source = source.replace('实时导航','路线案例播报').replace('真实路线','路线案例')
         write(OUT / filename, source)
     for filename in ['road-visuals.js','water-visuals.js']:
         shutil.copy2(ROOT / filename, OUT / filename)

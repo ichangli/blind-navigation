@@ -57,6 +57,7 @@
     var c=D.cases.find(function(item){return item.caseId===id;});if(!c)return;
     if(window._demoLeafletMap){if(window._demoExampleLine)window._demoLeafletMap.removeLayer(window._demoExampleLine);window._demoExampleLine=L.polyline(c.route.map(function(p){return[p.lat,p.lon];}),{color:'#ffe38a',weight:5}).addTo(window._demoLeafletMap);window._demoLeafletMap.fitBounds(window._demoExampleLine.getBounds(),{padding:[30,30]});toast('预设路线案例：'+c.destination+'，'+c.distance);return;}
     if(!window._geoSceneView)return toast('地图尚在加载，请稍后点击案例');
+    var panel=document.getElementById('webNavigationPanel');if(panel)panel.hidden=false;WEB_NAVIGATION_STATE.active=true;
     WEB_NAVIGATION_STATE.origin=c.originLocation;WEB_NAVIGATION_STATE.destination=c.destinationLocation;
     WEB_NAVIGATION_STATE.stage='solving';renderWebNavigationMarkers();requestWebNavigationRoute(window._geoSceneView);
   };
