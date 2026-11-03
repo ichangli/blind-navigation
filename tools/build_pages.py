@@ -9,6 +9,48 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'site-demo'
 
 
+def bundle_arcgis():
+    """Populate the AMD cache before requesting SceneView, including in workers.
+
+    A cold SceneView load otherwise fans out into hundreds of script requests.
+    Keep the vendor files intact and use the loader's existing cache format.
+    """
+    for pattern in ['scene-modules-*.js', 'worker-init-*.js']:
+        for old in (OUT / 'vendor/arcgis').glob(pattern):
+            old.unlink()
+    loader = (ROOT / 'vendor/arcgis-loader/init.js').read_text(encoding='utf-8')
+    embedded = set(re.findall(r'"(esri/[^"\n]+)":function\(\)', loader))
+    entries = []
+    for path in sorted((ROOT / 'vendor/arcgis').rglob('*.js'), key=lambda p: p.as_posix()):
+        relative = path.relative_to(ROOT / 'vendor/arcgis')
+        if 'assets' in relative.parts or relative.name == 'esri.profile.js':
+            continue
+        module = 'esri/' + relative.with_suffix('').as_posix()
+        if module in embedded:
+            continue
+        source = path.read_text(encoding='utf-8')
+        if not re.search(r'\bdefine\(', source):
+            raise ValueError('Expected an AMD vendor module: ' + module)
+        entries.append(json.dumps(module) + ':function(){\n' + source + '\n}')
+    source = 'require({cache:{\n' + ',\n'.join(entries) + ',\n"*noref":1}});\n'
+    digest = hashlib.sha256(source.encode()).hexdigest()[:12]
+    filename = 'scene-modules-' + digest + '.js'
+    write(OUT / 'vendor/arcgis' / filename, source)
+    # Workers start from a blob URL, so resolve imports against their loader URL.
+    client = 'define(["esri/core/workers/RemoteClient"],function(Client){return Client;});\n'
+    write(OUT / 'vendor/arcgis/worker-client.js', client)
+    worker = ('var base=new URL(".",self.esriConfig.workers.loaderUrl);\n'
+              'importScripts(new URL("init.js",base).href,new URL(' +
+              json.dumps(filename) + ',base).href);\n'
+              'var cache={"*noref":1};cache[new URL("worker-client.js",base).href]=function(){' +
+              client + '};require({cache:cache});\n')
+    worker_name = 'worker-init-' + hashlib.sha256(worker.encode()).hexdigest()[:12] + '.js'
+    write(OUT / 'vendor/arcgis' / worker_name, worker)
+    adapter = (OUT / 'demo-map.js').read_text(encoding='utf-8')
+    adapter = adapter.replace('__ARCGIS_MODULE_BUNDLE__', filename).replace('__ARCGIS_WORKER_INIT__', worker_name)
+    write(OUT / 'demo-map.js', adapter)
+
+
 def write(path, text):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(text, encoding='utf-8', newline='\n')
@@ -26,6 +68,7 @@ def build():
         shutil.copytree(ROOT / 'vendor' / folder, OUT / 'vendor' / folder, dirs_exist_ok=True)
     shutil.copytree(ROOT / 'vendor' / 'arcgis', OUT / 'vendor' / 'arcgis' / 'esri', dirs_exist_ok=True)
     shutil.copy2(ROOT / 'vendor' / 'arcgis-loader' / 'init.js', OUT / 'vendor' / 'arcgis' / 'init.js')
+    bundle_arcgis()
     shutil.copy2(ROOT / 'shenzhen_data/processed/buildings/futian_buildings_cityengine.geojson', OUT / 'data/buildings.geojson')
     for name in ['context', 'parks', 'roads', 'water']:
         shutil.copy2(ROOT / f'datasets/basemap/{name}.geojson', OUT / f'data/{name}.geojson')

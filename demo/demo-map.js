@@ -3,18 +3,37 @@
   'use strict';
   var D=window.BlindDemo;
   // Pages may need longer than the original local-server timeout on a cold load.
-  MAP_SDK_LOAD_TIMEOUT_MS=60000;
+  MAP_SDK_LOAD_TIMEOUT_MS=120000;
   ['loadStyleOnce','loadScriptOnce'].forEach(function(name){
     var original=window[name];
-    window[name]=function(id,url){return original(id,url).catch(function(){var node=document.getElementById(id);if(node)node.remove();var error=new Error((name==='loadStyleOnce'?'三维样式':'三维脚本')+'加载失败：'+url);window._demo3DError=error.message;throw error;});};
+    window[name]=function(id,url){
+      function attempt(count){
+        return original(id,url).catch(function(){
+          var node=document.getElementById(id);if(node)node.remove();
+          if(count<2)return new Promise(function(resolve){setTimeout(resolve,1000*(count+1));}).then(function(){return attempt(count+1);});
+          var error=new Error((name==='loadStyleOnce'?'三维样式':'三维脚本')+'加载失败（已重试）：'+url);window._demo3DError=error.message;throw error;
+        });
+      }
+      return attempt(0).then(function(){
+        if(id==='geoscene-arcgis-js')return window.loadScriptOnce('demo-arcgis-modules',new URL('vendor/arcgis/__ARCGIS_MODULE_BUNDLE__',D.base).href);
+      });
+    };
   });
   function data(name){return new URL('data/'+name,D.base).href;}
   var assetsURL=new URL('vendor/arcgis/esri/assets/',D.base).href;
-  var workerSettings={loaderUrl:new URL('vendor/arcgis/init.js',D.base).href,workerPath:new URL('vendor/arcgis/esri/core/workers/RemoteClient.js',D.base).href,loaderConfig:{baseUrl:new URL('vendor/arcgis/',D.base).href,packages:[{name:'esri',location:new URL('vendor/arcgis/esri/',D.base).href}],has:{'host-webworker':1,'host-browser':0,dom:0}}};
+  var workerSettings={loaderUrl:new URL('vendor/arcgis/__ARCGIS_WORKER_INIT__',D.base).href,workerPath:new URL('vendor/arcgis/worker-client.js',D.base).href,loaderConfig:{baseUrl:new URL('vendor/arcgis/',D.base).href,packages:[{name:'esri',location:new URL('vendor/arcgis/esri/',D.base).href}],has:{'host-webworker':1,'host-browser':0,dom:0}}};
   // Apply before AMD modules execute; the npm assets omit the CDN worker init.
   window.esriConfig=Object.assign({},window.esriConfig,{assetsPath:assetsURL,workers:workerSettings});
   var originalModules=window.loadGeoSceneModules;
-  window.loadGeoSceneModules=function(){return originalModules().then(function(m){m.config.assetsPath=assetsURL;m.config.workers=Object.assign({},m.config.workers,workerSettings);return m;});};
+  window.loadGeoSceneModules=function(){return originalModules().then(function(m){m.config.assetsPath=assetsURL;m.config.workers=Object.assign({},m.config.workers,workerSettings);return m;}).catch(function(error){window._demo3DError=error.message;throw error;});};
+  // A slow SDK can finish after the 2D map has appeared. Allow that upgrade.
+  window.recoverGeoSceneAfterLateSdk=function(modules){
+    if(!modules||!window._geoSceneFailed||window._geoSceneLateRetryStarted||window._geoSceneView)return;
+    window._geoSceneLateRetryStarted=true;
+    if(window._demoLeafletMap){window._demoLeafletMap.remove();window._demoLeafletMap=null;document.getElementById('demoLeafletFallback')?.remove();document.getElementById('mapBg')?.classList.remove('demo-map-2d');}
+    window._geoSceneModulesPromise=Promise.resolve(modules);window._geoSceneFailed=false;window._geoSceneAbandoned=false;
+    initGeoSceneMap().then(function(ready){if(!ready)initTiles3DMap();});
+  };
   window.probeGeoSceneVectorBasemap=function(){return Promise.resolve(false);};
   window.probeTiandituBasemap=function(){return Promise.resolve(false);};
   window.createGeoSceneBasemap=function(m){

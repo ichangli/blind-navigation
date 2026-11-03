@@ -2,6 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
+const vm = require('node:vm');
 const { JSDOM } = require('jsdom');
 const { IDBFactory } = require('fake-indexeddb');
 const root = path.resolve(__dirname, '..', 'site-demo');
@@ -24,7 +25,7 @@ function page(filename, factory = new IDBFactory(), scripts = false) {
   w.URL.createObjectURL = URL.createObjectURL;
   w.URL.revokeObjectURL = URL.revokeObjectURL;
   w.confirm = () => true;
-  w.console = {log(){},warn(){},error(...args){errors.push(args.join(' '));}};
+  w.console = {log(){},debug(){},info(){},warn(){},error(...args){errors.push(args.join(' '));}};
   w.addEventListener('error', e => errors.push(e.message));
   w.eval(fs.readFileSync(path.join(root, 'demo-runtime.js'), 'utf8'));
   if (scripts) {
@@ -149,7 +150,7 @@ test('3D bootstrap references the packaged stylesheet, loader and CSS dependenci
     p.w.require=function(ids,success){success(...ids.map(id=>id==='esri/config'?{}:function(){}));};
     const modules=await p.w.loadGeoSceneModules();
     assert.equal(p.w.esriConfig.assetsPath,'https://example.github.io/blind-navigation/vendor/arcgis/esri/assets/');
-    assert.equal(modules.config.workers.loaderUrl,'https://example.github.io/blind-navigation/vendor/arcgis/init.js');
+    assert.match(modules.config.workers.loaderUrl,/\/vendor\/arcgis\/worker-init-[a-f0-9]{12}\.js$/);
     for(const href of [modules.config.workers.loaderUrl,modules.config.workers.workerPath]){
       const asset=path.join(root,new URL(href).pathname.replace('/blind-navigation/',''));
       assert.ok(fs.existsSync(asset),'Worker bootstrap exists: '+href);
@@ -167,5 +168,80 @@ test('3D bootstrap references the packaged stylesheet, loader and CSS dependenci
     assert.match(html,/web\.js\?v=[a-f0-9]{12}/);
     assert.match(html,/demo-map\.js\?v=[a-f0-9]{12}/);
     assert.ok(!fs.readFileSync(path.join(root,'demo-map.js'),'utf8').includes('当前设备未启用三维'));
+  }finally{p.close();}
+});
+
+test('real AMD SceneView, SSAO and map modules load from the bundle without module HTTP requests', async () => {
+  const p=page('Web管理端.html');
+  const w=p.w;
+  try {
+    const base=new URL('vendor/arcgis/',w.document.baseURI).href;
+    Object.defineProperty(w.document,'currentScript',{value:{src:base+'init.js'}});
+    w.matchMedia=()=>({matches:false,addEventListener(){},removeEventListener(){}});
+    w.ResizeObserver=w.IntersectionObserver=class{observe(){}unobserve(){}disconnect(){}};
+    w.HTMLImageElement.prototype.decode=()=>Promise.resolve();
+    Object.assign(w,{TextEncoder,TextDecoder,Request,AbortController});
+    w.esriConfig={assetsPath:base+'esri/assets/'};
+    const injected=[];
+    const insert=w.document.head.insertBefore.bind(w.document.head);
+    w.document.head.insertBefore=(el,before)=>{if(el.src)injected.push(el.src);return insert(el,before);};
+    w.eval(fs.readFileSync(path.join(root,'vendor/arcgis/init.js'),'utf8'));
+    const bundle=fs.readdirSync(path.join(root,'vendor/arcgis')).find(f=>/^scene-modules-/.test(f));
+    w.eval(fs.readFileSync(path.join(root,'vendor/arcgis',bundle),'utf8'));
+    const ids=['esri/config','esri/Basemap','esri/Map','esri/WebScene','esri/views/SceneView','esri/layers/VectorTileLayer','esri/layers/WebTileLayer','esri/layers/MapImageLayer','esri/layers/GroupLayer','esri/layers/FeatureLayer','esri/layers/GraphicsLayer','esri/layers/SceneLayer','esri/layers/GeoJSONLayer','esri/Graphic','esri/geometry/support/webMercatorUtils','esri/views/3d/webgl-engine/effects/ssao/SSAO'];
+    const modules=await new Promise((resolve,reject)=>{w.require.on('error',reject);w.require(ids,(...m)=>resolve(m),reject);});
+    assert.equal(typeof modules[4],'function','actual SceneView constructor loaded');
+    assert.equal(typeof modules.at(-1).SSAO,'function','the failing SSAO module loaded');
+    assert.deepEqual(injected,[],'AMD modules require no individual script downloads');
+    assert.equal(p.errors.length,0,p.errors.join('\n'));
+  }finally{p.close();}
+});
+
+test('real worker bootstrap loads RemoteClient with one module identity and cached dependencies', async () => {
+  const base='https://example.github.io/blind-navigation/vendor/arcgis/';
+  const imports=[];
+  class WorkerGlobalScope{}
+  const worker=new WorkerGlobalScope();
+  Object.assign(worker,{WorkerGlobalScope,URL,TextEncoder,TextDecoder,AbortController,Blob,MessageChannel,performance,crypto,atob,btoa,console:{log(){},warn(){},error(...args){throw new Error(args.join(' '));}},setTimeout,clearTimeout,navigator:{language:'zh-CN'},location:{href:'blob:https://example.github.io/demo-worker'}});
+  worker.self=worker;
+  const init=fs.readdirSync(path.join(root,'vendor/arcgis')).find(f=>/^worker-init-/.test(f));
+  worker.esriConfig={assetsPath:base+'esri/assets/',workers:{loaderUrl:base+init,workerPath:base+'worker-client.js'}};
+  worker.dojoConfig={async:true,baseUrl:base,packages:[{name:'esri',location:base+'esri/'}],has:{'host-webworker':1,'host-browser':0,dom:0}};
+  const context=vm.createContext(worker);
+  worker.importScripts=(...urls)=>{for(const url of urls){imports.push(url);const file=path.join(root,new URL(url).pathname.replace('/blind-navigation/',''));vm.runInContext(fs.readFileSync(file,'utf8'),context);}};
+  vm.runInContext(fs.readFileSync(path.join(root,'vendor/arcgis',init),'utf8'),context);
+  const client=await new Promise((resolve,reject)=>{worker.require.on('error',reject);worker.require([base+'worker-client.js'],resolve,reject);});
+  const byId=await new Promise((resolve,reject)=>worker.require(['esri/core/workers/RemoteClient'],resolve,reject));
+  assert.equal(typeof client,'function');assert.equal(client,byId,'URL entry delegates to the same AMD module');
+  assert.equal(imports.length,2,'worker imports only the loader and prebuilt module cache');
+});
+
+test('3D loader retries a transient script failure before loading the module bundle', async () => {
+  const p=page('Web管理端.html',new IDBFactory(),true);
+  try {
+    await until(()=>p.w.APP_DATA&&p.w.document.querySelectorAll('.evt-table tbody tr').length===5,'initial Web UI settled');
+    const requested=[];let failures=0;
+    p.w.loadScriptOnce=async(id,url)=>{requested.push({id,url});if(id==='geoscene-arcgis-js'&&failures++<2)throw new Error('503');};
+    const originalTimeout=p.w.setTimeout.bind(p.w);
+    p.w.setTimeout=(fn,delay)=>originalTimeout(fn,Math.min(delay,1));
+    p.w.eval(fs.readFileSync(path.join(root,'demo-map.js'),'utf8'));
+    await p.w.loadScriptOnce('geoscene-arcgis-js','./vendor/arcgis/init.js');
+    assert.equal(requested.filter(r=>r.id==='geoscene-arcgis-js').length,3);
+    assert.match(requested.at(-1).url,/scene-modules-[a-f0-9]{12}\.js$/);
+  }finally{p.close();}
+});
+
+test('late SDK completion can upgrade a displayed 2D fallback', async () => {
+  const p=page('Web管理端.html',new IDBFactory(),true);
+  try {
+    await until(()=>p.w.APP_DATA&&p.w.document.querySelectorAll('.evt-table tbody tr').length===5,'initial Web UI settled');
+    let removed=false,started=false;
+    p.w._geoSceneFailed=true;p.w._geoSceneLateRetryStarted=false;
+    p.w._demoLeafletMap={remove(){removed=true;}};
+    p.w.initGeoSceneMap=()=>{started=true;return Promise.resolve(true);};
+    p.w.recoverGeoSceneAfterLateSdk({config:{}});
+    await Promise.resolve();
+    assert.equal(removed,true);assert.equal(started,true);
+    assert.equal(p.w._demoLeafletMap,null);assert.equal(p.w._geoSceneFailed,false);
   }finally{p.close();}
 });
