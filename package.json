@@ -9,6 +9,6 @@
   "description": "Complete source and static demonstration of Blind Navigation",
   "scripts": {
     "build": "python tools/build_pages.py",
-    "test": "node --test tests/demo.test.cjs"
+    "test": "node --test tests/*.test.cjs"
   }
 }

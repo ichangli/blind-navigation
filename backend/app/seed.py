@@ -3,7 +3,8 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 
 from . import models
-from .security import hash_password
+from .config import get_settings
+from .security import hash_password, verify_password
 from .services.mock_loader import load_mobile_config, load_mobile_mock, load_web_mock
 from .time_utils import local_now
 
@@ -37,11 +38,15 @@ def _default_priority(event_type: str, status: str) -> str:
 
 def ensure_admin(db: Session) -> models.User:
     admin = db.query(models.User).filter(models.User.username == DEFAULT_ADMIN_USERNAME).first()
+    settings = get_settings()
+    settings.validate_deployment()
     if admin:
+        if settings.app_env != "demo" and verify_password(DEFAULT_ADMIN_PASSWORD, admin.password_hash):
+            raise ValueError("Existing admin still has the demo password; rotate it before production startup")
         return admin
     admin = models.User(
         username=DEFAULT_ADMIN_USERNAME,
-        password_hash=hash_password(DEFAULT_ADMIN_PASSWORD),
+        password_hash=hash_password(settings.admin_password or DEFAULT_ADMIN_PASSWORD),
         role="admin",
     )
     db.add(admin)

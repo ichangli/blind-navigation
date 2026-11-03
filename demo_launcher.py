@@ -31,10 +31,11 @@ def configure_console() -> None:
 def configure_portable_environment() -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     database_path = (DATA_DIR / "demo.db").resolve().as_posix()
+    os.environ["APP_ENV"] = "demo"
     os.environ["DATABASE_URL"] = f"sqlite:///{database_path}"
     os.environ["BACKEND_PUBLIC_URL"] = BASE_URL
     os.environ["UPLOAD_DIR"] = "data/uploads"
-    os.environ["CORS_ORIGINS"] = f"{BASE_URL},http://localhost:{PORT},null"
+    os.environ["CORS_ORIGINS"] = f"{BASE_URL},http://localhost:{PORT}"
 
 
 def port_is_open() -> bool:

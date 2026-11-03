@@ -62,10 +62,10 @@ if (!localStorage.getItem('a11y_web_logged_in')) {
             </div>
             <div class="layer-quality-note" id="mapQualityNote">空字段按“信息未知”处理</div>
             <div class="layer-group-title">GeoScene 基础场景</div>
-            <div class="leg-row leg-toggle on" data-map-layer="buildings" onclick="toggleMapDataLayer('buildings', this)"><span class="leg-swatch building-swatch"></span><span class="leg-check">✓</span><span class="leg-label">建筑白模</span><span class="layer-count">8,897</span></div>
-            <div class="leg-row leg-toggle off" data-map-layer="semantic" onclick="toggleMapDataLayer('semantic', this)"><span class="leg-swatch semantic-swatch"></span><span class="leg-check"></span><span class="leg-label">语义建筑光层</span><span class="layer-count" id="semanticBuildingCount">加载中</span></div>
-            <div class="leg-row leg-toggle on" data-map-layer="water" onclick="toggleMapDataLayer('water', this)"><span class="leg-swatch water-swatch"></span><span class="leg-check">✓</span><span class="leg-label">动态水面</span><span class="layer-count">764</span></div>
-            <div class="leg-row leg-toggle off" data-map-layer="roads" onclick="toggleMapDataLayer('roads', this)"><span class="leg-line road-swatch"></span><span class="leg-check"></span><span class="leg-label">福田道路网络</span><span class="layer-count" id="roadFeatureCount">52,201</span></div>
+            <button type="button" class="leg-row leg-toggle on" data-map-layer="buildings" onclick="toggleMapDataLayer('buildings', this)" aria-pressed="true"><span class="leg-swatch building-swatch"></span><span class="leg-check">✓</span><span class="leg-label">建筑白模</span><span class="layer-count">8,897</span></button>
+            <button type="button" class="leg-row leg-toggle off" data-map-layer="semantic" onclick="toggleMapDataLayer('semantic', this)" aria-pressed="false"><span class="leg-swatch semantic-swatch"></span><span class="leg-check"></span><span class="leg-label">语义建筑光层</span><span class="layer-count" id="semanticBuildingCount">加载中</span></button>
+            <button type="button" class="leg-row leg-toggle on" data-map-layer="water" onclick="toggleMapDataLayer('water', this)" aria-pressed="true"><span class="leg-swatch water-swatch"></span><span class="leg-check">✓</span><span class="leg-label">动态水面</span><span class="layer-count">764</span></button>
+            <button type="button" class="leg-row leg-toggle off" data-map-layer="roads" onclick="toggleMapDataLayer('roads', this)" aria-pressed="false"><span class="leg-line road-swatch"></span><span class="leg-check"></span><span class="leg-label">福田道路网络</span><span class="layer-count" id="roadFeatureCount">52,201</span></button>
             <div class="road-render-summary"><span class="road-mode-pulse"></span><span id="roadRenderMode">城市骨架·分级显隐</span><small>放大逐级展开 · 点击查看完整属性</small></div>
             <div class="road-access-legend" id="roadThemeLegend" aria-label="无障碍道路等级">
               <div><span class="road-level-line safe"></span><b>条件较好</b></div>
@@ -73,13 +73,13 @@ if (!localStorage.getItem('a11y_web_logged_in')) {
               <div><span class="road-level-line blocked"></span><b>明显障碍</b></div>
               <div><span class="road-level-line unknown"></span><b>信息未知</b></div>
             </div>
-            <div class="leg-row leg-toggle off" data-map-layer="boundary" onclick="toggleMapDataLayer('boundary', this)"><span class="leg-line boundary-swatch"></span><span class="leg-check"></span><span class="leg-label">福田区边界</span><span class="layer-count">1</span></div>
+            <button type="button" class="leg-row leg-toggle off" data-map-layer="boundary" onclick="toggleMapDataLayer('boundary', this)" aria-pressed="false"><span class="leg-line boundary-swatch"></span><span class="leg-check"></span><span class="leg-label">福田区边界</span><span class="layer-count">1</span></button>
             <div class="layer-group-title">交通与服务设施</div>
             <div id="facilityLegendRows"><div class="layer-loading-row">正在读取福田设施数据…</div></div>
             <div class="layer-group-title">无障碍治理事件</div>
-            <div class="leg-row leg-toggle on" onclick="toggleLayer('danger-dots', this)" id="leg-danger"><span class="leg-dot" style="background:var(--danger);"></span><span class="leg-check">✓</span><span class="leg-label">盲道被占</span></div>
-            <div class="leg-row leg-toggle on" onclick="toggleLayer('warning-dots', this)" id="leg-warning"><span class="leg-dot" style="background:var(--warning);"></span><span class="leg-check">✓</span><span class="leg-label">盲道损坏</span></div>
-            <div class="leg-row leg-toggle on" onclick="toggleLayer('muted-dots', this)" id="leg-muted"><span class="leg-dot" style="background:var(--text-muted);"></span><span class="leg-check">✓</span><span class="leg-label">盲道缺失</span></div>
+            <button type="button" class="leg-row leg-toggle on" onclick="toggleLayer('danger-dots', this)" id="leg-danger" aria-pressed="true"><span class="leg-dot" style="background:var(--danger);"></span><span class="leg-check">✓</span><span class="leg-label">盲道被占</span></button>
+            <button type="button" class="leg-row leg-toggle on" onclick="toggleLayer('warning-dots', this)" id="leg-warning" aria-pressed="true"><span class="leg-dot" style="background:var(--warning);"></span><span class="leg-check">✓</span><span class="leg-label">盲道损坏</span></button>
+            <button type="button" class="leg-row leg-toggle on" onclick="toggleLayer('muted-dots', this)" id="leg-muted" aria-pressed="true"><span class="leg-dot" style="background:var(--text-muted);"></span><span class="leg-check">✓</span><span class="leg-label">盲道缺失</span></button>
           </div>
         </aside>
         <div class="dash-map" id="dashMap">
@@ -145,16 +145,16 @@ if (!localStorage.getItem('a11y_web_logged_in')) {
           </div>
 
           <div class="view-tabs" id="viewTabs">
-            <div class="view-tab active" data-theme="overview" onclick="setView(this)">城市总览</div>
-            <div class="view-tab" data-theme="accessible" onclick="setView(this)">无障碍专题</div>
-            <div class="view-tab" data-theme="transit" onclick="setView(this)">公共交通</div>
-            <div class="view-tab" data-theme="services" onclick="setView(this)">服务设施</div>
+            <button type="button" class="view-tab active" data-theme="overview" onclick="setView(this)" aria-pressed="true">城市总览</button>
+            <button type="button" class="view-tab" data-theme="accessible" onclick="setView(this)" aria-pressed="false">无障碍专题</button>
+            <button type="button" class="view-tab" data-theme="transit" onclick="setView(this)" aria-pressed="false">公共交通</button>
+            <button type="button" class="view-tab" data-theme="services" onclick="setView(this)" aria-pressed="false">服务设施</button>
           </div>
           <div class="map-ctrls">
-            <div class="map-ctrl" title="放大" onclick="mapZoom('in')">+</div>
-            <div class="map-ctrl" title="缩小" onclick="mapZoom('out')">−</div>
-            <div class="map-ctrl" title="复位" onclick="mapReset()">⌂</div>
-            <div class="map-ctrl" title="图层" onclick="toggleLegend()">≡</div>
+            <button type="button" class="map-ctrl" title="放大" onclick="mapZoom('in')">+</button>
+            <button type="button" class="map-ctrl" title="缩小" onclick="mapZoom('out')">−</button>
+            <button type="button" class="map-ctrl" title="复位" onclick="mapReset()">⌂</button>
+            <button type="button" class="map-ctrl" title="图层" onclick="toggleLegend()">≡</button>
           </div>
         </div>
       </div>
@@ -165,19 +165,19 @@ if (!localStorage.getItem('a11y_web_logged_in')) {
       <div class="evt-toolbar">
         <div class="filter-row">
           <span class="filter-label">问题类型：</span>
-          <span class="filter-chip on" data-group="type" data-val="all" onclick="toggleFilter(this)">全部类型</span>
-          <span class="filter-chip" data-group="type" data-val="盲道被占" onclick="toggleFilter(this)">盲道被占</span>
-          <span class="filter-chip" data-group="type" data-val="盲道损坏" onclick="toggleFilter(this)">盲道损坏</span>
-          <span class="filter-chip" data-group="type" data-val="盲道缺失" onclick="toggleFilter(this)">盲道缺失</span>
+          <button type="button" class="filter-chip on" data-group="type" data-val="all" onclick="toggleFilter(this)" aria-pressed="true">全部类型</button>
+          <button type="button" class="filter-chip" data-group="type" data-val="盲道被占" onclick="toggleFilter(this)" aria-pressed="false">盲道被占</button>
+          <button type="button" class="filter-chip" data-group="type" data-val="盲道损坏" onclick="toggleFilter(this)" aria-pressed="false">盲道损坏</button>
+          <button type="button" class="filter-chip" data-group="type" data-val="盲道缺失" onclick="toggleFilter(this)" aria-pressed="false">盲道缺失</button>
         </div>
         <div class="filter-row">
           <span class="filter-label">处理状态：</span>
-          <span class="filter-chip on" data-group="status" data-val="all" onclick="toggleFilter(this)">全部状态</span>
-          <span class="filter-chip" data-group="status" data-val="待审核" onclick="toggleFilter(this)">待审核</span>
-          <span class="filter-chip" data-group="status" data-val="处理中" onclick="toggleFilter(this)">处理中</span>
-          <span class="filter-chip" data-group="status" data-val="已修复" onclick="toggleFilter(this)">已修复</span>
-          <span class="filter-chip" data-group="status" data-val="驳回" onclick="toggleFilter(this)">驳回</span>
-          <input class="evt-search" placeholder="搜索事件ID / 区域..." oninput="applyEventFilters()">
+          <button type="button" class="filter-chip on" data-group="status" data-val="all" onclick="toggleFilter(this)" aria-pressed="true">全部状态</button>
+          <button type="button" class="filter-chip" data-group="status" data-val="待审核" onclick="toggleFilter(this)" aria-pressed="false">待审核</button>
+          <button type="button" class="filter-chip" data-group="status" data-val="处理中" onclick="toggleFilter(this)" aria-pressed="false">处理中</button>
+          <button type="button" class="filter-chip" data-group="status" data-val="已修复" onclick="toggleFilter(this)" aria-pressed="false">已修复</button>
+          <button type="button" class="filter-chip" data-group="status" data-val="驳回" onclick="toggleFilter(this)" aria-pressed="false">驳回</button>
+          <input class="evt-search" aria-label="搜索事件ID或区域" placeholder="搜索事件ID / 区域..." oninput="applyEventFilters()">
         </div>
       </div>
       <div class="evt-table-wrap">
@@ -270,9 +270,9 @@ if (!localStorage.getItem('a11y_web_logged_in')) {
     <!-- ========== Charts ========== -->
     <div class="page" id="page-charts">
       <div class="evt-toolbar">
-        <span class="filter-chip" data-period="day" onclick="switchChartPeriod('day',this)">按日</span>
-        <span class="filter-chip" data-period="week" onclick="switchChartPeriod('week',this)">按周</span>
-        <span class="filter-chip on" data-period="month" onclick="switchChartPeriod('month',this)">按月</span>
+        <button type="button" class="filter-chip" data-period="day" onclick="switchChartPeriod('day',this)" aria-pressed="false">按日</button>
+        <button type="button" class="filter-chip" data-period="week" onclick="switchChartPeriod('week',this)" aria-pressed="false">按周</button>
+        <button type="button" class="filter-chip on" data-period="month" onclick="switchChartPeriod('month',this)" aria-pressed="true">按月</button>
       </div>
       <div class="charts-grid">
         <div class="chart-card">

@@ -2,6 +2,7 @@ import os
 import sys
 from functools import lru_cache
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -73,16 +74,32 @@ class Settings(BaseSettings):
     amap_key: str = ""
     amap_js_key: str = ""
     amap_js_security_code: str = ""
+    app_env: str = "production"
+    admin_password: str = ""
     jwt_secret: str = "change-this-in-local-env"
     jwt_expire_minutes: int = 10080
     upload_dir: str = "backend/uploads"
-    cors_origins: str = "http://127.0.0.1:5500,http://localhost:5500,null"
+    cors_origins: str = "http://127.0.0.1:5500,http://localhost:5500"
 
     model_config = SettingsConfigDict(
         env_file=_settings_env_file(),
         env_file_encoding="utf-8",
         extra="ignore",
     )
+
+    def validate_deployment(self) -> None:
+        if self.app_env not in {"demo", "production"}:
+            raise ValueError("APP_ENV must be demo or production")
+        if self.app_env == "demo":
+            return
+        if self.jwt_secret == "change-this-in-local-env" or len(self.jwt_secret.strip()) < 32:
+            raise ValueError("Production requires a private JWT_SECRET of at least 32 characters")
+        if len(self.admin_password.strip()) < 12 or self.admin_password == "123456":
+            raise ValueError("Production requires ADMIN_PASSWORD of at least 12 characters")
+        for origin in self.cors_origin_list:
+            parsed = urlsplit(origin)
+            if parsed.scheme not in {"http", "https"} or not parsed.hostname or "*" in origin or parsed.username or parsed.path or parsed.query or parsed.fragment:
+                raise ValueError("Production CORS_ORIGINS must contain explicit HTTP origins without paths")
 
     @property
     def cors_origin_list(self) -> list[str]:

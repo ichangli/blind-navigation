@@ -11,7 +11,7 @@ from sqlalchemy.engine import make_url
 from backend.app.config import get_settings
 from backend.app.database import Base, SessionLocal, engine
 from backend.app import models  # noqa: F401
-from backend.app.seed import seed_all
+from backend.app.seed import seed_all, ensure_admin
 
 
 def ensure_database_exists() -> None:
@@ -61,11 +61,16 @@ def ensure_database_exists() -> None:
 
 
 def main() -> int:
+    settings = get_settings()
+    settings.validate_deployment()
     ensure_database_exists()
     Base.metadata.create_all(bind=engine)
     with SessionLocal() as db:
-        seed_all(db)
-    print("Initialized database, admin user, seed events, default settings and routes.")
+        if settings.app_env == "demo":
+            seed_all(db)
+        else:
+            ensure_admin(db)
+    print("Initialized database and admin user; sample data is only seeded in demo mode.")
     return 0
 
 

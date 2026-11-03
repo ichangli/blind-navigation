@@ -10,7 +10,7 @@ from .app import models  # noqa: F401
 from .app.config import get_settings
 from .app.database import Base, SessionLocal, engine
 from .app.routers import auth, mobile, web
-from .app.seed import seed_all
+from .app.seed import seed_all, ensure_admin
 
 
 settings = get_settings()
@@ -57,9 +57,13 @@ app.include_router(mobile.router)
 @app.on_event("startup")
 def initialize_runtime_database() -> None:
     """Create and seed SQLite automatically; remains idempotent for PostgreSQL."""
+    settings.validate_deployment()
     Base.metadata.create_all(bind=engine)
     with SessionLocal() as db:
-        seed_all(db)
+        if settings.app_env == "demo":
+            seed_all(db)
+        else:
+            ensure_admin(db)
 
 
 @app.on_event("shutdown")

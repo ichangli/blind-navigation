@@ -42,12 +42,23 @@
     return new m.Basemap({title:'福田本地底图',id:'local-futian',baseLayers:[layer('context.geojson','背景','#0b233a'),layer('parks.geojson','绿地','#123d40'),layer('water.geojson','水域','#0d4862'),layer('roads.geojson','城市道路','#245471',true)].concat(BlindShowcaseRoads.createArcGISLayers(m,D.showcaseRoads,data('showcase_roads.geojson')))});
   };
   window.createGeoSceneRoadLayerV4=function(m){
-    var line=new m.GeoJSONLayer({url:data('network-display.geojson'),title:'福田无障碍路网（已有数据）',outFields:['*'],popupEnabled:false,minScale:45000,renderer:getRoadUnifiedRenderer(),elevationInfo:{mode:'on-the-ground'}});
-    window._geoSceneRoadThemeLayers={base:line};window._geoSceneRoadLodBand='local';window._demoRoadLayer=line;
-    return new m.GroupLayer({title:'本地道路网络',layers:[line]});
+    var group=new m.GroupLayer({title:'本地道路网络',visible:false,layers:[]});
+    // Do not construct the 18 MiB GeoJSON layer until explicitly requested.
+    function ensureRoads(visible){
+      if(!visible||window._demoRoadLayer)return;
+      var line=new m.GeoJSONLayer({url:data('network-display.geojson'),title:'福田无障碍路网（已有数据）',outFields:['*'],popupEnabled:false,minScale:45000,renderer:getRoadUnifiedRenderer(),elevationInfo:{mode:'on-the-ground'}});
+      window._geoSceneRoadThemeLayers={base:line};window._geoSceneRoadLodBand='local';window._demoRoadLayer=line;
+      group.add(line);
+      window.syncGeoSceneRoadLod(window._geoSceneView?window._geoSceneView.scale:52000);
+      window.applyRoadThemeV4(window._demoRoadTheme||'overview');
+      line.when().catch(function(){toast('道路网络加载失败，请刷新后重试');});
+    }
+    group.watch('visible',ensureRoads);
+    return group;
   };
   window.syncGeoSceneRoadLod=function(scale){var layer=window._demoRoadLayer;if(!layer)return;var state=window.BlindRoadVisuals.getRoadLodState(scale);layer.definitionExpression=state.definitionExpression;window._geoSceneRoadLodBand=state.band;updateRoadModeLabelV4();};
   window.applyRoadThemeV4=function(theme){
+    window._demoRoadTheme=theme;
     var layer=window._demoRoadLayer;if(!layer)return;
     var thematic=theme==='accessible';
     layer.renderer=thematic?{type:'unique-value',valueExpression:"When($feature.prohibited == 1 || $feature.avoid_steps == 1, 'blocked', $feature.unknown_access == 1, 'unknown', $feature.risk_score >= 3, 'caution', 'safe')",defaultSymbol:roadLineSymbol('#7fa0b3',1.8),uniqueValueInfos:[{value:'safe',symbol:roadLineSymbol('#2ecc91',3)},{value:'caution',symbol:roadLineSymbol('#f4ac42',3)},{value:'unknown',symbol:roadLineSymbol('#748ca0',2,'short-dash')},{value:'blocked',symbol:roadLineSymbol('#ff6178',3.5)}]}:getRoadUnifiedRenderer();

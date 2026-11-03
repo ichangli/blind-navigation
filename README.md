@@ -1,6 +1,17 @@
-# GIS · 无障碍出行与治理
+# 盲行｜深圳福田无障碍出行与治理
 
 面向深圳福田的无障碍出行与城市治理项目，包含 Web 三维管理端、移动端、Python 业务后端和 GIS 数据制作工具。
+
+**技术栈：** 原生 JavaScript · ArcGIS Maps SDK for JavaScript · Leaflet · FastAPI · SQLAlchemy · Python / ArcGIS GIS 数据处理工具。
+
+核心工作包括：
+
+- 整理 8,897 栋建筑的轮廓、高度和分类，实现三维白模与属性联动。
+- 处理无障碍路网与拓扑，离线案例按几何长度重算步行成本及风险权重，并排除禁止通行边。
+- 打通移动上报、管理审核、地图定位和统计展示；提供大字体、高对比度与语音播报功能。
+- 将依赖服务的完整程序适配为独立静态演示，支持本浏览器持久化、二维地图回退与自动发布验证。
+
+这些是代码中的实现范围；路线案例未经过现场通行验证，无障碍功能尚未完成辅助技术与用户验收。
 
 **[在线演示](https://ichangli.github.io/blind-navigation/) · [下载完整源码 ZIP](https://github.com/ichangli/blind-navigation/archive/refs/heads/main.zip) · [本地运行说明](docs/本地运行与演示.md) · [数据与依赖说明](docs/数据与依赖.md)**
 
@@ -37,6 +48,15 @@
 
 [![可选图层演示：完整图层面板勾选公共厕所、社区公园与三类盲道事件，右侧三维地图显示对应标记](docs/images/layer-controls-hd.png)](docs/images/layer-controls-hd.png)
 
+## 两种运行方式
+
+| | Pages 静态演示 | 完整前后端 |
+|---|---|---|
+| 数据与账号 | 样例数据、本浏览器存储 | 后端数据库、注册与认证 |
+| 路线 | 固定起终点的离线案例 | 自行配置的 GeoScene 路网服务 |
+| 外部依赖 | 静态服务器、支持 WebGL 的浏览器；可回退二维 | Python、数据库及地图服务配置 |
+| 适用场景 | 在线浏览、展示交互 | 本机开发、联调与进一步部署 |
+
 ## 下载后运行
 
 ### 无需地图 Key 的静态演示
@@ -58,7 +78,7 @@
     .venv\Scripts\python -m pip install -r backend/requirements.txt
     .venv\Scripts\python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000
 
-访问 http://127.0.0.1:8000 。原版地图和完整导航依赖自行配置的 GeoScene 服务及高德/天地图配置。复制 backend/.env.example 或 backend/.env.demo.example 为 backend/.env 后填写相应字段；本仓库不提供真实凭据。**原版在线服务与独立 Pages 演示的运行条件不同，请按文档选择。**
+访问 http://127.0.0.1:8000 。原版地图和完整导航依赖自行配置的 GeoScene 服务及高德/天地图配置。直接启动默认为正式配置，必须设置独立 JWT_SECRET 和 ADMIN_PASSWORD；本机演示启动器显式启用 APP_ENV=demo。复制 backend/.env.example 或 backend/.env.demo.example 为 backend/.env 后填写相应字段；本仓库不提供真实凭据。**原版在线服务与独立 Pages 演示的运行条件不同，请按文档选择。**
 
 ## 目录
 
@@ -84,6 +104,8 @@ site-demo 为本地构建产物，GitHub Actions 会生成并且只部署这个�
 
     npm ci
     npm test
+
+后端安全回归：`python -m unittest discover -s tests -p "test_security.py" -v`（先安装后端依赖）。
 
 原版测试入口及 GIS 软件依赖参见 _dev_archive/README.md。重新生成演示数据需要额外的 GeoPandas、pyogrio、Shapely、SciPy、pyproj 以及后端依赖；普通访客查看演示不需要安装这些组件。
 

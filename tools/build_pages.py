@@ -68,6 +68,8 @@ def build():
         shutil.copytree(ROOT / 'vendor' / folder, OUT / 'vendor' / folder, dirs_exist_ok=True)
     shutil.copytree(ROOT / 'vendor' / 'arcgis', OUT / 'vendor' / 'arcgis' / 'esri', dirs_exist_ok=True)
     shutil.copy2(ROOT / 'vendor' / 'arcgis-loader' / 'init.js', OUT / 'vendor' / 'arcgis' / 'init.js')
+    for typing in (OUT / 'vendor' / 'arcgis').rglob('*.d.ts'):
+        typing.unlink()
     bundle_arcgis()
     shutil.copy2(ROOT / 'shenzhen_data/processed/buildings/futian_buildings_cityengine.geojson', OUT / 'data/buildings.geojson')
     for name in ['context', 'parks', 'roads', 'water']:
@@ -108,8 +110,6 @@ def build():
             raise RuntimeError('Source API function changed: ' + method)
         source = source.replace('a11y_', 'blind-navigation:demo:v1:a11y_')
         if filename == 'web.js':
-            for field in ['description','address','landmark']:
-                source = source.replace("' + ed." + field + " + '", "' + escapeMapText(ed." + field + ") + '")
             source = source.replace("var base = 'https://js.arcgis.com/4.30/';", "var base = './vendor/arcgis/';")
             source = source.replace("loadScriptOnce('geoscene-arcgis-js', base)", "loadScriptOnce('geoscene-arcgis-js', base + 'init.js')")
             source = source.replace("base + 'esri/themes/dark/main.css'", "base + 'esri/assets/esri/themes/dark/main.css'")

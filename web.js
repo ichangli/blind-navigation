@@ -138,8 +138,9 @@ function goPage(name, navEl) {
 
 // View tabs
 function setView(el) {
-  el.parentElement.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
+  el.parentElement.querySelectorAll('.view-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-pressed', 'false'); });
   el.classList.add('active');
+  el.setAttribute('aria-pressed', 'true');
   var theme = el.dataset.theme;
   if (!theme) {
     var tabs = Array.prototype.slice.call(el.parentElement.querySelectorAll('.view-tab'));
@@ -179,7 +180,7 @@ function mapZoom(dir) {
     var view = window._geoSceneView;
     var factor = dir === 'in' ? 0.65 : 1.45;
     var scale = view.scale ? view.scale * factor : undefined;
-    view.goTo(scale ? { scale: scale } : { zoom: view.zoom + (dir === 'in' ? 1 : -1) }).catch(function() {});
+    moveSceneView(view, scale ? { scale: scale } : { zoom: view.zoom + (dir === 'in' ? 1 : -1) }).catch(function() {});
     toast(dir === 'in' ? 'GeoScene 场景已放大' : 'GeoScene 场景已缩小');
     return;
   }
@@ -212,7 +213,7 @@ function getGeoSceneCameraHeight(mapConfig) {
 function mapReset() {
   if (window._geoSceneView && APP_DATA && APP_DATA.mapConfig) {
     var cfgCenter = APP_DATA.mapConfig.center || {};
-    window._geoSceneView.goTo({
+    moveSceneView(window._geoSceneView, {
       target: {
         type: 'point',
         longitude: Number(cfgCenter.longitude || 114.0550),
@@ -314,11 +315,11 @@ function showMapEventPopup(evt, point) {
   pop.className = 'event-map-popup';
   pop.innerHTML =
     '<div class="pop-close" title="关闭">✕</div>' +
-    '<div class="pop-title">' + evt.id + ' · ' + evt.title + '</div>' +
-    '<div class="pop-row"><span>状态</span><span class="st-badge ' + getStatusClass(evt.status) + '">' + evt.status + '</span></div>' +
-    '<div class="pop-row"><span>位置</span><span>' + (evt.location || evt.address || evt.district || '深圳') + '</span></div>' +
+    '<div class="pop-title">' + escapeMapText(evt.id) + ' · ' + escapeMapText(evt.title) + '</div>' +
+    '<div class="pop-row"><span>状态</span><span class="st-badge ' + getStatusClass(evt.status) + '">' + escapeMapText(evt.status) + '</span></div>' +
+    '<div class="pop-row"><span>位置</span><span>' + escapeMapText(evt.location || evt.address || evt.district || '深圳') + '</span></div>' +
     '<div class="pop-row"><span>坐标</span><span>' + Number(evt.lon).toFixed(5) + ', ' + Number(evt.lat).toFixed(5) + '</span></div>' +
-    '<div class="pop-row"><span>上报</span><span>' + (evt.reporter || '匿名用户') + ' · ' + (evt.time || '') + '</span></div>' +
+    '<div class="pop-row"><span>上报</span><span>' + escapeMapText(evt.reporter || '匿名用户') + ' · ' + escapeMapText(evt.time || '') + '</span></div>' +
     '<div class="pop-actions">' +
       '<button class="mini-btn accent" data-action="detail">查看详情</button>' +
       '<button class="mini-btn" data-action="next">状态流转</button>' +
@@ -441,6 +442,7 @@ function requestDeleteEvent(eventId) {
     return;
   }
 
+  window._deleteDialogReturnFocus = document.activeElement;
   PENDING_DELETE_EVENT = eventData;
   document.getElementById('eventDeleteDialogId').textContent = eventData.id;
   document.getElementById('eventDeleteDialogMeta').textContent =
@@ -448,12 +450,13 @@ function requestDeleteEvent(eventId) {
   var dialog = document.getElementById('eventDeleteDialog');
   if (dialog) dialog.hidden = false;
   var confirmButton = document.getElementById('confirmDeleteEventButton');
-  if (confirmButton) setTimeout(function() { confirmButton.focus(); }, 50);
+  if (confirmButton) setTimeout(function() { if (dialog && !dialog.hidden) confirmButton.focus(); }, 50);
 }
 
 function closeEventDeleteDialog() {
   var dialog = document.getElementById('eventDeleteDialog');
   if (dialog) dialog.hidden = true;
+  if (window._deleteDialogReturnFocus && window._deleteDialogReturnFocus.isConnected) window._deleteDialogReturnFocus.focus();
   PENDING_DELETE_EVENT = null;
 }
 
@@ -477,9 +480,7 @@ function confirmDeleteEvent() {
     headers: authHeaders()
   }).then(function(data) {
     var deletedId = data.deletedEventId || eventId;
-    var dialog = document.getElementById('eventDeleteDialog');
-    if (dialog) dialog.hidden = true;
-    PENDING_DELETE_EVENT = null;
+    closeEventDeleteDialog();
     SELECTED_EVENT_ID = null;
     return refreshWebSnapshot().then(function() {
       goPage('events');
@@ -524,6 +525,7 @@ function toggleLegend() {
 function setLegendRowState(row, visible) {
   if (!row) return;
   row.classList.toggle('off', !visible);
+  row.setAttribute('aria-pressed', String(visible));
   var check = row.querySelector('.leg-check');
   if (check) check.textContent = visible ? '✓' : '';
 }
@@ -670,8 +672,9 @@ const ROWS_PER_PAGE = 10;
 
 function toggleFilter(chip) {
   const group = chip.dataset.group;
-  document.querySelectorAll(`.filter-chip[data-group="${group}"]`).forEach(c => c.classList.remove('on'));
+  document.querySelectorAll(`.filter-chip[data-group="${group}"]`).forEach(c => { c.classList.remove('on'); c.setAttribute('aria-pressed', 'false'); });
   chip.classList.add('on');
+  chip.setAttribute('aria-pressed', 'true');
   applyEventFilters();
 }
 
@@ -2443,11 +2446,11 @@ function getWheelchairDisplay(value) {
 function focusMapFacility(facilityId) {
   var item = findMapFacility(facilityId);
   if (!item || !window._geoSceneView) return;
-  window._geoSceneView.goTo({
+  moveSceneView(window._geoSceneView, {
     position: { longitude: Number(item.lon), latitude: Number(item.lat), z: 520 },
     heading: 0,
     tilt: 63
-  }, { duration: 850 }).catch(function() {});
+  }, { duration: prefersReducedMotion() ? 0 : 850, animate: !prefersReducedMotion() }).catch(function() {});
 }
 
 function getRoadAccessStatus(attributes) {
@@ -2664,10 +2667,10 @@ function showRoadPopup(graphic, point) {
   });
   popup.querySelector('.road-focus-btn').addEventListener('click', function(event) {
     if (window._geoSceneView && graphic.geometry) {
-      window._geoSceneView.goTo({
+      moveSceneView(window._geoSceneView, {
         target: graphic.geometry,
         scale: Math.max(Math.min(Number(window._geoSceneView.scale || 9000) / 2, 5000), 900)
-      }, { duration: 750 }).catch(function() {});
+      }, { duration: prefersReducedMotion() ? 0 : 750, animate: !prefersReducedMotion() }).catch(function() {});
     }
     event.stopPropagation();
   });
@@ -2747,11 +2750,11 @@ function focusSemanticBuilding(properties) {
   var lon = Number(properties.centroid_lon);
   var lat = Number(properties.centroid_lat);
   if (!isFinite(lon) || !isFinite(lat)) return;
-  window._geoSceneView.goTo({
+  moveSceneView(window._geoSceneView, {
     position: { longitude: lon, latitude: lat, z: Math.max(Number(properties.height_m || 20) * 3.2, 360) },
     heading: 0,
     tilt: 66
-  }, { duration: 900 }).catch(function() {});
+  }, { duration: prefersReducedMotion() ? 0 : 900, animate: !prefersReducedMotion() }).catch(function() {});
 }
 
 function showSemanticBuildingPopup(properties, point) {
@@ -3585,6 +3588,11 @@ function animateWebNavigationRoute(route, distanceMeters) {
   var graphics = createWebNavigationRouteGraphics(initial);
   if (graphics.length !== 2) return false;
   WEB_NAVIGATION_STATE.routeGraphics = graphics;
+  if (prefersReducedMotion()) {
+    var fullGeometry = { type: 'polyline', paths: [coordinates], spatialReference: { wkid: 4326 } };
+    graphics.forEach(function(graphic) { graphic.geometry = fullGeometry; });
+    return true;
+  }
   var duration = Math.max(2000, Math.min(4000, 1800 + distanceMeters * 0.35));
   var startedAt = null;
   function frame(timestamp) {
@@ -3632,7 +3640,7 @@ function requestWebNavigationRoute(view) {
       paths: [result.route.map(function(point) { return [Number(point.lon), Number(point.lat)]; })],
       spatialReference: { wkid: 4326 }
     };
-    var move = view && view.goTo ? view.goTo({ target: routeGeometry }, { duration: 700 }).catch(function() {}) : Promise.resolve();
+    var move = view && view.goTo ? moveSceneView(view, { target: routeGeometry }, { duration: prefersReducedMotion() ? 0 : 700, animate: !prefersReducedMotion() }).catch(function() {}) : Promise.resolve();
     return Promise.resolve(move).then(function() {
       if (requestId !== WEB_NAVIGATION_STATE.requestId) return null;
       animateWebNavigationRoute(result.route, Number(result.distanceMeters || 0));
@@ -3956,7 +3964,7 @@ function focusGeoSceneEvent(evt) {
   if (!window._geoSceneView || !evt || !isFinite(Number(evt.lon)) || !isFinite(Number(evt.lat))) {
     return Promise.resolve(false);
   }
-  return window._geoSceneView.goTo({
+  return moveSceneView(window._geoSceneView, {
     target: {
       type: 'point',
       longitude: Number(evt.lon),
@@ -3966,7 +3974,7 @@ function focusGeoSceneEvent(evt) {
     scale: 6500,
     heading: 0,
     tilt: 62
-  }, { duration: 750 }).then(function() {
+  }, { duration: prefersReducedMotion() ? 0 : 750, animate: !prefersReducedMotion() }).then(function() {
     return true;
   }).catch(function() {
     return false;
@@ -4274,10 +4282,10 @@ function initGeoSceneMap() {
         if (facilityHit && facilityHit.graphic) {
           var facilityAttributes = facilityHit.graphic.attributes || {};
           if (!facilityAttributes.facility_id && facilityAttributes.cluster_count) {
-            view.goTo({
+            moveSceneView(view, {
               target: facilityHit.graphic.geometry,
               scale: Math.max(Number(view.scale || 12000) / 2.2, 2200)
-            }, { duration: 650 }).catch(function() {});
+            }, { duration: prefersReducedMotion() ? 0 : 650, animate: !prefersReducedMotion() }).catch(function() {});
             return;
           }
         }
@@ -4788,7 +4796,8 @@ function renderFacilityLegend() {
 
   Object.keys(MAP_FACILITY_STYLES).forEach(function(category) {
     var style = MAP_FACILITY_STYLES[category];
-    var row = document.createElement('div');
+    var row = document.createElement('button');
+    row.type = 'button';
     row.className = 'leg-row leg-toggle';
     row.dataset.mapLayer = category;
     row.innerHTML =
@@ -4829,9 +4838,11 @@ function renderViewTabsFromJSON() {
   if (!container) return;
   container.innerHTML = '';
   vt.forEach(function(tab, idx) {
-    var div = document.createElement('div');
+    var div = document.createElement('button');
+    div.type = 'button';
     var theme = MAP_THEME_KEYS[idx];
     div.className = 'view-tab' + (theme === ACTIVE_MAP_THEME ? ' active' : '');
+    div.setAttribute('aria-pressed', String(theme === ACTIVE_MAP_THEME));
     div.dataset.theme = theme;
     div.textContent = tab;
     div.setAttribute('onclick', 'setView(this)');
@@ -4842,28 +4853,36 @@ function renderViewTabsFromJSON() {
 // 从 JSON 数据渲染事件列表
 function renderEventsFromJSON() {
   if (!APP_DATA || !APP_DATA.events) return;
-  var events = APP_DATA.events;
   var tbody = document.querySelector('#page-events .evt-table tbody');
   if (!tbody) return;
-  tbody.innerHTML = '';
-  events.forEach(function(evt) {
+  tbody.replaceChildren();
+  APP_DATA.events.forEach(function(evt) {
     var tr = document.createElement('tr');
-    var statusClass = getStatusClass(evt.status);
-    var actions = '<span class="act-link" onclick="event.stopPropagation();openEventDetail(\'' + evt.id + '\')">查看</span>';
-    if (evt.canAudit) actions += '<span class="act-link" onclick="event.stopPropagation();openEventDetail(\'' + evt.id + '\')">审核</span>';
-    if (evt.canUpdate) actions += '<span class="act-link" onclick="event.stopPropagation();openEventDetail(\'' + evt.id + '\')">更新</span>';
-    if (evt.canDelete) actions += '<span class="act-link act-delete" onclick="event.stopPropagation();requestDeleteEvent(\'' + evt.id + '\')">删除</span>';
-
-    tr.setAttribute('onclick', "openEventDetail('" + evt.id + "')");
-    tr.innerHTML =
-      '<td style="color:var(--accent);">' + evt.id + '</td>' +
-      '<td>' + evt.type + '</td>' +
-      '<td>' + evt.coords + '</td>' +
-      '<td>' + evt.district + '</td>' +
-      '<td>' + evt.reporter + '</td>' +
-      '<td>' + evt.time + '</td>' +
-      '<td><span class="st-badge ' + statusClass + '">' + evt.status + '</span></td>' +
-      '<td>' + actions + '</td>';
+    ['id', 'type', 'coords', 'district', 'reporter', 'time', 'status'].forEach(function(key) {
+      var cell = document.createElement('td');
+      if (key === 'status') {
+        var badge = document.createElement('span');
+        badge.className = 'st-badge ' + getStatusClass(evt.status);
+        badge.textContent = evt.status || '';
+        cell.appendChild(badge);
+      } else cell.textContent = evt[key] == null ? '' : evt[key];
+      tr.appendChild(cell);
+    });
+    var actions = document.createElement('td');
+    [['查看', true, false], ['审核', evt.canAudit, false], ['更新', evt.canUpdate, false], ['删除', evt.canDelete, true]].forEach(function(action) {
+      if (!action[1]) return;
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'act-link' + (action[2] ? ' act-delete' : '');
+      button.textContent = action[0];
+      button.addEventListener('click', function(event) {
+        event.stopPropagation();
+        if (action[2]) requestDeleteEvent(evt.id); else openEventDetail(evt.id);
+      });
+      actions.appendChild(button);
+    });
+    tr.addEventListener('click', function() { openEventDetail(evt.id); });
+    tr.appendChild(actions);
     tbody.appendChild(tr);
   });
   applyEventFilters();
@@ -4960,7 +4979,7 @@ function renderEventDetailFromJSON() {
       '<h3>危险操作</h3>' +
       '<div class="event-danger-content">' +
         '<p>永久删除后，该事件会从列表、地图及统计数据中移除，此操作无法撤销。</p>' +
-        '<button class="btn btn-danger" onclick="requestDeleteEvent(\'' + ed.id + '\')">🗑️ 永久删除事件</button>' +
+        '<button class="btn btn-danger" id="eventDetailDeleteButton">🗑️ 永久删除事件</button>' +
       '</div>' +
     '</div>' : '';
   // 更新页面标题
@@ -4974,29 +4993,29 @@ function renderEventDetailFromJSON() {
   if (!grid) return;
   grid.innerHTML =
     '<div class="det-card full">' +
-      '<h3>事件详情 — ' + ed.id + ' (W-10)</h3>' +
+      '<h3>事件详情 — ' + escapeMapText(ed.id) + ' (W-10)</h3>' +
       '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">' +
         '<div>' +
-          '<div class="det-field"><span class="df-lbl">事件类型</span><span class="df-val"><span class="st-badge ' + statusClass + '" id="detStatus">' + ed.type + '</span></span></div>' +
-          '<div class="det-field"><span class="df-lbl">当前状态</span><span class="df-val"><span class="st-badge ' + statusClass + '" id="detStateBadge">' + ed.status + '</span></span></div>' +
-          '<div class="det-field"><span class="df-lbl">上报人</span><span class="df-val">' + ed.reporter + ' (' + ed.reporterType + ')</span></div>' +
+          '<div class="det-field"><span class="df-lbl">事件类型</span><span class="df-val"><span class="st-badge ' + statusClass + '" id="detStatus">' + escapeMapText(ed.type) + '</span></span></div>' +
+          '<div class="det-field"><span class="df-lbl">当前状态</span><span class="df-val"><span class="st-badge ' + statusClass + '" id="detStateBadge">' + escapeMapText(ed.status) + '</span></span></div>' +
+          '<div class="det-field"><span class="df-lbl">上报人</span><span class="df-val">' + escapeMapText(ed.reporter) + ' (' + escapeMapText(ed.reporterType) + ')</span></div>' +
         '</div>' +
         '<div>' +
-          '<div class="det-field"><span class="df-lbl">坐标</span><span class="df-val">' + ed.coords + '</span></div>' +
-          '<div class="det-field"><span class="df-lbl">区域</span><span class="df-val">' + ed.district + ' · ' + ed.address + '</span></div>' +
-          '<div class="det-field"><span class="df-lbl">上报时间</span><span class="df-val">' + ed.reportTime + '</span></div>' +
+          '<div class="det-field"><span class="df-lbl">坐标</span><span class="df-val">' + escapeMapText(ed.coords) + '</span></div>' +
+          '<div class="det-field"><span class="df-lbl">区域</span><span class="df-val">' + escapeMapText(ed.district) + ' · ' + escapeMapText(ed.address) + '</span></div>' +
+          '<div class="det-field"><span class="df-lbl">上报时间</span><span class="df-val">' + escapeMapText(ed.reportTime) + '</span></div>' +
         '</div>' +
         '<div>' +
-          '<div class="det-field"><span class="df-lbl">参考地标</span><span class="df-val">' + ed.landmark + '</span></div>' +
-          '<div class="det-field"><span class="df-lbl">优先级</span><span class="df-val" style="color:var(--danger);">' + ed.priority + '</span></div>' +
-          '<div class="det-field"><span class="df-lbl">SLA</span><span class="df-val">' + ed.sla + '</span></div>' +
+          '<div class="det-field"><span class="df-lbl">参考地标</span><span class="df-val">' + escapeMapText(ed.landmark) + '</span></div>' +
+          '<div class="det-field"><span class="df-lbl">优先级</span><span class="df-val" style="color:var(--danger);">' + escapeMapText(ed.priority) + '</span></div>' +
+          '<div class="det-field"><span class="df-lbl">SLA</span><span class="df-val">' + escapeMapText(ed.sla) + '</span></div>' +
         '</div>' +
       '</div>' +
     '</div>' +
     '<div class="det-card">' +
       '<h3>问题描述</h3>' +
-      '<p style="font-size:12px;color:var(--text-secondary);line-height:1.8;">' + ed.description + '</p>' +
-      '<div style="margin-top:12px;font-size:11px;color:var(--text-muted);">上报方式: ' + ed.reportMethod + '</div>' +
+      '<p style="font-size:12px;color:var(--text-secondary);line-height:1.8;">' + escapeMapText(ed.description) + '</p>' +
+      '<div style="margin-top:12px;font-size:11px;color:var(--text-muted);">上报方式: ' + escapeMapText(ed.reportMethod) + '</div>' +
     '</div>' +
     '<div class="det-card">' +
       '<h3>现场照片 (W-10)</h3>' +
@@ -5006,6 +5025,8 @@ function renderEventDetailFromJSON() {
       '<h3>事件操作 (W-09)</h3>' +
       '<div class="det-actions">' + workflowActions + '</div>' +
     '</div>' + deleteCard;
+  var deleteButton = grid.querySelector('#eventDetailDeleteButton');
+  if (deleteButton) deleteButton.addEventListener('click', function() { requestDeleteEvent(ed.id); });
   var photoImage = grid.querySelector('.det-photo-image');
   if (photoImage) {
     photoImage.addEventListener('error', function() {
@@ -5359,4 +5380,28 @@ function doLogout() {
 // 当 JSON 文件无法通过 HTTP 加载时使用此数据
 function getWebFallbackData() {
   return {"app":{"name":"无障碍出行助手","subtitle":"GeoScene · 深圳福田","defaultUser":"管理员"},"pageTitles":{"dashboard":["三维数字孪生大屏","Web 管理端 / 三维数字孪生大屏"],"events":["事件管理","Web 管理端 / 事件管理模块"],"event-detail":["事件详情 — E20260701","Web 管理端 / 事件管理 / 事件详情"],"charts":["趋势图表分析","Web 管理端 / 趋势图表分析"]},"dashboard":{"stats":[{"icon":"📏","iconBg":"rgba(0,212,255,0.13)","value":"18.6","unit":"km","label":"示范区盲道里程 (W-06)","change":"深圳福田中心区","changeColor":"success","action":"events"},{"icon":"📊","iconBg":"rgba(46,204,113,0.13)","value":"86.4%","unit":"","label":"盲道可通行率 (W-02)","change":"福田中心区示范数据","changeColor":"success","action":"toast","actionMsg":"福田中心区盲道可通行率：86.4%"},{"icon":"⚠️","iconBg":"rgba(255,69,96,0.13)","value":"3","unit":"","label":"待处理事件 (W-06)","change":"需紧急: 1","changeColor":"danger","action":"events"},{"icon":"📈","iconBg":"rgba(168,85,247,0.13)","value":"5","unit":"","label":"本月新增上报 (W-06)","change":"↑ +15% vs 上月","changeColor":"success","action":"charts"}],"map":{"center":{"lon":"114.055°E","lat":"22.535°N","location":"深圳福田中心区示范区"},"viewTabs":["示范区总览","市民中心","香蜜湖-市民中心"],"buildings":[{"left":55,"top":170,"width":70,"height":50,"type":"normal","name":"卓悦中心","coverage":"78%","facility":"120m"},{"left":150,"top":100,"width":48,"height":80,"type":"tall","name":"领展中心城","coverage":"65%","facility":"200m"},{"left":230,"top":190,"width":82,"height":42,"type":"normal","name":"香蜜湖广场","coverage":"82%","facility":"80m"},{"left":340,"top":90,"width":52,"height":90,"type":"tall","name":"平安金融中心","coverage":"71%","facility":"150m"},{"left":120,"top":290,"width":60,"height":38,"type":"normal","name":"","coverage":"","facility":""},{"left":280,"top":270,"width":88,"height":46,"type":"normal","name":"","coverage":"","facility":""},{"left":410,"top":240,"width":44,"height":68,"type":"tall","name":"","coverage":"","facility":""},{"left":380,"top":320,"width":64,"height":36,"type":"normal","name":"","coverage":"","facility":""}],"heatmap":[{"top":130,"left":80,"width":190,"height":140,"color":"rgba(255,69,96,0.22)"},{"top":90,"left":290,"width":150,"height":100,"color":"rgba(240,160,48,0.18)"},{"top":240,"left":170,"width":130,"height":90,"color":"rgba(46,204,113,0.12)"}],"events":[{"top":155,"left":145,"type":"danger","id":"E20260701","title":"盲道被占","location":"福华路市民中心"},{"top":210,"left":275,"type":"warning","id":"E20260702","title":"盲道损坏","location":"深南大道"},{"top":290,"left":360,"type":"danger","id":"E20260703","title":"盲道缺失","location":"彩田路"},{"top":115,"left":395,"type":"warning","id":"E20260704","title":"盲道被占","location":"福民路"}],"legend":[{"key":"danger-dots","color":"#ff4560","label":"盲道被占","enabled":true},{"key":"warning-dots","color":"#f0a030","label":"盲道损坏","enabled":true},{"key":"muted-dots","color":"#5a6380","label":"盲道缺失","enabled":true},{"key":"heat-spots","color":"rgba(255,69,96,0.5)","label":"热力覆盖","enabled":true}]}},"events":[{"id":"E20260701","type":"盲道被占","coords":"114.055,22.535","district":"福田区","reporter":"张**","time":"07-01 09:32","status":"待审核","canAudit":true,"canUpdate":false,"detailPage":true},{"id":"E20260702","type":"盲道损坏","coords":"114.060,22.537","district":"福田区","reporter":"李**","time":"07-01 10:15","status":"处理中","canAudit":false,"canUpdate":true,"detailPage":true},{"id":"E20260703","type":"盲道缺失","coords":"114.049,22.541","district":"福田区","reporter":"王**","time":"07-02 08:44","status":"已修复","canAudit":false,"canUpdate":false,"detailPage":false},{"id":"E20260704","type":"盲道被占","coords":"114.066,22.529","district":"福田区","reporter":"赵**","time":"07-02 14:20","status":"待审核","canAudit":true,"canUpdate":false,"detailPage":true},{"id":"E20260705","type":"盲道损坏","coords":"114.058,22.539","district":"福田区","reporter":"孙**","time":"07-03 11:08","status":"驳回","canAudit":false,"canUpdate":false,"detailPage":true}],"eventDetail":{"id":"E20260701","type":"盲道被占","status":"待审核","reporter":"张**","reporterType":"低视力","coords":"114.055, 22.535","district":"福田区","address":"福华路","landmark":"市民中心地铁站C口","priority":"高","sla":"48小时内响应","reportTime":"2026-07-01 09:32","description":"\"福华路市民中心往香蜜湖方向，地铁站C出口外约30米处，大量共享单车堆积占用盲道，视障人士需绕行机动车道，存在严重安全隐患。\"","reportMethod":"语音一键上报 (M-11)"},"chartPeriods":{"day":{"title":"上报事件趋势 — 近14天 (W-11)","points":"60,165 90,145 120,125 150,100 180,135 210,85 240,110 270,75 300,95 330,65 360,80 390,55 420,70 450,50","labels":[{"x":60,"y":255,"label":"6/24"},{"x":150,"y":255,"label":"6/27"},{"x":240,"y":255,"label":"6/30"},{"x":330,"y":255,"label":"7/03"},{"x":450,"y":255,"label":"7/07"}]},"week":{"title":"上报事件趋势 — 近8周 (W-11)","points":"70,170 130,120 190,145 250,80 310,110 370,65 430,95 470,55","labels":[{"x":70,"y":255,"label":"W19"},{"x":130,"y":255,"label":"W20"},{"x":190,"y":255,"label":"W21"},{"x":250,"y":255,"label":"W22"},{"x":310,"y":255,"label":"W23"},{"x":370,"y":255,"label":"W24"},{"x":430,"y":255,"label":"W25"},{"x":470,"y":255,"label":"W26"}]},"month":{"title":"上报事件趋势 — 近6月 (W-11)","points":"70,175 140,140 210,100 280,120 350,75 430,50","labels":[{"x":70,"y":255,"label":"1月"},{"x":140,"y":255,"label":"2月"},{"x":210,"y":255,"label":"3月"},{"x":280,"y":255,"label":"4月"},{"x":350,"y":255,"label":"5月"},{"x":430,"y":255,"label":"6月"}]}},"chartTypeDistribution":{"total":5,"segments":[{"type":"被占","percent":"45%","color":"#ff4560"},{"type":"损坏","percent":"30%","color":"#f0a030"},{"type":"缺失","percent":"25%","color":"#5a6380"}]}};
+}
+
+function prefersReducedMotion() {
+  return Boolean(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+}
+
+document.addEventListener('keydown', function(event) {
+  var dialog = document.getElementById('eventDeleteDialog');
+  if (!dialog || dialog.hidden) return;
+  if (event.key === 'Escape') { event.preventDefault(); closeEventDeleteDialog(); return; }
+  if (event.key !== 'Tab') return;
+  var controls = Array.from(dialog.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), [tabindex="0"]'));
+  if (!controls.length) return;
+  var first = controls[0], last = controls[controls.length - 1];
+  if (event.shiftKey && (document.activeElement === first || !dialog.contains(document.activeElement))) {
+    event.preventDefault(); last.focus();
+  } else if (!event.shiftKey && (document.activeElement === last || !dialog.contains(document.activeElement))) {
+    event.preventDefault(); first.focus();
+  }
+});
+
+function moveSceneView(view, target, options) {
+  if (prefersReducedMotion()) options = Object.assign({}, options, { animate: false, duration: 0 });
+  return view.goTo(target, options);
 }

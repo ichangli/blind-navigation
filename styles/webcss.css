@@ -753,3 +753,14 @@
       width: auto; padding: 12px;
     }
   }
+
+/* Native controls preserve the existing visual hierarchy. */
+:where(button.leg-row, button.view-tab, button.map-ctrl, button.filter-chip, button.act-link) {
+  font: inherit; color: inherit; background: transparent; text-align: inherit;
+}
+button.leg-row { width: 100%; border: 0; }
+button.map-ctrl, button.act-link { border: 0; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

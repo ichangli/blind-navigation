@@ -11,6 +11,7 @@ from ..seed import ensure_user_defaults
 
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
+USERNAME_PATTERN = re.compile(r"^[\w\u4e00-\u9fff.-]{1,32}$")
 PASSWORD_PATTERN = re.compile(r"^[A-Za-z0-9]{6,}$")
 
 
@@ -27,6 +28,8 @@ def register(payload: schemas.AuthRequest, db: Session = Depends(get_db)) -> sch
     username = payload.username.strip()
     if not username:
         raise HTTPException(status_code=400, detail="Username cannot be empty")
+    if not USERNAME_PATTERN.fullmatch(username):
+        raise HTTPException(status_code=400, detail="Username must be 1-32 letters, numbers, Chinese characters, underscores, dots or hyphens")
     if username.lower() == "admin":
         raise HTTPException(status_code=400, detail="Username admin is reserved")
     if not PASSWORD_PATTERN.match(payload.password):

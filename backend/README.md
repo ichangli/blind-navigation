@@ -12,17 +12,15 @@ python backend\init_db.py
 python -m uvicorn backend.main:app --reload --host 127.0.0.1 --port 8000
 ```
 
-默认管理员：
+## 演示与正式环境
 
-```text
-admin / 123456
-```
+`run_demo.bat` 仅绑定本机地址，显式设置 `APP_ENV=demo`；仅此模式允许演示账号 `admin / 123456` 与初始化样例业务数据。不要将该启动器用于公网服务。
 
-当前本机 `.env` 已按实际 PostgreSQL 配置为：
+直接启动默认为 `APP_ENV=production`。复制 `.env.example` 为 `.env`，设置独立的 `JWT_SECRET`（至少 32 字符）与 `ADMIN_PASSWORD`（至少 12 字符）。例如用 `python -c "import secrets; print(secrets.token_urlsafe(48))"` 在本机生成密钥，勿提交真实值。正式模式不自动灌入样例业务记录。
 
-```text
-127.0.0.1:1234 / blind_path
-```
+正式启动会拒绝示例 JWT 密钥、弱管理员初始密码、通配或 null CORS 来源。已有数据库若仍使用演示管理员密码也会拒绝启动，修改环境变量不会静默覆盖已有账号密码；须先通过受控数据库维护重设其密码哈希。首次建库才使用 ADMIN_PASSWORD 初始化管理员。
+
+CORS 仅填写实际可信 HTTP/HTTPS 来源。当前认证尚无登录限流，JWT 默认期限为 7 天，公网部署前应结合访问网关和会话策略进一步加固。
 
 ## 三维建筑白模
 
