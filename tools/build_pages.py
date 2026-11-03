@@ -119,7 +119,7 @@ def build():
             source = source.replace('实时导航','路线案例播报').replace('真实路线','路线案例')
         source = source.replace('(backend-api)', '(browser-demo)')
         write(OUT / filename, source)
-    for filename in ['road-visuals.js','water-visuals.js']:
+    for filename in ['road-visuals.js','water-visuals.js','LICENSE']:
         shutil.copy2(ROOT / filename, OUT / filename)
     for login in ['登录.html','移动端登录.html']:
         write(OUT / login, '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=./index.html"><title>进入盲行演示</title><a href="./index.html">进入在线演示</a></html>')

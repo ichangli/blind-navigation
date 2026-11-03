@@ -24,6 +24,7 @@ PACKAGED_HTML_FILES = (
     "移动端.html",
 )
 PACKAGED_ROOT_FILES = PACKAGED_HTML_FILES + (
+    "LICENSE",
     "road-visuals.js",
     "water-visuals.js",
     "web.js",

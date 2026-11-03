@@ -10,5 +10,6 @@
   "scripts": {
     "build": "python tools/build_pages.py",
     "test": "node --test tests/*.test.cjs"
-  }
+  },
+  "license": "MIT"
 }
