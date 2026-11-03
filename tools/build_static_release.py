@@ -1,6 +1,7 @@
 """Build a clean Windows static demo ZIP using the Pages artifact and PyInstaller."""
 import argparse
 import hashlib
+from importlib.metadata import distribution
 import json
 from pathlib import Path
 import shutil
@@ -27,6 +28,16 @@ def build(version, output):
     package.mkdir()
     shutil.copytree(ROOT / "site-demo", package / "site")
     shutil.copy2(ROOT / "LICENSE", package / "LICENSE")
+    runtime_licenses = package / "runtime-licenses"
+    runtime_licenses.mkdir()
+    shutil.copy2(Path(sys.base_prefix) / "LICENSE.txt", runtime_licenses / "Python-LICENSE.txt")
+    pyinstaller = distribution("pyinstaller")
+    for item in pyinstaller.files:
+        if str(item).endswith("licenses/COPYING.txt"):
+            shutil.copy2(pyinstaller.locate_file(item), runtime_licenses / "PyInstaller-COPYING.txt")
+            break
+    else:
+        raise FileNotFoundError("PyInstaller license missing")
     notes = (ROOT / "docs/数据与依赖.md").read_text(encoding="utf-8").replace("../LICENSE", "LICENSE")
     (package / "数据与依赖.md").write_text(notes, encoding="utf-8")
     shutil.copy2(ROOT / "tools/static_demo_server.py", package / "start_static_demo.py")

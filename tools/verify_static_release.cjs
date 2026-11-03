@@ -1,6 +1,6 @@
 // Usage: PLAYWRIGHT_MODULE=<installed package> node tools/verify_static_release.cjs <extracted EXE>
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE || 'playwright');
-const {spawn}=require('node:child_process');
+const {spawn,execFileSync}=require('node:child_process');
 const assert=require('node:assert/strict');
 const path=require('node:path');
 async function main(){
@@ -60,7 +60,9 @@ async function main(){
     console.log(JSON.stringify({staticEXE:true,landing:true,webGL:true,roadLazyLoading:true,mobileRoute:true,reportReviewPersistence:true,externalRequests:external.length,businessNetworkRequests:networkAPI.length,pageErrors:errors.length}));
   } finally {
     if(browser)await browser.close();
-    server.kill();
+    if(process.platform==='win32') {
+      try {execFileSync('taskkill.exe',['/PID',String(server.pid),'/T','/F'],{windowsHide:true,stdio:'ignore'});} catch(_) {}
+    } else server.kill();
   }
 }
 main().catch(error=>{console.error(error);process.exitCode=1;});
