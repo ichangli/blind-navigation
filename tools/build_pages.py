@@ -72,7 +72,8 @@ def build():
     shutil.copy2(ROOT / 'shenzhen_data/processed/buildings/futian_buildings_cityengine.geojson', OUT / 'data/buildings.geojson')
     for name in ['context', 'parks', 'roads', 'water']:
         shutil.copy2(ROOT / f'datasets/basemap/{name}.geojson', OUT / f'data/{name}.geojson')
-    shutil.copy2(ROOT / 'datasets/showcase/showcase_water.geojson', OUT / 'data/showcase_water.geojson')
+    for name in ['showcase_water', 'showcase_roads']:
+        shutil.copy2(ROOT / f'datasets/showcase/{name}.geojson', OUT / f'data/{name}.geojson')
 
     web_mock = json.loads((ROOT / 'data/web-mock-api.json').read_text(encoding='utf-8-sig'))
     cfg = web_mock['mapConfig']
@@ -86,7 +87,7 @@ def build():
             period['title'] += ' · 演示历史'
     write(OUT / 'data/web-mock-api.json', json.dumps(web_mock, ensure_ascii=False))
 
-    shared_head = '<link rel="stylesheet" href="./vendor/leaflet/leaflet.css"><link rel="stylesheet" href="./demo.css"><script src="./vendor/leaflet/leaflet.js"></script><script src="./demo-runtime.js"></script>'
+    shared_head = '<link rel="stylesheet" href="./vendor/leaflet/leaflet.css"><link rel="stylesheet" href="./demo.css"><script src="./vendor/leaflet/leaflet.js"></script><script src="./showcase-roads.js"></script><script src="./demo-runtime.js"></script>'
     for filename, adapter in [('Web管理端.html','demo-map.js'), ('移动端.html','demo-mobile.js')]:
         source = (ROOT / filename).read_text(encoding='utf-8-sig')
         source = source.replace('</head>', shared_head + '</head>')

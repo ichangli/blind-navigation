@@ -27,6 +27,7 @@ function page(filename, factory = new IDBFactory(), scripts = false) {
   w.confirm = () => true;
   w.console = {log(){},debug(){},info(){},warn(){},error(...args){errors.push(args.join(' '));}};
   w.addEventListener('error', e => errors.push(e.message));
+  w.eval(fs.readFileSync(path.join(root, 'showcase-roads.js'), 'utf8'));
   w.eval(fs.readFileSync(path.join(root, 'demo-runtime.js'), 'utf8'));
   if (scripts) {
     if (filename === 'Web管理端.html') {
@@ -126,6 +127,7 @@ test('original mobile UI loads and can draw and switch preset route maps without
     assert.equal(p.w.getMobileApiBase(),'/blind-navigation');
     p.w.startFavRoute('市民中心地铁站F口');
     await until(()=>p.w._activeNavPlan&&p.w._demoMobileMap,'preset map starts');
+    assert.equal(p.w._demoMobileMap.getPane('demo-showcase-roads').style.zIndex,'350','display roads remain below route overlays');
     p.w.startFavRoute('莲花山公园');
     await until(()=>p.w._activeNavPlan&&p.w._activeNavPlan.caseId==='park'&&p.w._demoMobileMap,'map can be destroyed and recreated');
     assert.equal(p.errors.length,0,p.errors.join('\n'));
@@ -192,6 +194,11 @@ test('real AMD SceneView, SSAO and map modules load from the bundle without modu
     const modules=await new Promise((resolve,reject)=>{w.require.on('error',reject);w.require(ids,(...m)=>resolve(m),reject);});
     assert.equal(typeof modules[4],'function','actual SceneView constructor loaded');
     assert.equal(typeof modules.at(-1).SSAO,'function','the failing SSAO module loaded');
+    await w.BlindDemo.ready;
+    const displayLayers=w.BlindShowcaseRoads.createArcGISLayers({GeoJSONLayer:modules[12]},w.BlindDemo.showcaseRoads,new URL('data/showcase_roads.geojson',w.document.baseURI).href);
+    assert.equal(displayLayers.length,9);
+    assert.equal(displayLayers.find(l=>l.id==='showcase-expressway-glow').renderer.symbol.width,10,'SDK accepts original glow width');
+    displayLayers.forEach(l=>l.destroy());
     assert.deepEqual(injected,[],'AMD modules require no individual script downloads');
     assert.equal(p.errors.length,0,p.errors.join('\n'));
   }finally{p.close();}
@@ -243,5 +250,30 @@ test('late SDK completion can upgrade a displayed 2D fallback', async () => {
     await Promise.resolve();
     assert.equal(removed,true);assert.equal(started,true);
     assert.equal(p.w._demoLeafletMap,null);assert.equal(p.w._geoSceneFailed,false);
+  }finally{p.close();}
+});
+
+test('the original coarse showcase roads are published and wired into the display basemap', async () => {
+  const source=fs.readFileSync(path.join(__dirname,'../datasets/showcase/showcase_roads.geojson'));
+  assert.deepEqual(fs.readFileSync(path.join(root,'data/showcase_roads.geojson')),source,'published display data is unchanged');
+  const p=page('Web管理端.html',new IDBFactory(),true);
+  try {
+    await until(()=>p.w.APP_DATA&&p.w.document.querySelectorAll('.evt-table tbody tr').length===5,'Web ready');
+    assert.equal(p.w.BlindDemo.showcaseRoads.features.length,130);
+    function Model(options){Object.assign(this,options);}
+    const basemap=p.w.createGeoSceneBasemap({GeoJSONLayer:Model,Basemap:Model});
+    const layers=basemap.baseLayers.filter(l=>l.id?.startsWith('showcase-'));
+    assert.equal(layers.length,9,'three strokes for each of the three road classes');
+    for(const kind of ['expressway','primary','secondary']){
+      const original=p.w.BlindDemo.showcaseRoads.features.find(f=>f.properties.road_class===kind).properties;
+      for(const stroke of ['glow','casing','core']){
+        const layer=layers.find(l=>l.id==='showcase-'+kind+'-'+stroke);
+        assert.ok(layer.url.endsWith('/data/showcase_roads.geojson'));
+        assert.equal(layer.renderer.symbol.width,original[stroke+'_width']);
+        assert.equal(layer.minScale,original.min_scale);
+        assert.equal(layer.definitionExpression,"road_class = '"+kind+"'");
+      }
+    }
+    assert.ok(fs.readFileSync(path.join(root,'Web管理端.html'),'utf8').includes('showcase-roads.js?v='));
   }finally{p.close();}
 });

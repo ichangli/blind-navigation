@@ -39,7 +39,7 @@
   window.createGeoSceneBasemap=function(m){
     window._geoSceneBasemapName='本地福田深蓝底图';
     function layer(file,title,color,line){return new m.GeoJSONLayer({url:data(file),title:title,popupEnabled:false,legendEnabled:false,renderer:{type:'simple',symbol:line?{type:'simple-line',color:color,width:1.1}:{type:'simple-fill',color:color,outline:{color:color,width:0}}}});}
-    return new m.Basemap({title:'福田本地底图',id:'local-futian',baseLayers:[layer('context.geojson','背景','#0b233a'),layer('parks.geojson','绿地','#123d40'),layer('water.geojson','水域','#0d4862'),layer('roads.geojson','城市道路','#245471',true)]});
+    return new m.Basemap({title:'福田本地底图',id:'local-futian',baseLayers:[layer('context.geojson','背景','#0b233a'),layer('parks.geojson','绿地','#123d40'),layer('water.geojson','水域','#0d4862'),layer('roads.geojson','城市道路','#245471',true)].concat(BlindShowcaseRoads.createArcGISLayers(m,D.showcaseRoads,data('showcase_roads.geojson')))});
   };
   window.createGeoSceneRoadLayerV4=function(m){
     var line=new m.GeoJSONLayer({url:data('network-display.geojson'),title:'福田无障碍路网（已有数据）',outFields:['*'],popupEnabled:false,minScale:45000,renderer:getRoadUnifiedRenderer(),elevationInfo:{mode:'on-the-ground'}});
@@ -69,7 +69,8 @@
     var map=L.map(container,{attributionControl:true}).setView([22.541,114.055],14);
     window._demoLeafletMap=map;
     map.attributionControl.addAttribution('© OpenStreetMap contributors · 本地数据演示');
-    return Promise.all(['parks.geojson','water.geojson','roads.geojson'].map(function(file){return D.json('data/'+file).then(function(fc){L.geoJSON(fc,{style:{color:file==='roads.geojson'?'#4f89a6':'#176077',weight:1.2,fillColor:file==='parks.geojson'?'#164e48':'#13516c',fillOpacity:.85}}).addTo(map);});})).then(function(){
+    return Promise.all(['parks.geojson','water.geojson','roads.geojson'].map(function(file){return D.json('data/'+file).then(function(fc){L.geoJSON(fc,{pane:BlindShowcaseRoads.contextPane(map),style:{color:file==='roads.geojson'?'#4f89a6':'#176077',weight:1.2,fillColor:file==='parks.geojson'?'#164e48':'#13516c',fillOpacity:.85}}).addTo(map);});})).then(function(){
+      BlindShowcaseRoads.addLeaflet(map,D.showcaseRoads);
       parent.classList.add('demo-map-2d');var status=document.getElementById('sceneStatus');if(status){status.textContent='二维本地地图 · 三维初始化未完成';status.title=window._demo3DError||status.title||'请查看控制台中的三维资源加载或 WebGL 错误';}
       (D.facilities.features||[]).filter(function(_,i){return i%6===0;}).forEach(function(f){L.circleMarker([f.lat,f.lon],{radius:3,color:'#60e6d0',weight:1}).bindPopup(f.name).addTo(map);});
       setTimeout(function(){map.invalidateSize();},100);return true;

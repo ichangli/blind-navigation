@@ -16,7 +16,7 @@
     storage('a11y_' + role + '_user', role === 'web' ? '演示管理员' : '演示体验者');
     storage('a11y_' + role + '_role', role === 'web' ? 'admin' : 'user');
   });
-  var filesPromise = Promise.all([json('data/web-mock-api.json'), json('data/mobile-mock-api.json'), json('data/facilities.json'), json('data/building-semantics.json'), json('data/routes.json')]);
+  var filesPromise = Promise.all([json('data/web-mock-api.json'), json('data/mobile-mock-api.json'), json('data/facilities.json'), json('data/building-semantics.json'), json('data/routes.json'), json('data/showcase_roads.geojson')]);
   var loaded;
   function initialState(files) {
     var web = files[0], detail = web.eventDetail;
@@ -176,5 +176,5 @@
   function banner(){var el=document.createElement('div');el.className='demo-banner';el.innerHTML='<a href="./index.html">盲行 · 在线演示</a><span id="demoStorageStatus">数据仅保存在此浏览器</span><a href="https://github.com/ichangli/blind-navigation" target="_blank" rel="noopener">完整源码 ↗</a><button type="button" id="demoResetButton">重置演示</button>';document.body.prepend(el);document.getElementById('demoResetButton').onclick=reset;updateBanner();}
   document.addEventListener('DOMContentLoaded',banner);
   if(channel)channel.onmessage=function(){reloadState().then(function(){window.dispatchEvent(new Event('demo-data-changed'));});};
-  window.BlindDemo={ready:ready,base:base,apiBase:base.pathname.replace(/\/$/,''),json:json,reset:reset,photoURL:function(id){return photos.get(id)||'';},get cases(){return loaded?clone(loaded[4]):[];},get facilities(){return loaded?loaded[2]:null;},segmentDistance:segmentDistance};
+  window.BlindDemo={ready:ready,base:base,apiBase:base.pathname.replace(/\/$/,''),json:json,reset:reset,photoURL:function(id){return photos.get(id)||'';},get cases(){return loaded?clone(loaded[4]):[];},get facilities(){return loaded?loaded[2]:null;},get showcaseRoads(){return loaded?loaded[5]:null;},segmentDistance:segmentDistance};
 }());

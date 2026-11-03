@@ -13,7 +13,7 @@
   function context(map){
     if(map._demoContextReady)return Promise.resolve();
     if(!contextPromise)contextPromise=Promise.all(['parks.geojson','water.geojson','roads.geojson'].map(function(file){return D.json('data/'+file);}));
-    return contextPromise.then(function(files){files.forEach(function(fc,i){L.geoJSON(fc,{interactive:false,style:{color:i===2?'#7a9fb2':'#c5e4e3',weight:i===2?1.2:0,fillColor:i===0?'#d3e9dd':'#b9dce7',fillOpacity:.8}}).addTo(map);});map._demoContextReady=true;});
+    return contextPromise.then(function(files){files.forEach(function(fc,i){L.geoJSON(fc,{pane:BlindShowcaseRoads.contextPane(map),interactive:false,style:{color:i===2?'#7a9fb2':'#c5e4e3',weight:i===2?1.2:0,fillColor:i===0?'#d3e9dd':'#b9dce7',fillOpacity:.8}}).addTo(map);});BlindShowcaseRoads.addLeaflet(map,D.showcaseRoads);map._demoContextReady=true;});
   }
   window.drawNavigationMap=function(plan){
     window._activeNavPlan=plan;window._activeNavPath=(plan.route||[]).map(function(p){return[p.lon,p.lat];});
