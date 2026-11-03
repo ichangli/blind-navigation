@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../core/Evented","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","../../../webscene/VirtualLighting"],(function(e,r,t,n,c,o,s,a){"use strict";var i;let d=i=class extends(r.EventedMixin(a)){constructor(e){super(e),this.cameraTrackingEnabled=!0}clone(){return new i({...this.cloneConstructProperties(),cameraTrackingEnabled:this.cameraTrackingEnabled})}static fromWebsceneLighting(e){return new i(e.cloneConstructProperties())}cloneWithWebsceneLighting(e){const r=this.clone();return r.directShadowsEnabled=e.directShadowsEnabled,r}cloneNonPersistentConstructProperties(){return{cameraTrackingEnabled:this.cameraTrackingEnabled}}};e.__decorate([t.property({type:Boolean})],d.prototype,"cameraTrackingEnabled",void 0),d=i=e.__decorate([s.subclass("esri.views.3d.environment.VirtualLighting")],d);return d}));

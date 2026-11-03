@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports"],(function(o){"use strict";const t="esri-bookmarks",e=`${t}__authoring`,n=`${t}__bookmark`,a={base:t,noBookmarksHeader:`${t}__no-bookmarks-heading`,noBookmarksDescription:`${t}__no-bookmarks-description`,form:`${t}__form`,list:`${t}__list`,loader:`${t}__loader`,filterNoResults:`${t}__filter-no-results`,formContent:`${t}__form-content`,addBookmarkButton:`${t}__add-bookmark-button`,editBookmarkInput:`${t}__edit-bookmark-input`,addBookmarkInput:`${t}__add-bookmark-input`,dragEnabled:`${t}--drag-enabled`,bookmarkImage:`${t}__image`,bookmarkImageContainer:`${n}-image-container`,bookmarkContent:`${n}-content`,bookmarkContentLabel:`${n}-content-label`,authoring:e,authoringImageContainer:`${e}-image-container`,authoringRefreshThumbnailButton:`${e}-refresh-thumbnail-button`};o.css=a,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"})}));

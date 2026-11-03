@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../enums","../FeatureTechnique","../featureTechniqueUtils","../TechniqueType","./utils","../shaders/TexturedLineShader"],(function(e,t,i,r,n,s,a){"use strict";class o extends i.FeatureTechnique{constructor(){super(...arguments),this.type=n.TechniqueType.TexturedLine,this.shaders={geometry:new a.TexturedLineShader},this.symbologyPlane=t.FeatureSymbologyDrawOrder.LINE}render(e,t){const{context:i,painter:n,pixelRatio:a}=e,o=t.instance.getInput();n.setShader({shader:this.shaders.geometry,uniforms:{...r.resolveDynamicUniforms(e,t.target,o.uniforms),...r.getFeatureUniforms(e,t.target),antialiasingControls:s.getAntialiasingControls(a),mosaicInfo:n.textureManager.getMosaicInfo(i,t.textureKey)},defines:{...r.getSelectionDefines(e)},optionalAttributes:o.optionalAttributes,useComputeBuffer:r.isHittest(e)}),n.setPipelineState(r.getFeaturePipelineState(e)),n.submitDraw(e,t)}}e.TexturedLineTechnique=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

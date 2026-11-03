@@ -1,0 +1,23 @@
+{
+  "input": "E:\\GIS_data\\guangdong-260710.osm.pbf",
+  "output": "D:\\盲行\\shenzhen_data\\processed\\buildings\\futian_buildings_cityengine.geojson",
+  "building_parts": 8897,
+  "repaired_geometries": 0,
+  "skipped": {
+    "geometry_conversion": 18,
+    "tiny_footprint": 38
+  },
+  "height_sources": {
+    "osm_height": 181,
+    "estimated_type_area": 6113,
+    "osm_levels": 2603
+  },
+  "building_classes": {
+    "commercial": 649,
+    "generic": 2371,
+    "residential": 5361,
+    "public": 265,
+    "utility": 122,
+    "industrial": 129
+  }
+}

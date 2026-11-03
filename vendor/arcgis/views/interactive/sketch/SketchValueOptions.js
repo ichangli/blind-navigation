@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../core/Accessor","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","../../support/angularMeasurementUtils"],(function(e,t,r,o,i,c,s,a){"use strict";let l=class extends t{constructor(e){super(e),this.directionMode="relative",this.relativeDirectionIsBilateral=!1}get effectiveDirectionMode(){switch(this.directionMode){case"relative":return this.relativeDirectionIsBilateral?a.DirectionMode.RelativeBilateral:a.DirectionMode.Relative;case"absolute":return a.DirectionMode.Absolute}}};e.__decorate([r.property({type:String,nonNullable:!0})],l.prototype,"directionMode",void 0),e.__decorate([r.property({type:Boolean,nonNullable:!0})],l.prototype,"relativeDirectionIsBilateral",void 0),e.__decorate([r.property()],l.prototype,"effectiveDirectionMode",null),l=e.__decorate([s.subclass("esri.views.interactive.sketch.SketchValueOptions")],l);return l}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../geometry/support/aaBoundingRect","./BitmapTile","./brushes","./webgl/enums","./webgl/TileContainer"],(function(e,t,i,s,r,n){"use strict";class a extends n{get requiresDedicatedFBO(){return this.children.some((e=>"additive"===e.bitmap.blendFunction))}createTile(e){const s=this._tileInfoView.getTileBounds(t.create(),e),r=this._tileInfoView.getTileResolution(e.level),[n,a]=this._tileInfoView.tileInfo.size;return new i.BitmapTile(e,r,s[0],s[3],n,a)}prepareRenderPasses(e){const t=e.registerRenderPass({name:"bitmap (tile)",brushes:[s.brushes.bitmap],target:()=>this.children.map((e=>e.bitmap)),drawPhase:r.WGLDrawPhase.MAP});return[...super.prepareRenderPasses(e),t]}doRender(e){this.visible&&e.drawPhase===r.WGLDrawPhase.MAP&&super.doRender(e)}}e.BitmapTileContainer=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

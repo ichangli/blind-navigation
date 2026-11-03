@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../../../core/has","../../../../analysis/Slice/sliceToolUtils","../../../../../interactive/dragEventPipeline"],(function(t,e,a,n){"use strict";class s{constructor(){this._lastDragEvent=null,this._next=null,this._enabled=!1}get enabled(){return this._enabled}set enabled(t){if(this._enabled!==t&&null!=this._lastDragEvent&&null!=this._next){const e={...this._lastDragEvent,action:"update"};t&&i(e),this._next.execute(e)}this._enabled=t}createDragEventPipelineStep(){this._lastDragEvent=null;const t=new n.EventPipeline;return this._next=t,[t=>(this._lastDragEvent="end"!==t.action?{...t}:null,this._enabled&&i(t),t),t]}get test(){}}function i(t){const e=a.isDiagonalResizeHandle(t.handle)?Math.max(Math.abs(t.factor1),Math.abs(t.factor2)):0===t.handle.direction[0]?Math.abs(t.factor2):Math.abs(t.factor1);t.factor1=t.factor1<0?-e:e,t.factor2=t.factor2<0?-e:e}t.PreserveAspectRatio=s,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

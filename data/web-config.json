@@ -1,0 +1,17 @@
+{
+  "_说明": "前端配置数据 — 永久保留，定义页面结构、标题等不变的 UI 配置",
+  "app": {
+    "name": "无障碍出行助手",
+    "subtitle": "GeoScene · 深圳福田",
+    "defaultUser": "管理员"
+  },
+  "api": {
+    "baseUrl": "auto"
+  },
+  "pageTitles": {
+    "dashboard": ["三维数字孪生大屏", "Web 管理端 / 三维数字孪生大屏"],
+    "events": ["事件管理", "Web 管理端 / 事件管理模块"],
+    "event-detail": ["事件详情 — E20260701", "Web 管理端 / 事件管理 / 事件详情"],
+    "charts": ["趋势图表分析", "Web 管理端 / 趋势图表分析"]
+  }
+}

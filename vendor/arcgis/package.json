@@ -1,0 +1,30 @@
+{
+  "name": "arcgis-js-api",
+  "version": "4.30.9",
+  "homepage": "https://js.arcgis.com",
+  "description": "ArcGIS Maps SDK for JavaScript: A complete 2D and 3D mapping and data visualization API",
+  "keywords": [
+    "ArcGIS",
+    "javascript",
+    "map",
+    "3D",
+    "2D",
+    "visualization",
+    "analytics",
+    "spatial",
+    "data-driven",
+    "gis",
+    "Esri"
+  ],
+  "license": "SEE LICENSE IN copyright.txt",
+  "browser": {
+    "buffer": false,
+    "crypto": false,
+    "fs": false,
+    "path": false,
+    "process": false
+  },
+  "dependencies": {},
+  "dojoBuild": "esri.profile.js",
+  "types": "index.d.ts"
+}

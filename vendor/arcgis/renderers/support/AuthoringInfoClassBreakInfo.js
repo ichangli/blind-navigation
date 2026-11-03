@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,o,r,s,t,a,n,u){"use strict";var c;e.AuthoringInfoClassBreakInfo=c=class extends r.JSONSupport{constructor(e){super(e),this.minValue=0,this.maxValue=0}clone(){return new c({minValue:this.minValue,maxValue:this.maxValue})}},o.__decorate([s.property({type:Number,json:{write:!0}})],e.AuthoringInfoClassBreakInfo.prototype,"minValue",void 0),o.__decorate([s.property({type:Number,json:{write:!0}})],e.AuthoringInfoClassBreakInfo.prototype,"maxValue",void 0),e.AuthoringInfoClassBreakInfo=c=o.__decorate([u.subclass("esri.renderers.support.AuthoringInfoClassBreakInfo")],e.AuthoringInfoClassBreakInfo),Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

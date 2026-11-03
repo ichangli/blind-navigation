@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports"],(function(t){"use strict";const o={dash:[4,3],dot:[1,3],"long-dash":[8,3],"short-dash":[4,1],"short-dot":[1,1]},d={dash:o.dash,"dash-dot":[...o.dash,...o.dot],dot:o.dot,"long-dash":o["long-dash"],"long-dash-dot":[...o["long-dash"],...o.dot],"long-dash-dot-dot":[...o["long-dash"],...o.dot,...o.dot],none:null,"short-dash":o["short-dash"],"short-dash-dot":[...o["short-dash"],...o["short-dot"]],"short-dash-dot-dot":[...o["short-dash"],...o["short-dot"],...o["short-dot"]],"short-dot":o["short-dot"],solid:null},n=8;function s(t,o){return null==t?t:{pattern:t.slice(),pixelRatio:o}}function e(t){return{pattern:[t,t],pixelRatio:2}}function r(t){return null!=t&&"style"===t.type?l(t.style):null}function l(t){return null!=t?s(d[t],n):null}t.createStipplePatternSimple=e,t.getStipplePatternForLinePattern=r,t.getStipplePatternForPatternStyle=l,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

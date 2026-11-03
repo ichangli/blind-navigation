@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../../core/libs/gl-matrix-2/factories/mat4f64","../../../../../chunks/vec32","../../../../../chunks/sphere","../../../support/mathUtils","../Octree"],(function(e,t,s,i,n,r){"use strict";class a extends r{constructor(e,s){super((e=>i.wrap(this._instanceData.view.boundingSphere.getVec(e,this._tmpSphere))),{maximumDepth:25}),this._instanceData=e,this._boundingSphere=s,this._tmpSphere=i.create(),this._tmpMat4=t.create()}addInstance(e){const t=this._instanceData.view.boundingSphere,r=this._instanceData.getCombinedModelTransform(e,this._tmpMat4);s.transformMat4(i.getCenter(this._tmpSphere),this._boundingSphere.center,r),this._tmpSphere[3]=this._boundingSphere.radius*n.maxScale(r),t.setVec(e,this._tmpSphere),this.add([e])}removeInstance(e){this.remove([e])}}e.InstanceOctree=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

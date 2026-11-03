@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,o,r,t,s,p,l,n){"use strict";let a=class extends(o.ClonableMixin(r.JSONSupport)){constructor(e){super(e),this.frameCenter=null,this.frameOutline=null,this.lineOfSight=null,this.sensorLocation=null,this.sensorTrail=null}};e.__decorate([t.property({type:Boolean})],a.prototype,"frameCenter",void 0),e.__decorate([t.property({type:Boolean})],a.prototype,"frameOutline",void 0),e.__decorate([t.property({type:Boolean})],a.prototype,"lineOfSight",void 0),e.__decorate([t.property({type:Boolean})],a.prototype,"sensorLocation",void 0),e.__decorate([t.property({type:Boolean})],a.prototype,"sensorTrail",void 0),a=e.__decorate([n.subclass("esri.layers.support.TelemetryDisplay")],a);return a}));

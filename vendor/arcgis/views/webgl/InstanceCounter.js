@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","./AllocationTracer","./enums"],(function(e,t,r){"use strict";const n={RECORD_ALLOCATIONS:!1};class o{constructor(){for(this._current=new Array,this._allocations=n.RECORD_ALLOCATIONS?new t.AllocationTracer("WebGLObject"):null;this._current.length<r.ResourceType.COUNT;)this._current.push(0)}increment(e,t,r=1){this._current[e]+=r,this._allocations?.add(t)}decrement(e,t,r=1){this._current[e]-=r,this._allocations?.remove(t)}get current(){return this._current}get total(){return this.current.reduce(((e,t,n)=>e+(n<r.ResourceType.UNCOUNTED?t:0)),0)}get resourceInformation(){let e="";if(this.total>0){e+="Live objects:\n";for(let t=0;t<r.ResourceType.COUNT;++t){const n=this._current[t];n>0&&(e+=`${r.ResourceType[t]}: ${n}\n`)}}return e+=this._allocations?.resetLog(),e}}e.InstanceCounter=o,e.test=n,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../chunks/tslib.es6","./Analysis","../core/unitUtils","../core/accessorSupport/decorators/property","../core/has","../core/Logger","../core/RandomLCG","../core/accessorSupport/decorators/subclass","../geometry/Point"],(function(e,t,r,o,s,i,n,p,a){"use strict";let c=class extends t{constructor(e){super(e),this.type="direct-line-measurement",this.startPoint=null,this.endPoint=null,this.unit=null}get requiredPropertiesForEditing(){return[this.startPoint,this.endPoint]}clear(){this.startPoint=null,this.endPoint=null}};e.__decorate([o.property({type:["direct-line-measurement"]})],c.prototype,"type",void 0),e.__decorate([o.property({type:a})],c.prototype,"startPoint",void 0),e.__decorate([o.property({type:a})],c.prototype,"endPoint",void 0),e.__decorate([o.property({type:r.measurementLengthUnits,value:null})],c.prototype,"unit",void 0),e.__decorate([o.property({readOnly:!0})],c.prototype,"requiredPropertiesForEditing",null),c=e.__decorate([p.subclass("esri.analysis.DirectLineMeasurementAnalysis")],c);return c}));

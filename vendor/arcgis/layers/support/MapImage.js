@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","../../geometry/Extent"],(function(t,e,o,r,p,s,c,i){"use strict";let a=class extends e.JSONSupport{constructor(){super(...arguments),this.extent=null,this.height=null,this.href=null,this.opacity=1,this.rotation=0,this.scale=null,this.visible=!0,this.width=null}};t.__decorate([o.property({type:i})],a.prototype,"extent",void 0),t.__decorate([o.property()],a.prototype,"height",void 0),t.__decorate([o.property()],a.prototype,"href",void 0),t.__decorate([o.property()],a.prototype,"opacity",void 0),t.__decorate([o.property()],a.prototype,"rotation",void 0),t.__decorate([o.property()],a.prototype,"scale",void 0),t.__decorate([o.property()],a.prototype,"visible",void 0),t.__decorate([o.property()],a.prototype,"width",void 0),a=t.__decorate([c.subclass("esri.layers.support.MapImage")],a);return a}));

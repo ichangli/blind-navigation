@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../../../../chunks/tslib.es6","../../GraphShaderModule","../../graph/glsl","./constants","./utils"],(function(t,e,o,i,n,a){"use strict";class l extends o.UniformGroup{getVVRotationMat4(t){return i.ifElse(a.isNan(t),i.Mat4.identity(),(()=>{const e=this._getNormalizedAngle(t).multiply(n.cDegToRad),o=i.sin(e),a=i.cos(e);return new i.Mat4(a,o,0,0,o.multiply(new i.Float(-1)),a,0,0,0,0,1,0,0,0,0,1)}))}getVVRotationMat3(t){return i.ifElse(a.isNan(t),i.Mat3.identity(),(()=>{const e=this._getNormalizedAngle(t).multiply(n.cDegToRad),o=i.sin(e),a=i.cos(e);return new i.Mat3(a,o,0,o.multiply(new i.Float(-1)),a,0,0,0,1)}))}_getNormalizedAngle(t){const e=i.equal(this.rotationType,new i.Float(n.RotationType.Arithmatic));return i.ifElse(e,new i.Float(90).subtract(t),t)}}e.__decorate([o.uniform(i.Float)],l.prototype,"rotationType",void 0),t.VisualVariableRotation=l,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","./libs/gl-matrix-2/math/mat3","./libs/gl-matrix-2/factories/mat3f64","./libs/gl-matrix-2/math/vec2","../chunks/vec32","./libs/gl-matrix-2/factories/vec3f64"],(function(t,e,r,a,s,n){"use strict";const i=n.create(),o=r.create(),c=r.create(),l=r.create();function m(t,r,n){return s.set(i,r[0],r[1],1),s.transformMat3(i,i,e.transpose(o,n)),0===i[2]?a.set(t,i[0],i[1]):a.set(t,i[0]/i[2],i[1]/i[2])}function f(t,r,a){return u(c,r[0],r[1],r[2],r[3],r[4],r[5],r[6],r[7]),u(l,a[0],a[1],a[2],a[3],a[4],a[5],a[6],a[7]),e.multiply(t,e.adjoint(c,c),l),0!==t[8]&&(t[0]/=t[8],t[1]/=t[8],t[2]/=t[8],t[3]/=t[8],t[4]/=t[8],t[5]/=t[8],t[6]/=t[8],t[7]/=t[8],t[8]/=t[8]),t}function u(t,r,a,n,c,l,m,f,u){e.set(t,r,n,l,a,c,m,1,1,1),s.set(i,f,u,1),e.adjoint(o,t);const[g,b,p]=s.transformMat3(i,i,e.transpose(o,o));return e.set(o,g,0,0,0,b,0,0,0,p),e.multiply(t,o,t)}t.getProjectiveTransform=f,t.transformProjective=m,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

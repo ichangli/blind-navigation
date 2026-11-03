@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../geometry","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","../../geometry/Point","../../geometry/Polygon","../../geometry/Polyline"],(function(e,o,r,t,s,p,n,l,c,i,a,y){"use strict";let u=class extends(r.ClonableMixin(t.JSONSupport)){constructor(e){super(e),this.frameCenter=null,this.frameOutline=null,this.lineOfSight=null,this.sensorLocation=null,this.sensorTrail=null}};e.__decorate([s.property({type:i})],u.prototype,"frameCenter",void 0),e.__decorate([s.property({type:a})],u.prototype,"frameOutline",void 0),e.__decorate([s.property({type:y})],u.prototype,"lineOfSight",void 0),e.__decorate([s.property({type:i})],u.prototype,"sensorLocation",void 0),e.__decorate([s.property({type:y})],u.prototype,"sensorTrail",void 0),u=e.__decorate([c.subclass("esri.layers.support.TelemetryData")],u);return u}));

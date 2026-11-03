@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../FeatureTechnique","../featureTechniqueUtils","../TechniqueType","../shaders/ComplexFillShader"],(function(e,t,i,r,s){"use strict";class n extends t.FeatureTechnique{constructor(){super(...arguments),this.type=r.TechniqueType.ComplexFill,this.shaders={geometry:new s.ComplexFillShader}}render(e,t){const{context:r,painter:s}=e,n=t.instance.getInput();s.setShader({shader:this.shaders.geometry,uniforms:{...i.resolveDynamicUniforms(e,t.target,n.uniforms),...i.getFeatureUniforms(e,t.target),mosaicInfo:s.textureManager.getMosaicInfo(r,t.textureKey),localTileOffset:i.getLocalTileOffset(t.target)},defines:{...i.getSelectionDefines(e)},optionalAttributes:n.optionalAttributes,useComputeBuffer:i.isHittest(e)}),s.setPipelineState(i.getFeaturePipelineState(e)),s.submitDraw(e,t)}}e.ComplexFillTechnique=n,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

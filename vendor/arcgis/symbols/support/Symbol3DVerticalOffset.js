@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./materialUtils"],(function(e,r,t,o,s,n,c,p){"use strict";var l;let i=l=class extends r.JSONSupport{constructor(e){super(e),this.screenLength=0,this.minWorldLength=0,this.maxWorldLength=null}clone(){return new l({screenLength:this.screenLength,minWorldLength:this.minWorldLength,maxWorldLength:this.maxWorldLength})}};e.__decorate([t.property(p.screenSizeProperty)],i.prototype,"screenLength",void 0),e.__decorate([t.property({type:Number,nonNullable:!0,json:{write:!0,default:0}})],i.prototype,"minWorldLength",void 0),e.__decorate([t.property({type:Number,json:{write:!0}})],i.prototype,"maxWorldLength",void 0),i=l=e.__decorate([c.subclass("esri.symbols.support.Symbol3DVerticalOffset")],i);return i}));

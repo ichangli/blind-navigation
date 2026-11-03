@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports"],(function(e){"use strict";const t="esri-feature-form",r=`${t}__group`,i=`${t}__input`,o=`${t}__related-records`,a={base:t,form:`${t}__form`,formHeader:`${t}__form-header`,label:`${t}__label`,labelTextContent:`${t}__label-text-content`,fieldInput:`${i}`,inputRadio:`${i}--radio`,inputRadioGroup:`${i}--radio-group`,inputRadioLabel:`${i}--radio-label`,inputDisabled:`${i}--disabled`,inputSwitch:`${i}--switch`,centeredButton:`${t}__centered-button`,description:`${t}__description-text`,listObserver:`${t}__list-observer`,relatedRecordsHeader:`${o}_header`,relatedRecordsLabel:`${o}_label`,relatedRecordsList:`${o}_list`,dateInputContainer:`${`${t}__date`}-input-container`,textElement:`${t}__text-element`,group:r,groupSequential:`${r}--sequential`,groupActive:`${r}--active`};e.css=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

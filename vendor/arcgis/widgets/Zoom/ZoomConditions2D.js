@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,t,o,r,s,c,n){"use strict";let a=class extends t{get canZoomIn(){const e=this.view?.ready;if(!e)return!1;const t=this.view?.constraints?.effectiveMaxScale;return 0===t||this._scale>t}get canZoomOut(){const{view:e}=this,t=e?.ready;if(!t)return!1;const o=e.constraints?.effectiveMinScale;return 0===o||this._scale<o}get _scale(){const e=this.view?.animation?.target;return(e&&"then"in e?void 0:e?.scale)??this.view?.scale??0}};e.__decorate([o.property({readOnly:!0})],a.prototype,"canZoomIn",null),e.__decorate([o.property({readOnly:!0})],a.prototype,"canZoomOut",null),e.__decorate([o.property()],a.prototype,"view",void 0),e.__decorate([o.property()],a.prototype,"_scale",null),a=e.__decorate([n.subclass("esri.widgets.Zoom.ZoomConditions2D")],a);return a}));

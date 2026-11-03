@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../chunks/tslib.es6","../../Color","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,p,a,c,l,n){"use strict";e.OthersCategory=class extends(t.ClonableMixin(s.JSONSupport)){constructor(){super(...arguments),this.color=new o([0,0,0,0]),this.label=null,this.threshold=0}},r.__decorate([p.property({type:o,json:{write:!0}})],e.OthersCategory.prototype,"color",void 0),r.__decorate([p.property({type:String,json:{write:!0}})],e.OthersCategory.prototype,"label",void 0),r.__decorate([p.property({type:Number,range:{min:0,max:1},json:{write:!0}})],e.OthersCategory.prototype,"threshold",void 0),e.OthersCategory=r.__decorate([n.subclass("esri.renderers.support.OthersCategory")],e.OthersCategory),Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

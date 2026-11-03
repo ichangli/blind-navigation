@@ -1,0 +1,109 @@
+{
+  "features": {
+    "AccessibleRoads": {
+      "count": 9397,
+      "null_geometry": 0,
+      "wkid": 4547,
+      "confidence": {
+        "medium": 9397
+      }
+    },
+    "BusStops": {
+      "count": 1289,
+      "null_geometry": 0,
+      "wkid": 4547,
+      "confidence": {
+        "medium": 1289
+      }
+    },
+    "PublicToilets": {
+      "count": 65,
+      "null_geometry": 0,
+      "wkid": 4547,
+      "confidence": {
+        "medium": 65
+      }
+    },
+    "CommunityParks": {
+      "count": 120,
+      "null_geometry": 0,
+      "wkid": 4547,
+      "confidence": {
+        "medium": 120
+      }
+    },
+    "RehabServices": {
+      "count": 83,
+      "null_geometry": 0,
+      "wkid": 4547,
+      "confidence": {
+        "medium": 83
+      }
+    },
+    "Hospitals": {
+      "count": 5,
+      "null_geometry": 0,
+      "wkid": 4547,
+      "confidence": {
+        "medium": 5
+      }
+    },
+    "MetroStations": {
+      "count": 52,
+      "null_geometry": 0,
+      "wkid": 4547,
+      "confidence": {
+        "high": 51,
+        "medium": 1
+      }
+    },
+    "MetroEntrances": {
+      "count": 354,
+      "null_geometry": 0,
+      "wkid": 4547,
+      "confidence": {
+        "low": 63,
+        "medium": 291
+      }
+    }
+  },
+  "station_keys": {
+    "total": 52,
+    "unique": 52,
+    "blank": 0
+  },
+  "metro_entrance_match": {
+    "matched": 343,
+    "total": 354,
+    "percent": 96.89
+  },
+  "tables": {
+    "MetroAccessibility": {
+      "count": 383,
+      "matched_to_station": 75
+    },
+    "MetroTransfers": {
+      "count": 65,
+      "matched_to_station": 24
+    },
+    "MetroExitConnections": {
+      "count": 976,
+      "matched_to_station": 59
+    },
+    "UnmatchedGeocoding": {
+      "count": 5,
+      "matched_to_station": null
+    }
+  },
+  "bus_to_road_distance_m": {
+    "within_100m": 1287,
+    "total": 1289,
+    "median": 3.97,
+    "p95": 34.61
+  },
+  "relationships": [
+    "MetroStation_Accessibility",
+    "MetroStation_Entrances",
+    "MetroStation_Transfers"
+  ]
+}

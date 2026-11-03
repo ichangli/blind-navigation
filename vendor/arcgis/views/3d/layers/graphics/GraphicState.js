@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../chunks/tslib.es6","../../../../core/Evented","../../../../core/accessorSupport/decorators/property","../../../../core/has","../../../../core/Logger","../../../../core/RandomLCG","../../../../core/accessorSupport/decorators/subclass"],(function(e,r,t,o,c,a,p,s){"use strict";e.GraphicState=class extends t.EventedAccessor{constructor(e){super(e),this.tracking=!1,this.displaying=!1,this.isDraped=!1}},r.__decorate([o.property({constructOnly:!0})],e.GraphicState.prototype,"graphic",void 0),r.__decorate([o.property()],e.GraphicState.prototype,"tracking",void 0),r.__decorate([o.property()],e.GraphicState.prototype,"displaying",void 0),r.__decorate([o.property()],e.GraphicState.prototype,"isDraped",void 0),e.GraphicState=r.__decorate([s.subclass("esri.views.3d.layers.graphics.GraphicState")],e.GraphicState),Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

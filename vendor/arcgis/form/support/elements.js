@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../core/accessorSupport/ensureType","../elements/AttachmentElement","../elements/Element","../elements/FieldElement","../elements/RelationshipElement","../elements/TextElement"],(function(e,t,p,n,r,o,u){"use strict";function i(e){return{typesWithGroup:{base:n,key:"type",typeMap:{attachment:p,field:r,group:e,relationship:o,text:u}},typesWithoutGroup:{base:n,key:"type",typeMap:{attachment:p,field:r,relationship:o,text:u}}}}function s(e,t,p=!0){if(!e)return null;const n=p?t.typesWithGroup.typeMap:t.typesWithoutGroup.typeMap;return e.filter((e=>n[e.type])).map((e=>n[e.type].fromJSON(e)))}function l(e,t,p=!0){if(!e)return null;const n=p?t.typesWithGroup.typeMap:t.typesWithoutGroup.typeMap;return e.filter((e=>n[e.type])).map((e=>e.toJSON()))}function y(e,p,n=!0){return e?e.map((e=>t.ensureOneOfType(n?p.typesWithGroup:p.typesWithoutGroup,e))):null}e.buildTypeMaps=i,e.ensureType=y,e.fromJSON=s,e.toJSON=l,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

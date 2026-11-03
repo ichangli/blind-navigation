@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define((function(){"use strict";const e=(e,r)=>{const n=r.width*r.height,a=r.pixelType;return Math.floor(e.byteLength/(n*t(a)))},t=e=>{let t=1;switch(e){case Uint8Array:case Int8Array:t=1;break;case Uint16Array:case Int16Array:t=2;break;case Uint32Array:case Int32Array:case Float32Array:t=4;break;case Float64Array:t=8}return t},r=(e,t)=>{if(8*e.byteLength<t)return null;const r=new Uint8Array(e,0,Math.ceil(t/8)),n=new Uint8Array(t);let a=0,s=0,i=0,c=0;for(i=0;i<r.length-1;i++)for(s=r[i],c=7;c>=0;c--)n[a++]=s>>c&1;for(c=7;a<t-1;)s=r[r.length-1],n[a++]=s>>c&1,c--;return n};class n{static decode(n,a){const s=a.pixelType,i=[],c=a.width*a.height,l=e(n,a),{bandIds:h,format:y}=a,o=h?.length||e(n,a),f=n.byteLength-n.byteLength%(c*t(s)),u=new s(n,0,c*l);let b,g,A,p,d=null;if("bip"===y)for(b=0;b<o;b++){for(A=new s(c),p=h?h[b]:b,g=0;g<c;g++)A[g]=u[g*l+p];i.push(A)}else if("bsq"===y)for(b=0;b<o;b++)p=h?h[b]:b,i.push(u.subarray(p*c,(p+1)*c));return f<n.byteLength-1&&(d=r(n.slice(f),c)),{pixels:i,mask:d}}}return n}));

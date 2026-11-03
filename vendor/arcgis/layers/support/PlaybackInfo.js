@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,t,o,p,c,s,a){"use strict";let i=class extends(r.ClonableMixin(t.JSONSupport)){constructor(e){super(e),this.framerate=null,this.containerFormat=null,this.gop=null,this.aspectRatio=null,this.klv=null}};e.__decorate([o.property({type:String})],i.prototype,"framerate",void 0),e.__decorate([o.property({type:String})],i.prototype,"containerFormat",void 0),e.__decorate([o.property({type:Number})],i.prototype,"gop",void 0),e.__decorate([o.property({type:String})],i.prototype,"aspectRatio",void 0),e.__decorate([o.property({type:Object})],i.prototype,"klv",void 0),i=e.__decorate([a.subclass("esri.layers.support.PlaybackInfo")],i);return i}));

@@ -1,0 +1,16 @@
+{
+  "bus_stops": 1289,
+  "public_toilets": 65,
+  "government_toilets_active": 0,
+  "government_toilets_rejected_obsolete": 10000,
+  "community_parks": 120,
+  "rehab_services": 83,
+  "hospitals": 5,
+  "metro_stations": 52,
+  "metro_entrances": 354,
+  "metro_accessibility_rows": 383,
+  "metro_transfer_rows": 65,
+  "metro_exit_connection_rows": 976,
+  "unmatched_geocoding": 5,
+  "amap_calls": 0
+}

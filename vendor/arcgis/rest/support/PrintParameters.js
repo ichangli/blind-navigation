@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,t,r,o,p,s,a){"use strict";let c=class extends t{constructor(e){super(e),this.extent=null,this.extraParameters=null,this.outSpatialReference=null,this.template=null,this.updateDelay=1e3,this.view=null}};e.__decorate([r.property()],c.prototype,"extent",void 0),e.__decorate([r.property()],c.prototype,"extraParameters",void 0),e.__decorate([r.property()],c.prototype,"outSpatialReference",void 0),e.__decorate([r.property()],c.prototype,"template",void 0),e.__decorate([r.property()],c.prototype,"updateDelay",void 0),e.__decorate([r.property()],c.prototype,"view",void 0),c=e.__decorate([a.subclass("esri.rest.support.PrintParameters")],c);return c}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../geometry/support/contains"],(function(t,e){"use strict";const o=t=>parseFloat(t)/100;function n(t,e,n){const r="string"==typeof t.left?o(t.left)*e:t.left,i="string"==typeof t.right?o(t.right)*e:t.right,a="string"==typeof t.top?o(t.top)*n:t.top,s="string"==typeof t.bottom?o(t.bottom)*n:t.bottom,y=a;return{xmin:r,xmax:Math.max(e-i,r),ymin:y,ymax:Math.max(n-s,a)}}function r(t,o,r,i){switch(o.type){case"rect":{const{width:e,height:i}=t,{xmin:a,xmax:s,ymin:y,ymax:p}=n(o,e,i),{x:g,y:m}=r;return g>a&&g<s&&m>y&&m<p}case"path":return 0===o.path.length||!Array.isArray(o.path[0][0])||e.ringsContainsCoords(o.path,[r.x,r.y]);case"geometry":return null==o.geometry||("polygon"===o.geometry.type?e.polygonContainsPoint(o.geometry,i):e.extentContainsPoint(o.geometry,i))}}t.clipContainsPoint=r,t.createScreenExtent=n,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

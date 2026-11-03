@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","./object"],(function(t,n){"use strict";class o{constructor(t,o={ignoreUnknown:!1,useNumericKeys:!1}){this._jsonToAPI=t,this._options=o,this.apiValues=[],this.jsonValues=[],this._apiToJSON=i(t),this.apiValues=s(this._apiToJSON),this.jsonValues=s(this._jsonToAPI),this.read=t=>this.fromJSON(t),this.write=(t,o,i)=>{const s=this.toJSON(t);void 0!==s&&n.setDeepValue(i,s,o)},this.write.isJSONMapWriter=!0}toJSON(t){if(null==t)return null;if(this._apiToJSON.hasOwnProperty(t)){const n=this._apiToJSON[t];return this._options.useNumericKeys?+n:n}return this._options.ignoreUnknown?void 0:t}fromJSON(t){return null!=t&&this._jsonToAPI.hasOwnProperty(t)?this._jsonToAPI[t]:this._options.ignoreUnknown?void 0:t}}function i(t){const n={};for(const o in t)n[t[o]]=o;return n}function s(t){const n=[];for(const o in t)n.push(o);return n.sort(),n}function e(){return function(t,n){return new o(t,{ignoreUnknown:!0,...n})}}t.JSONMap=o,t.strict=e,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

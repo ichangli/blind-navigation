@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>无障碍出行 - 移动端登录</title>
+<style>
+:root {
+  --bg: #f5f6fa; --card: #ffffff; --primary: #0066ff;
+  --primary-bg: #e8f0fe; --text: #222222; --text2: #555555;
+  --text3: #888888; --border: #e8ecf1; --radius: 12px; --radius-sm: 8px;
+}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body {
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #e0e3ea; display: flex; justify-content: center; align-items: center;
+  min-height: 100vh; padding: 20px;
+}
+
+.login-phone {
+  width: 375px; background: #fff; border-radius: 28px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.12); overflow: hidden;
+}
+
+.login-header {
+  background: linear-gradient(180deg, #e8f0fe 0%, #fff 100%);
+  padding: 40px 28px 32px; text-align: center;
+}
+.login-icon {
+  width: 72px; height: 72px; margin: 0 auto 16px;
+  background: linear-gradient(135deg, var(--primary), #004ecc);
+  border-radius: 20px; display: flex; align-items: center;
+  justify-content: center; font-size: 36px; color: #fff;
+  box-shadow: 0 8px 24px rgba(0,102,255,0.25);
+}
+.login-title { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.login-sub { font-size: 13px; color: var(--text3); }
+
+.login-form { padding: 8px 28px 28px; }
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; font-size: 12px; color: var(--text2); margin-bottom: 6px; font-weight: 600; }
+.form-input {
+  width: 100%; padding: 13px 14px; border: 1px solid var(--border);
+  border-radius: var(--radius-sm); background: var(--bg);
+  font-size: 15px; color: var(--text); outline: none; transition: 0.15s;
+  font-family: inherit;
+}
+.form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,102,255,0.08); }
+.form-input::placeholder { color: #b0b5c0; }
+
+.login-btn {
+  width: 100%; padding: 14px; border: none; border-radius: var(--radius);
+  background: var(--primary); color: #fff; font-size: 16px; font-weight: 700;
+  cursor: pointer; transition: 0.15s; font-family: inherit;
+  box-shadow: 0 4px 16px rgba(0,102,255,0.2);
+}
+.login-btn:active { transform: scale(0.98); opacity: 0.9; }
+.mode-link {
+  margin-top: 14px; text-align: center; font-size: 13px; color: var(--text3);
+}
+.mode-link button {
+  border: 0; background: transparent; color: var(--primary); cursor: pointer;
+  font: inherit; font-weight: 700; padding: 0 2px;
+}
+
+.toast {
+  position: fixed; bottom: 60px; left: 50%; transform: translateX(-50%);
+  background: rgba(0,0,0,0.8); color: #fff; padding: 10px 24px;
+  border-radius: 20px; font-size: 14px; z-index: 999;
+  animation: tIn 0.25s ease, tOut 0.25s 2s ease forwards;
+  white-space: nowrap;
+}
+@keyframes tIn { from { opacity:0; transform:translateX(-50%) translateY(12px); } to { opacity:1; transform:translateX(-50%) translateY(0); } }
+@keyframes tOut { from { opacity:1; } to { opacity:0; } }
+</style>
+</head>
+<body>
+
+<div class="login-phone">
+  <div class="login-header">
+    <div class="login-icon">♿</div>
+    <div class="login-title">无障碍出行助手</div>
+    <div class="login-sub">语音导航 · AI感知 · 智慧出行</div>
+  </div>
+  <div class="login-form">
+    <div class="form-group">
+      <label class="form-label">用户名 / 手机号</label>
+      <input class="form-input" type="text" id="username" placeholder="请输入用户名或手机号" autocomplete="username" inputmode="text">
+    </div>
+    <div class="form-group">
+      <label class="form-label">密码</label>
+      <input class="form-input" type="password" id="password" placeholder="请输入密码" autocomplete="current-password">
+    </div>
+    <button class="login-btn" onclick="doLogin()">登 录</button>
+    <div class="mode-link">
+      <span id="modeHint">没有账号？</span><button onclick="toggleMode()" id="modeToggle">注册</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var API_BASE = (window.location.port === '8000') ? window.location.origin : 'http://127.0.0.1:8000';
+var authMode = 'login';
+
+function toggleMode() {
+  authMode = authMode === 'login' ? 'register' : 'login';
+  document.querySelector('.login-btn').textContent = authMode === 'login' ? '登 录' : '注 册';
+  document.getElementById('modeHint').textContent = authMode === 'login' ? '没有账号？' : '已有账号？';
+  document.getElementById('modeToggle').textContent = authMode === 'login' ? '注册' : '登录';
+}
+
+function doLogin() {
+  var user = document.getElementById('username').value.trim();
+  var pass = document.getElementById('password').value.trim();
+
+  if (!user) { toast('请输入用户名'); return; }
+  if (!pass) { toast('请输入密码'); return; }
+  if (!/^[A-Za-z0-9]{6,}$/.test(pass)) { toast('密码至少6位，仅支持英文或数字'); return; }
+
+  fetch(API_BASE + '/api/auth/' + authMode, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: user, password: pass })
+  })
+    .then(function(r) {
+      return r.json().then(function(data) {
+        if (!r.ok) throw new Error(data.detail || '请求失败');
+        return data;
+      });
+    })
+    .then(function(data) {
+      localStorage.setItem('a11y_mobile_token', data.token);
+      localStorage.setItem('a11y_mobile_role', data.role);
+      localStorage.setItem('a11y_mobile_user', data.username);
+      localStorage.setItem('a11y_mobile_logged_in', 'true');
+
+      toast(authMode === 'login' ? '欢迎回来，正在进入...' : '注册成功，正在进入...');
+      setTimeout(function() {
+        window.location.href = '移动端.html?user=' + encodeURIComponent(data.username);
+      }, 600);
+    })
+    .catch(function(err) {
+      toast(err.message || '后端服务不可用');
+    });
+}
+
+function toast(msg) {
+  var old = document.querySelector('.toast');
+  if (old) old.remove();
+  var t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(function() { t.remove(); }, 2500);
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') doLogin();
+});
+
+document.getElementById('username').focus();
+</script>
+</body>
+</html>

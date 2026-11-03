@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "fake-indexeddb": "^6.2.7",
+    "jsdom": "^26.1.0"
+  },
+  "name": "blind-navigation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Complete source and static demonstration of Blind Navigation",
+  "scripts": {
+    "build": "python tools/build_pages.py",
+    "test": "node --test tests/demo.test.cjs"
+  }
+}

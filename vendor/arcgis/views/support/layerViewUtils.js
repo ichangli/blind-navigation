@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports"],(function(e){"use strict";function n(e){return e&&"function"==typeof e.highlight}function t(e){return e&&"function"==typeof e.maskOccludee}function c(e,n,t){return null==e||e>=t&&(0===n||e<=n)}function i(e,n){if(n&&e){const{minScale:t,maxScale:i}=e;if(a(t,i))return c(n,t,i)}return!0}function a(e,n){return null!=e&&e>0||null!=n&&n>0}function u(e){return!e?.minScale||!e.maxScale||e.minScale>=e.maxScale}function l(e){const n=e.effectiveScaleRange;return{minScale:n?.minScale??0,maxScale:n?.maxScale??0}}function r(e){return null!=e&&"object"==typeof e&&"createQuery"in e&&"queryFeatures"in e&&"layer"in e&&"view"in e}e.extractSafeScaleBounds=l,e.highlightsSupported=n,e.isInEffectiveScaleRange=i,e.isScaleRangeActive=a,e.isSelectableLayerView2D=r,e.occludeesSupported=t,e.scaleBoundsPredicate=c,e.validateScaleRange=u,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

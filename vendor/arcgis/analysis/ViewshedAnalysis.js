@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../chunks/tslib.es6","./Analysis","./Viewshed","../core/Collection","../core/collectionUtils","../core/accessorSupport/decorators/property","../core/has","../core/Logger","../core/RandomLCG","../core/accessorSupport/decorators/subclass"],(function(e,s,r,t,o,i,c,d,p,n){"use strict";const l=t.ofType(r);let a=class extends s{constructor(e){super(e),this.type="viewshed"}get viewsheds(){return this._get("viewsheds")||new l}set viewsheds(e){this._set("viewsheds",o.referenceSetter(e,this.viewsheds,l))}get requiredPropertiesForEditing(){return this.viewsheds.items.map((({observer:e})=>e))}clear(){this.viewsheds.removeAll()}};e.__decorate([i.property({type:["viewshed"]})],a.prototype,"type",void 0),e.__decorate([i.property({cast:o.castForReferenceSetter,type:l,nonNullable:!0})],a.prototype,"viewsheds",null),e.__decorate([i.property({readOnly:!0})],a.prototype,"requiredPropertiesForEditing",null),a=e.__decorate([n.subclass("esri.analysis.ViewshedAnalysis")],a);return a}));

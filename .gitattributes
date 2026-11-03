@@ -1,0 +1,14 @@
+* text=auto eol=lf
+*.gdbtable binary
+*.gdbtablx binary
+*.gdbindexes binary
+*.spx binary
+*.atx binary
+*.wasm binary
+*.png binary
+*.jpg binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.pbf binary
+

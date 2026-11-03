@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../core/handleUtils","./hints/IntersectionSnappingHint","./hints/LineSnappingHint","./hints/ParallelSnappingHint","./hints/PointSnappingHint","./hints/RightAngleSnappingHint"],(function(n,i,t,s,e,a,o){"use strict";class p{draw(n,p){const r=l(n),u=this.sortUniqueHints(r),h=[];for(const i of u)i instanceof t.IntersectionSnappingHint&&h.push(this.visualizeIntersectionPoint(i,p)),i instanceof s.LineSnappingHint&&h.push(this.visualizeLine(i,p)),i instanceof e.ParallelSnappingHint&&h.push(this.visualizeParallelSign(i,p)),i instanceof o.RightAngleSnappingHint&&h.push(this.visualizeRightAngleQuad(i,p)),i instanceof a.PointSnappingHint&&h.push(this.visualizePoint(i,p));return i.handlesGroup(h)}sortUniqueHints(n){return n}}function l(n){const i=[];for(const t of n){let n=!0;for(const s of i)if(t.equals(s)){n=!1;break}n&&i.push(t)}return i}n.SnappingVisualizer=p,Object.defineProperty(n,Symbol.toStringTag,{value:"Module"})}));

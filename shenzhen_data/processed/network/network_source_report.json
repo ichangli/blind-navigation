@@ -1,0 +1,32 @@
+{
+  "input_features": 9397,
+  "split_segments_raw": 52230,
+  "short_segments_removed": 6,
+  "duplicate_segments_removed": 27,
+  "final_segments": 52197,
+  "components": 166,
+  "largest_component_segments": 50160,
+  "largest_component_percent": 96.1,
+  "isolated_segments": 31,
+  "dangle_segments": 2324,
+  "highway_types": {
+    "footway": 18226,
+    "service": 12088,
+    "residential": 5226,
+    "tertiary": 4446,
+    "secondary": 3543,
+    "path": 2194,
+    "unclassified": 1902,
+    "pedestrian": 1431,
+    "steps": 1109,
+    "cycleway": 1098,
+    "secondary_link": 566,
+    "tertiary_link": 248,
+    "living_street": 94,
+    "elevator": 12,
+    "track": 12,
+    "primary_link": 1,
+    "corridor": 1
+  },
+  "wkid": 4547
+}

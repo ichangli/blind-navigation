@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./GraphQuery"],(function(e,r,t,o,a,p,s){"use strict";let n=class extends s{constructor(e){super(e),this.bindParameters=null,this.bindGeometryQuantizationParameters=null,this.outputQuantizationParameters=null,this.outputSpatialReference=null,this.provenanceBehavior=null}};e.__decorate([r.property()],n.prototype,"bindParameters",void 0),e.__decorate([r.property()],n.prototype,"bindGeometryQuantizationParameters",void 0),e.__decorate([r.property()],n.prototype,"outputQuantizationParameters",void 0),e.__decorate([r.property()],n.prototype,"outputSpatialReference",void 0),e.__decorate([r.property()],n.prototype,"provenanceBehavior",void 0),n=e.__decorate([p.subclass("esri.rest.knowledgeGraph.GraphQueryStreaming")],n);return n}));

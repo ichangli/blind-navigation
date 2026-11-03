@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports"],(function(e){"use strict";function t(){const e=new Float32Array(16);return e[0]=1,e[5]=1,e[10]=1,e[15]=1,e}function r(e){const t=new Float32Array(16);return t[0]=e[0],t[1]=e[1],t[2]=e[2],t[3]=e[3],t[4]=e[4],t[5]=e[5],t[6]=e[6],t[7]=e[7],t[8]=e[8],t[9]=e[9],t[10]=e[10],t[11]=e[11],t[12]=e[12],t[13]=e[13],t[14]=e[14],t[15]=e[15],t}function n(e,t,r,n,o,a,c,u,l,i,f,s,y,w,T,b){const d=new Float32Array(16);return d[0]=e,d[1]=t,d[2]=r,d[3]=n,d[4]=o,d[5]=a,d[6]=c,d[7]=u,d[8]=l,d[9]=i,d[10]=f,d[11]=s,d[12]=y,d[13]=w,d[14]=T,d[15]=b,d}function o(e,t){return new Float32Array(e,t,16)}const a=t(),c=Object.freeze(Object.defineProperty({__proto__:null,IDENTITY:a,clone:r,create:t,createView:o,fromValues:n},Symbol.toStringTag,{value:"Module"}));e.IDENTITY=a,e.clone=r,e.create=t,e.createView=o,e.fromValues=n,e.mat4f32=c,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

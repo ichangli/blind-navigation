@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../Ground","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/RandomLCG","../../core/has","../../core/accessorSupport/decorators/subclass","../../webdoc/support/opacityUtils"],(function(r,e,t,o,c,p,s,a,n){"use strict";var i;let u=i=class extends t.JSONSupport{constructor(){super(...arguments),this.opacity=null}clone(){return new i({opacity:this.opacity})}cloneAndApplyTo(r){return null==this.opacity||((r=r?.clone()??new e).opacity=this.opacity),r}static fromGround(r){return new i({opacity:r.opacity})}};r.__decorate([o.property({type:Number,json:{type:c.Integer,read:{reader:n.transparencyToOpacity,source:"transparency"},write:{writer:(r,e)=>{e.transparency=n.opacityToTransparency(r)},target:"transparency"}}})],u.prototype,"opacity",void 0),u=i=r.__decorate([a.subclass("esri.webscene.support.SlideGround")],u);return u}));

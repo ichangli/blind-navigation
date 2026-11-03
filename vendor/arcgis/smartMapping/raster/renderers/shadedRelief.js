@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../core/Error","../../../renderers/support/rasterRendererHelper","../support/utils"],(function(e,r,t,n){"use strict";async function l(e){const t=(e=await n.processRasterRendererParameters(e)).layer.supportsMultidirectionalHillshade();if("multi-directional"===e.hillshadeType&&!t)throw new r("raster-shaded-relief-renderer:not-supported","multi-directional hillshade type is only supported on 10.8.1+ servers");return t&&null!=e.hillshadeType||(e.hillshadeType="traditional"),e}async function a(e){e=await l(e);const n=t.createShadedReliefRenderer(e.layer.rasterInfo,e.hillshadeType);if(null==n)throw new r("raster-shaded-relief-renderer:not-supported","Only elevation raster data is supported");return s(n,e),{renderer:n}}function s(e,r){const{scalingType:t,colorRamp:n}=r;null!=t&&(e.scalingType=t),void 0!==n&&(e.colorRamp=n)}e.createRenderer=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

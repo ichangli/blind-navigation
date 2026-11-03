@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../chunks/tslib.es6","../Viewpoint","../core/Accessor","../core/Clonable","../core/accessorSupport/decorators/property","../core/has","../core/Logger","../core/RandomLCG","../core/accessorSupport/decorators/subclass","../geometry/SpatialReference","../time/timeZoneUtils","../webdoc/RangeInfo","./background/ColorBackground"],(function(e,o,r,t,p,c,n,s,i,a,l,d,u){"use strict";let y=class extends(t.ClonableMixin(r)){constructor(e){super(e),this.background=null,this.rangeInfo=null,this.spatialReference=null,this.timeZone=l.system,this.viewpoint=null}};e.__decorate([p.property({type:u})],y.prototype,"background",void 0),e.__decorate([p.property({type:d})],y.prototype,"rangeInfo",void 0),e.__decorate([p.property({type:a})],y.prototype,"spatialReference",void 0),e.__decorate([p.property({nonNullable:!0})],y.prototype,"timeZone",void 0),e.__decorate([p.property({type:o})],y.prototype,"viewpoint",void 0),y=e.__decorate([i.subclass("esri.webmap.InitialViewProperties")],y);return y}));

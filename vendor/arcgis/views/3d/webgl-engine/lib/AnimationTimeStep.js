@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../core/has","../../../../core/mathUtils","../../../../core/time"],(function(i,e,s,t){"use strict";class l{constructor(){this._step=_,this._dilation=1,this._firstIdleTime=t.Milliseconds(0)}frame(i,l){l?0===this._firstIdleTime&&(this._firstIdleTime=t.Milliseconds(performance.now())):this._firstIdleTime=t.Milliseconds(0);if(!e("disable-feature:high-quality-idle")){const i=l?performance.now()-this._firstIdleTime:0;if(i>=n+r)return this._step=t.Milliseconds(1/0),void(this._dilation=1);this._dilation=i>=n?d:1}else this._dilation=1;const h=s.clamp(i/o,_,m);this._step===1/0?this._step=t.Milliseconds(h):this._step=t.Milliseconds(this._step*c+h*(1-c))}get value(){return this._step}get timeDilation(){return this._dilation}clear(){this._step=this._firstIdleTime=t.Milliseconds(0)}}const o=.5,n=t.Milliseconds(12e4),r=t.Milliseconds(1e4),d=10,c=.9,h=1,a=30,_=t.Milliseconds(1e3/h),m=t.Milliseconds(1e3/a);i.AnimationTimeStep=l,Object.defineProperty(i,Symbol.toStringTag,{value:"Module"})}));

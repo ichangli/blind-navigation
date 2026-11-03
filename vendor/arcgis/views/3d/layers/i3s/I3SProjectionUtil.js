@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../core/libs/gl-matrix-2/factories/mat4f64","../../../../core/libs/gl-matrix-2/factories/vec3f64","../../../../geometry/ellipsoidUtils","../../../../geometry/projection/computeTranslationToOriginAndRotation"],(function(t,o,e,n,a){"use strict";function i(t,n,i,r,c){const l="east-north-up"===i?e.clone(t):s(t,n,r),u=o.create();return a.computeTranslationToOriginAndRotation(r,l,u,c),u}const r=1,c=5-r;function s(t,o,a){const i=e.create(),s=t[3],l=2**(Math.ceil(Math.log(s)*Math.LOG2E/c)*c+r);if(a.isGeographic){const o=l/n.getReferenceEllipsoid(a).radius*180/Math.PI,e=Math.round(t[1]/o),r=Math.max(-90,Math.min(90,e*o)),c=o/Math.cos((Math.abs(r)-o/2)/180*Math.PI),s=Math.round(t[0]/c)*c;i[0]=s,i[1]=r}else{const o=Math.round(t[0]/l),e=Math.round(t[1]/l);i[0]=o*l,i[1]=e*l}const u=t[2]+o,h=Math.round(u/l);return i[2]=h*l,i}t.computeGlobalTransformation=i,t.getLocalOrigin=s,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

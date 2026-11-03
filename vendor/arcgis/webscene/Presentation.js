@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../chunks/tslib.es6","../core/Collection","../core/collectionUtils","../core/JSONSupport","../core/accessorSupport/decorators/property","../core/accessorSupport/decorators/cast","../core/RandomLCG","../core/has","../core/accessorSupport/decorators/subclass","./Slide"],(function(e,s,t,r,o,c,i,l,n,d){"use strict";const p=s.ofType(d);let a=class extends r.JSONSupport{constructor(e){super(e),this.slides=new p}destroy(){this.slides.forEach((e=>e.destroy())),this.slides.removeAll()}set slides(e){e&&(e=e.filter((e=>!!e.viewpoint))),this._set("slides",t.referenceSetter(e,this._get("slides"),p))}clone(){return new(0,this.constructor)({slides:this.slides.clone()})}};e.__decorate([o.property({type:p,nonNullable:!0,json:{write:!0}}),c.cast(t.castForReferenceSetter)],a.prototype,"slides",null),a=e.__decorate([n.subclass("esri.webscene.Presentation")],a);return a}));

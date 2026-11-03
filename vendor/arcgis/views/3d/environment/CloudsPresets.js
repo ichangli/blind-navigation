@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","./CloudsTechniqueConfiguration"],(function(e,t){"use strict";class s{constructor(e,t,s,i,n,o,a,r,c=.5){this.coverage=e,this.density=t,this.absorption=s,this.cloudSize=i,this.detailSize=n,this.smoothness=o,this.cloudHeight=a,this.raymarchingSteps=r,this.median=c}}const i=new s([0,.6],[.03,.03],[0,0],[.9,.9],[.8,.8],[.7,.7],[.05,.05],t.RayMarchingSteps.SIXTEEN),n={sunny:i,cloudy:new s([.3,.65],[.2,.4],[0,0],[.85,.85],[.75,.75],[.3,.4],[1,1],t.RayMarchingSteps.TWOHUNDRED,.6),rainy:new s([.6,.8],[.5,.8],[.1,.5],[.9,.9],[.75,.75],[.5,.5],[1,1],t.RayMarchingSteps.TWOHUNDRED,.4),snowy:new s([.25,.75],[.3,.3],[0,0],[.95,.95],[.7,.7],[.69,.75],[.3,1],t.RayMarchingSteps.HUNDRED,.65),foggy:new s([.8,.8],[.5,.5],[0,0],[.95,.95],[.9,.9],[.55,.55],[.3,.3],t.RayMarchingSteps.SIXTEEN),default:i};e.CloudPresets=s,e.cloudPresets=n,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

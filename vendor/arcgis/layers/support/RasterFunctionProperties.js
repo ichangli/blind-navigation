@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/RandomLCG","../../core/has","../../core/accessorSupport/decorators/subclass","./RasterFunctionVariable"],(function(e,r,t,o,p,s,a,n){"use strict";const c={key:"type",base:null,typeMap:{RasterFunctionVariable:n}};let i=class extends r.JSONSupport{};e.__decorate([t.property({types:c,json:{types:c,name:"MatchVariable"}})],i.prototype,"matchVariable",void 0),e.__decorate([t.property({types:c,json:{types:c,name:"UnionDimension"}})],i.prototype,"unionDimension",void 0),e.__decorate([t.property({type:Number,json:{type:o.Integer,write:!0,name:"_object_id"}})],i.prototype,"id",void 0),e.__decorate([t.property({type:String,json:{write:!0}})],i.prototype,"type",void 0),i=e.__decorate([a.subclass("esri.layers.support.RasterFunctionProperties")],i);return i}));

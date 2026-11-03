@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./Content"],(function(t,e,r,o,s,p,i){"use strict";var c;let n=c=class extends i{constructor(t){super(t),this.description=null,this.displayType="auto",this.title=null,this.type="attachments"}clone(){return new c({description:this.description,displayType:this.displayType,title:this.title})}};t.__decorate([e.property({type:String,json:{write:!0}})],n.prototype,"description",void 0),t.__decorate([e.property({type:["auto","preview","list"],json:{write:!0}})],n.prototype,"displayType",void 0),t.__decorate([e.property({type:String,json:{write:!0}})],n.prototype,"title",void 0),t.__decorate([e.property({type:["attachments"],readOnly:!0,json:{read:!1,write:!0}})],n.prototype,"type",void 0),n=c=t.__decorate([p.subclass("esri.popup.content.AttachmentsContent")],n);return n}));

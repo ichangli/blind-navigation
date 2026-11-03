@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/reader","../../core/accessorSupport/decorators/subclass","../../geometry/Extent","../../geometry/Polygon"],(function(e,r,o,t,s,c,a,p,u,n){"use strict";let d=class extends r.JSONSupport{constructor(){super(...arguments),this.area=null,this.geometry=null}readGeometry(e,r){return null==e?null:e.rings?n.fromJSON(e):u.fromJSON(e)}};e.__decorate([o.property({type:Number,json:{write:!0}})],d.prototype,"area",void 0),e.__decorate([o.property({json:{name:"shape",write:!0}})],d.prototype,"geometry",void 0),e.__decorate([a.reader("geometry")],d.prototype,"readGeometry",null),d=e.__decorate([p.subclass("esri.rest.support.ImageBoundaryResult")],d);return d}));

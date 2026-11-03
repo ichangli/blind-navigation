@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","../../geometry/Point"],(function(o,t,e,r,s,p,i,c){"use strict";let a=class extends t.JSONSupport{constructor(){super(...arguments),this.attributes=null,this.location=null,this.locationId=null,this.rasterId=null,this.resolution=null,this.pixelValue=null}};o.__decorate([e.property({json:{write:!0}})],a.prototype,"attributes",void 0),o.__decorate([e.property({type:c,json:{write:!0}})],a.prototype,"location",void 0),o.__decorate([e.property({json:{write:!0}})],a.prototype,"locationId",void 0),o.__decorate([e.property({json:{write:!0}})],a.prototype,"rasterId",void 0),o.__decorate([e.property({json:{write:!0}})],a.prototype,"resolution",void 0),o.__decorate([e.property({json:{write:!0}})],a.prototype,"pixelValue",void 0),a=o.__decorate([i.subclass("esri.rest.support.ImageSample")],a);return a}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["require","exports","../../core/shaderTechnique/ReloadableShaderModule","../../core/shaderTechnique/ShaderTechnique","../../lib/DefaultVertexAttributeLocations","../../lib/Program","../../../../../chunks/Magnifier.glsl","../../../../webgl/enums","../../../../webgl/renderState"],(function(e,r,i,a,l,n,t,d,o){"use strict";class u extends a.ShaderTechnique{initializeProgram(e){return new n.Program(e.rctx,u.shader.get().build(),l.Default3D)}initializePipeline(){return o.makePipelineState({blending:o.simpleBlendingParams(d.BlendFactor.ONE,d.BlendFactor.ONE_MINUS_SRC_ALPHA),depthTest:null,depthWrite:null,colorWrite:o.defaultColorWriteParams})}}u.shader=new i.ReloadableShaderModule(t.Magnifier,(()=>new Promise(((r,i)=>e(["../../shaders/Magnifier.glsl"],r,i))))),r.MagnifierTechnique=u,Object.defineProperty(r,Symbol.toStringTag,{value:"Module"})}));

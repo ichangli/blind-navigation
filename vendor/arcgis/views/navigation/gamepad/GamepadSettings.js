@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../core/Accessor","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","../../input/gamepad/GamepadInputDevice"],(function(e,o,t,r,p,a,c,s){"use strict";let d=class extends o{constructor(e){super(e),this.enabled=!0,this.device=null,this.mode="pan",this.tiltDirection="forward-down",this.velocityFactor=1}};e.__decorate([t.property({type:Boolean,nonNullable:!0})],d.prototype,"enabled",void 0),e.__decorate([t.property({type:s})],d.prototype,"device",void 0),e.__decorate([t.property({type:["pan","zoom"],nonNullable:!0})],d.prototype,"mode",void 0),e.__decorate([t.property({type:["forward-down","forward-up"],nonNullable:!0})],d.prototype,"tiltDirection",void 0),e.__decorate([t.property({type:Number,nonNullable:!0})],d.prototype,"velocityFactor",void 0),d=e.__decorate([c.subclass("esri.views.navigation.gamepad.GamepadSettings")],d);return d}));

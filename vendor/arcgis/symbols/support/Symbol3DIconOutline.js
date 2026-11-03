@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../chunks/tslib.es6","../../Color","../../core/JSONSupport","../../core/screenUtils","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./materialUtils"],(function(o,e,r,t,c,s,l,n,i,p,u){"use strict";var a;o.Symbol3DIconOutline=a=class extends t.JSONSupport{constructor(o){super(o),this.color=new r([0,0,0,1]),this.size=c.px2pt(1)}clone(){const o={color:null!=this.color?this.color.clone():null,size:this.size};return new a(o)}},e.__decorate([s.property(u.colorAndTransparencyProperty)],o.Symbol3DIconOutline.prototype,"color",void 0),e.__decorate([s.property(u.screenSizeProperty)],o.Symbol3DIconOutline.prototype,"size",void 0),o.Symbol3DIconOutline=a=e.__decorate([p.subclass("esri.symbols.support.Symbol3DIconOutline")],o.Symbol3DIconOutline),Object.defineProperty(o,Symbol.toStringTag,{value:"Module"})}));

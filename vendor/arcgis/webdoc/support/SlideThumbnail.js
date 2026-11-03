@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","../../widgets/Bookmarks/bookmarkUtils"],(function(e,r,t,o,s,i,l,u,a){"use strict";var c;e.SlideThumbnail=c=class extends t.JSONSupport{constructor(){super(...arguments),this.url=""}destroy(){this.url=""}get isSecureUrl(){return a.isSecureUrl(this.url)}get isDataURI(){return a.isDataURI(this.url)}clone(){return new c({url:this.url})}},r.__decorate([o.property({type:String,json:{write:{isRequired:!0}}})],e.SlideThumbnail.prototype,"url",void 0),r.__decorate([o.property()],e.SlideThumbnail.prototype,"isSecureUrl",null),r.__decorate([o.property()],e.SlideThumbnail.prototype,"isDataURI",null),e.SlideThumbnail=c=r.__decorate([u.subclass("esri.webdoc.support.SlideThumbnail")],e.SlideThumbnail),Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../Color","../../../core/JSONSupport","../../../core/lang","../../../core/accessorSupport/decorators/property","../../../core/accessorSupport/ensureType","../../../core/accessorSupport/decorators/subclass"],(function(e,o,r,t,s,p,c){"use strict";var l;let i=l=class extends r.JSONSupport{constructor(){super(...arguments),this.description=null,this.label=null,this.values=null,this.color=null}clone(){return new l({description:this.description,label:this.label,values:t.clone(this.values),color:t.clone(this.color)})}};e.__decorate([s.property({type:String,json:{write:!0}})],i.prototype,"description",void 0),e.__decorate([s.property({type:String,json:{write:!0}})],i.prototype,"label",void 0),e.__decorate([s.property({type:[String],json:{write:!0}})],i.prototype,"values",void 0),e.__decorate([s.property({type:o,json:{type:[p.Integer],write:!0}})],i.prototype,"color",void 0),i=l=e.__decorate([c.subclass("esri.renderers.support.pointCloud.ColorUniqueValueInfo")],i);return i}));

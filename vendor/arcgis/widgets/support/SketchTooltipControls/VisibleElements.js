@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../core/Accessor","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass"],(function(e,o,t,r,s,l,c){"use strict";let p=class extends o{constructor(e){super(e),this.directionModePicker=!1,this.header=!1,this.labelsToggle=!0,this.tooltipsToggle=!0}};e.__decorate([t.property({type:Boolean,nonNullable:!0})],p.prototype,"directionModePicker",void 0),e.__decorate([t.property({type:Boolean,nonNullable:!0})],p.prototype,"header",void 0),e.__decorate([t.property({type:Boolean,nonNullable:!0})],p.prototype,"labelsToggle",void 0),e.__decorate([t.property({type:Boolean,nonNullable:!0})],p.prototype,"tooltipsToggle",void 0),p=e.__decorate([c.subclass("esri.widgets.support.SketchTooltipControls.VisibleElements")],p);return p}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../chunks/tslib.es6","../core/JSONSupport","../core/accessorSupport/decorators/property","../core/has","../core/Logger","../core/RandomLCG","../core/accessorSupport/decorators/subclass"],(function(e,r,t,o,s,p,n){"use strict";var i;let c=i=class extends r.JSONSupport{constructor(e){super(e),this.name=null,this.title=null,this.expression=null,this.returnType=null}clone(){return new i({name:this.name,title:this.title,expression:this.expression,returnType:this.returnType})}};e.__decorate([t.property({type:String,json:{write:!0}})],c.prototype,"name",void 0),e.__decorate([t.property({type:String,json:{write:!0}})],c.prototype,"title",void 0),e.__decorate([t.property({type:String,json:{write:!0}})],c.prototype,"expression",void 0),e.__decorate([t.property({type:["string","number"],json:{write:!0}})],c.prototype,"returnType",void 0),c=i=e.__decorate([n.subclass("esri.popup.ExpressionInfo")],c);return c}));

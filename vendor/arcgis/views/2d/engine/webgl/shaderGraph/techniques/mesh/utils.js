@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../../../../core/string"],(function(e,t){"use strict";function o(e){const o=e.map((({name:e,count:t,type:o})=>`${e}.${t}.${o}`)).join(",");return t.numericHash(o)}function i(e,t,o,r,n,a,c){if(e.primitiveName===t)for(const i in e)if(i===o){let t=r?.readWithDefault(n,a,e[i]&&c);return"text"===e.type&&(t=t.toString()),void(e[i]=t)}if("type"in e&&null!=e.type)switch(e.type){case"CIMPointSymbol":case"CIMLineSymbol":case"CIMPolygonSymbol":if(e.symbolLayers)for(const l of e.symbolLayers)i(l,t,o,r,n,a,c);break;case"CIMHatchFill":e.lineSymbol&&i(e.lineSymbol,t,o,r,n,a,c);break;case"CIMSolidStroke":case"CIMSolidFill":case"CIMVectorMarker":if("CIMVectorMarker"===e.type&&e.markerGraphics)for(const l of e.markerGraphics)i(l,t,o,r,n,a,c),i(l.symbol,t,o,r,n,a,c)}}const r=400;function n(e){const t=e.width;return null!=e.effects?r:Math.max(1.25*t,8)}e.applyComputedValue=i,e.getLineClippingMargin=n,e.vertexLayoutHash=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

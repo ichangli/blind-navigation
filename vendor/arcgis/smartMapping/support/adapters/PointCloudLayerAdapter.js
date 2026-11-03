@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../core/Logger","../../../core/has","../../../core/RandomLCG","../../../core/Error","../../../core/accessorSupport/decorators/subclass","./SceneLayerAdapter"],(function(e,s,t,r,o,i,n){"use strict";let a=class extends n{constructor(e){super(e)}getField(e){return this.layer.fieldsIndex.get(e??"")}getFieldUsageInfo(e){const s=this.getField(e);if(!s)return null;const t=this._hasCachedStatistics(s.name);return{supportsLabelingInfo:t,supportsPopupTemplate:t,supportsRenderer:t,supportsLayerQuery:!1,supportsStatistics:t}}getFieldDomain(){return null}load(e){const s=this.layer.load(e).then((()=>{this.geometryType="point",this.objectIdField=null,this.supportsSQLExpression=!1,this.hasQueryEngine=!1}));return this.addResolvingPromise(s),Promise.resolve(this)}};a=e.__decorate([i.subclass("esri.smartMapping.support.adapters.PointCloudLayerAdapter")],a);return a}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/unitUtils","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,a,p,n,i){"use strict";let c=class extends(r.ClonableMixin(o.JSONSupport)){constructor(e){super(e),this.shapeAreaField=null,this.shapeLengthField=null,this.units=null}};e.__decorate([s.property({type:String,json:{read:{source:"shapeAreaFieldName"}}})],c.prototype,"shapeAreaField",void 0),e.__decorate([s.property({type:String,json:{read:{source:"shapeLengthFieldName"}}})],c.prototype,"shapeLengthField",void 0),e.__decorate([s.property({type:String,json:{read:e=>t.areaUnitsJSONMap.read(e)||t.lengthUnitsJSONMap.read(e)}})],c.prototype,"units",void 0),c=e.__decorate([i.subclass("esri.layers.support.GeometryFieldsInfo")],c);return c}));

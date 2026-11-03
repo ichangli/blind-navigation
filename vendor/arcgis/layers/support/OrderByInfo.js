@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/jsonMap","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,s,t,p,i,n){"use strict";var c;const a=new r.JSONMap({asc:"ascending",desc:"descending"});let d=c=class extends o.JSONSupport{constructor(e){super(e),this.field=null,this.valueExpression=null,this.order="ascending"}clone(){return new c({field:this.field,valueExpression:this.valueExpression,order:this.order})}};e.__decorate([s.property({type:String,json:{write:!0}})],d.prototype,"field",void 0),e.__decorate([s.property({type:String,json:{write:!0,origins:{"web-scene":{read:!1,write:!1}}}})],d.prototype,"valueExpression",void 0),e.__decorate([s.property({type:a.apiValues,json:{type:a.jsonValues,read:a.read,write:a.write}})],d.prototype,"order",void 0),d=c=e.__decorate([n.subclass("esri.layers.support.OrderByInfo")],d);return d}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./NetworkAttribute"],(function(t,e,r,o,s,p,c,u){"use strict";let i=class extends e.JSONSupport{constructor(t){super(t),this.buildTime=null,this.name=null,this.networkAttributes=null,this.networkSources=null,this.state=null}};t.__decorate([r.property({type:Number})],i.prototype,"buildTime",void 0),t.__decorate([r.property({type:String})],i.prototype,"name",void 0),t.__decorate([r.property({type:[u]})],i.prototype,"networkAttributes",void 0),t.__decorate([r.property()],i.prototype,"networkSources",void 0),t.__decorate([r.property({type:String})],i.prototype,"state",void 0),i=t.__decorate([c.subclass("esri.rest.support.NetworkDataset")],i);return i}));

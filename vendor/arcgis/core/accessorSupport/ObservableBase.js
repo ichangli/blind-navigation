@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../handleUtils","./tracking/ObservationHandle"],(function(e,s,t){"use strict";class r{constructor(){this._observers=null,this.destroyed=!1}observe(e){if(this.destroyed||e.destroyed)return o;null==this._observers&&(this._observers=[]);const s=this._observers;let r=!1,n=!1;const i=s.length;for(let t=0;t<i;++t){const o=s[t];if(o.destroyed)n=!0;else if(o===e){r=!0;break}}return r||(s.push(e),n&&this._removeDestroyedObservers()),new t.ObservationHandle(s,e)}_removeDestroyedObservers(){const e=this._observers;if(!e||0===e.length)return;const s=e.length;let t=0;for(let r=0;r<s;++r){for(;r+t<s;){if(!e[r+t].destroyed)break;++t}if(t>0){if(!(r+t<s))break;e[r]=e[r+t]}}e.length=s-t}destroy(){if(this.destroyed)return;this.destroyed=!0;const e=this._observers;if(null!=e){for(const s of e)s.onCommitted();this._observers=null}}}const o=s.makeHandle();e.ObservableBase=r,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

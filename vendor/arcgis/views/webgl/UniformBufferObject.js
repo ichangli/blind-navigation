@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../core/maybe","./BufferObject","./enums","./UniformBufferLayout"],(function(t,e,i,s,a){"use strict";class r{constructor(t,e,i=s.Usage.DYNAMIC_DRAW){this._context=t,this._usage=i,this._dirtyRange={from:1/0,to:-1},this._initialized=!1,this._data=new a.UniformBufferLayout(e)}get byteLength(){return this._data.byteLength}initialize(){this._initialized||(this.buffer=i.BufferObject.createUniform(this._context,this._usage,this._data.array),this._resetDirtyRange(),this._initialized=!0)}dispose(){this._context.unbindUBO(this),this.buffer=e.disposeMaybe(this.buffer)}set(t){this._data.setValues(t,this._dirtyRange)}setUniform(t,e){this._data.setValue(t,e,this._dirtyRange)}upload(){this.initialize();const{from:t,to:e}=this._dirtyRange;e>-1&&t<e&&(this.buffer.setSubData(this._data.arrayView32,t,t,e),this._resetDirtyRange())}_resetDirtyRange(){this._dirtyRange.from=1/0,this._dirtyRange.to=-1}}t.UniformBufferObject=r,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

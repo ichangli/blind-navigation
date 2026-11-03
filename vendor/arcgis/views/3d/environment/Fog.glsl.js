@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../core/libs/gl-matrix-2/math/mat4","../../../core/libs/gl-matrix-2/factories/mat4f64","../../../core/libs/gl-matrix-2/factories/vec3f64","../webgl-engine/core/shaderLibrary/attributes/TextureCoordinateAttribute.glsl","../webgl-engine/core/shaderLibrary/output/ReadDepth.glsl","../webgl-engine/core/shaderLibrary/shading/Gamma.glsl","../webgl-engine/core/shaderModules/Float2PassUniform","../webgl-engine/core/shaderModules/Float3PassUniform","../webgl-engine/core/shaderModules/FloatPassUniform","../webgl-engine/core/shaderModules/interfaces","../webgl-engine/core/shaderModules/Matrix4PassUniform","../webgl-engine/core/shaderModules/ShaderBuilder","../webgl-engine/core/shaderModules/Texture2DPassUniform","../webgl-engine/lib/VertexAttribute","../../../chunks/Fog.glsl"],(function(e,r,s,a,i,l,o,t,n,g,d,b,u,c,m,h){"use strict";e.FogPassParameters=h.FogPassParameters,e.build=h.build,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

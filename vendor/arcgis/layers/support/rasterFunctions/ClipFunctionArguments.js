@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../geometry","../../../core/jsonMap","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","../../../geometry/support/jsonUtils","./BaseFunctionArguments"],(function(e,r,o,t,s,p,c,i,n,u){"use strict";var a;const y=new o.JSONMap({1:"outside",2:"inside"},{useNumericKeys:!0});let l=a=class extends u{constructor(){super(...arguments),this.clippingType="outside"}clone(){return new a({clippingGeometry:this.clippingGeometry.clone(),clippingType:this.clippingType})}};e.__decorate([t.property({types:r.geometryTypes,json:{read:n.fromJSON,write:!0}})],l.prototype,"clippingGeometry",void 0),e.__decorate([t.property({json:{read:y.read,write:y.write}})],l.prototype,"clippingType",void 0),l=a=e.__decorate([i.subclass("esri.layers.support.rasterFunctions.ClipFunctionArguments")],l);return l}));

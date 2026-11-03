@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../../chunks/vec32","../../../../../core/libs/gl-matrix-2/factories/vec3f64"],(function(t,e,o){"use strict";function n(t,e){if(t.components)for(const o of t.components)o.faces&&"smooth"===o.shading&&s(o,e)}function s(t,o){null==o.normal&&(o.normal=new Float32Array(o.position.length));const n=t.faces,{position:s,normal:i}=o,f=n.length/3;for(let l=0;l<f;++l){const t=3*n[3*l],o=3*n[3*l+1],f=3*n[3*l+2],m=e.set(c,s[t],s[t+1],s[t+2]),u=e.set(r,s[o],s[o+1],s[o+2]),g=e.set(a,s[f],s[f+1],s[f+2]),h=e.subtract(u,u,m),p=e.subtract(g,g,m),b=e.cross(h,h,p);i[t]+=b[0],i[t+1]+=b[1],i[t+2]+=b[2],i[o]+=b[0],i[o+1]+=b[1],i[o+2]+=b[2],i[f]+=b[0],i[f+1]+=b[1],i[f+2]+=b[2]}for(let c=0;c<i.length;c+=3)e.set(l,i[c],i[c+1],i[c+2]),e.normalize(l,l),i[c]=l[0],i[c+1]=l[1],i[c+2]=l[2]}const c=o.create(),r=o.create(),a=o.create(),l=o.create();t.smoothNormals=n,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

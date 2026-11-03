@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/RandomLCG","../../core/has","../../core/accessorSupport/decorators/subclass","./rasterEnums"],(function(e,r,t,o,p,s,c,i){"use strict";let n=class extends r.JSONSupport{constructor(){super(...arguments),this.pixelType="unknown"}};e.__decorate([t.property({type:String,json:{write:!0}})],n.prototype,"name",void 0),e.__decorate([t.property({type:String,json:{write:!0}})],n.prototype,"description",void 0),e.__decorate([t.property({type:o.Integer,json:{type:o.Integer,write:!0,name:"_object_id"}})],n.prototype,"id",void 0),e.__decorate([t.property({type:String,json:{type:i.pixelTypeKebabDict.jsonValues,read:i.pixelTypeKebabDict.read,write:i.pixelTypeKebabDict.write}})],n.prototype,"pixelType",void 0),e.__decorate([t.property({type:String,json:{write:!0}})],n.prototype,"type",void 0),n=e.__decorate([c.subclass("esri.layers.support.RasterFunctionInfo")],n);return n}));

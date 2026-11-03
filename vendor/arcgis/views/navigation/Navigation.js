@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/a11yUtils","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./gamepad/GamepadSettings"],(function(e,o,t,r,a,s,n,c,p){"use strict";let d=class extends t{constructor(e){super(e),this.browserTouchPanEnabled=!0,this.gamepad=new p,this.momentumEnabled=!0,this.mouseWheelZoomEnabled=!0}get effectiveMomentumEnabled(){return this.momentumEnabled&&!o.prefersReducedMotion()}};e.__decorate([r.property({type:Boolean})],d.prototype,"browserTouchPanEnabled",void 0),e.__decorate([r.property({type:p,nonNullable:!0})],d.prototype,"gamepad",void 0),e.__decorate([r.property({type:Boolean})],d.prototype,"momentumEnabled",void 0),e.__decorate([r.property({type:Boolean})],d.prototype,"mouseWheelZoomEnabled",void 0),d=e.__decorate([c.subclass("esri.views.navigation.Navigation")],d);return d}));

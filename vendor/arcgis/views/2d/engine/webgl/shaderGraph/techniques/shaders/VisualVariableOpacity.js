@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../../../../chunks/tslib.es6","../../GraphShaderModule","../../graph/glsl","./utils"],(function(t,e,i,a,s){"use strict";class o extends i.UniformGroup{getOpacity(t){return a.cond([s.isNan(t),new a.Float(1)],[a.lessThanEqual(t,this.opacityValues.first()),this.opacities.first()],[a.greaterThanEqual(t,this.opacityValues.last()),this.opacities.last()],[!0,()=>{const e=this.opacityValues.findIndex((e=>a.greaterThan(e,t))),i=this.opacityValues.get(e),s=e.subtract(1),o=this.opacityValues.get(s),r=t.subtract(o).divide(i.subtract(o));return a.mix(this.opacities.get(s),this.opacities.get(e),r)}])}}e.__decorate([i.uniform(a.FixedArray.ofType(a.Float,8))],o.prototype,"opacities",void 0),e.__decorate([i.uniform(a.FixedArray.ofType(a.Float,8))],o.prototype,"opacityValues",void 0),t.VisualVariableOpacity=o,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

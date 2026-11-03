@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/Collection","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,o,r,t,l,s,i,c){"use strict";var d;let p=d=class extends r.JSONSupport{constructor(e){super(e),this.floorField=null,this.viewAllMode=!1,this.viewAllLevelIds=new o}clone(){return new d({floorField:this.floorField,viewAllMode:this.viewAllMode,viewAllLevelIds:this.viewAllLevelIds})}};e.__decorate([t.property({type:String,json:{write:!0}})],p.prototype,"floorField",void 0),e.__decorate([t.property({json:{read:!1,write:!1}})],p.prototype,"viewAllMode",void 0),e.__decorate([t.property({json:{read:!1,write:!1}})],p.prototype,"viewAllLevelIds",void 0),p=d=e.__decorate([c.subclass("esri.layers.support.LayerFloorInfo")],p);return p}));

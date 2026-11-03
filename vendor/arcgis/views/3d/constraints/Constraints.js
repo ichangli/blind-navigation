@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../chunks/tslib.es6","../../../core/Clonable","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","./AltitudeConstraint","./ClipDistanceConstraint","./TiltConstraint"],(function(t,e,o,s,r,n,i,a,c,p,l){"use strict";t.Constraints=class extends o.Clonable{constructor(){super(...arguments),this.tilt=new l.TiltConstraint,this.altitude=new c.AltitudeConstraint,this.clipDistance=new p.ClipDistanceConstraint}},e.__decorate([s.property({type:l.TiltConstraint})],t.Constraints.prototype,"tilt",void 0),e.__decorate([s.property({type:c.AltitudeConstraint})],t.Constraints.prototype,"altitude",void 0),e.__decorate([s.property({type:p.ClipDistanceConstraint})],t.Constraints.prototype,"clipDistance",void 0),t.Constraints=e.__decorate([a.subclass("esri.views.3d.constraints.Constraints")],t.Constraints),Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

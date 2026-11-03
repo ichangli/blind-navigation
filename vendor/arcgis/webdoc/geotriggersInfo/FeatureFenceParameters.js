@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/enumeration","../../core/accessorSupport/decorators/subclass","./FeatureFilter","./FeatureLayerSource"],(function(e,r,o,t,s,c,a,p,u,i,n){"use strict";let l=class extends(r.ClonableMixin(o.JSONSupport)){constructor(e){super(e),this.fenceSource=null,this.filter=null,this.bufferDistance=null,this.type="features"}};e.__decorate([t.property({type:n,json:{write:{isRequired:!0}}})],l.prototype,"fenceSource",void 0),e.__decorate([t.property({type:i,json:{write:!0}})],l.prototype,"filter",void 0),e.__decorate([t.property({type:Number,json:{write:!0}})],l.prototype,"bufferDistance",void 0),e.__decorate([p.enumeration({features:"features"},{readOnly:!0})],l.prototype,"type",void 0),l=e.__decorate([u.subclass("esri.webdoc.geotriggersInfo.FeatureFenceParameters")],l);return l}));

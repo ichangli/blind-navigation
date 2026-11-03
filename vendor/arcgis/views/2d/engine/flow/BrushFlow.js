@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../../core/libs/gl-matrix-2/factories/mat3f32","../webgl/brushes/WGLBrush","../../../webgl/enums"],(function(t,e,a){"use strict";class s extends e{constructor(){super(...arguments),this._visualState={time:0,dvsMat3:t.create(),displayViewMat3:t.create()}}dispose(){}prepareState(t){const{context:e}=t;e.setColorMask(!0,!0,!0,!0),e.setStencilFunction(a.CompareFunction.EQUAL,0,255)}draw(t,e){const{requestRender:a,allowDelayedRender:s}=t,{displayData:i}=e;if(null==i)return;if("loaded"===i.state.name&&i.attach(t),"attached"!==i.state.name)return;const r=i.state.resources;!s||r.ready||null==a?(this._visualState.time=t.time/1e3,this._visualState.dvsMat3=e.transforms.displayViewScreenMat3,this._visualState.displayViewMat3=t.state.displayViewMat3,i.flowStyle.render(t,this._visualState,r),i.flowStyle.animated&&null!=a&&a()):a()}}return s}));

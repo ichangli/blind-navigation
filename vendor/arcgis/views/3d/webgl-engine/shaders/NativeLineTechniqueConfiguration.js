@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../chunks/tslib.es6","../core/shaderLibrary/ShaderOutput","../core/shaderTechnique/ShaderTechniqueConfiguration","../materials/DefaultTechniqueConfiguration"],(function(e,t,r,o,a){"use strict";class i extends a.DefaultTechniqueConfiguration{constructor(){super(...arguments),this.output=r.ShaderOutput.Color,this.hasSlicePlane=!1,this.hasVertexColors=!1,this.transparent=!1,this.hasOccludees=!1}}t.__decorate([o.parameter({count:r.ShaderOutput.COUNT})],i.prototype,"output",void 0),t.__decorate([o.parameter()],i.prototype,"hasSlicePlane",void 0),t.__decorate([o.parameter()],i.prototype,"hasVertexColors",void 0),t.__decorate([o.parameter()],i.prototype,"transparent",void 0),t.__decorate([o.parameter()],i.prototype,"hasOccludees",void 0),e.NativeLineTechniqueConfiguration=i,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

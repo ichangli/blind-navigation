@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","../../portal/Portal"],(function(e,t,r,o,s,l,p,a){"use strict";var c;let n=c=class extends t{constructor(e){super(e),this.name=null,this.styleUrl=null,this.styleName=null,this.portal=null}clone(){return new c({name:this.name,styleUrl:this.styleUrl,styleName:this.styleName,portal:this.portal})}};e.__decorate([r.property({type:String})],n.prototype,"name",void 0),e.__decorate([r.property({type:String})],n.prototype,"styleUrl",void 0),e.__decorate([r.property({type:String})],n.prototype,"styleName",void 0),e.__decorate([r.property({type:a})],n.prototype,"portal",void 0),n=c=e.__decorate([p.subclass("esri.symbols.support.StyleOrigin")],n);return n}));

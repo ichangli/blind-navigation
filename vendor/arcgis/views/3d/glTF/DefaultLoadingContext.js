@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../request","../../../core/asyncUtils","../../../core/Error","../../../core/promiseUtils","../../../core/urlUtils"],(function(r,e,t,a,o,s){"use strict";class i{constructor(r){this._streamDataRequester=r}async loadJSON(r,e){return this._load("json",r,e)}async loadBinary(r,e){return s.isDataProtocol(r)?(o.throwIfAborted(e),s.dataToArrayBuffer(r)):this._load("binary",r,e)}async loadImage(r,e){return this._load("image",r,e)}async _load(r,s,i){if(null==this._streamDataRequester)return(await e(s,{responseType:n[r]})).data;const u=await t.result(this._streamDataRequester.request(s,r,i));if(!0===u.ok)return u.value;throw o.throwIfAbortError(u.error),new a("",`Request for resource failed: ${u.error}`)}}const n={image:"image",binary:"array-buffer",json:"json","image+type":void 0};r.DefaultLoadingContext=i,Object.defineProperty(r,Symbol.toStringTag,{value:"Module"})}));

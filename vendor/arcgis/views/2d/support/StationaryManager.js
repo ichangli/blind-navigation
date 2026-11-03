@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../chunks/tslib.es6","../../../core/Accessor","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass"],(function(t,r,e,o,a,s,i,n){"use strict";const c=160;t.StationaryManager=class extends e{constructor(){super(...arguments),this._timer=void 0}get stationary(){return!this._timer}flip(){this._timestamp=performance.now(),null==this._timer&&(this._timer=setInterval((()=>{performance.now()-this._timestamp>=c&&this.clear()}),c))}clear(){this._timer&&(clearInterval(this._timer),this._timer=void 0)}},r.__decorate([o.property()],t.StationaryManager.prototype,"_timer",void 0),r.__decorate([o.property()],t.StationaryManager.prototype,"stationary",null),t.StationaryManager=r.__decorate([n.subclass("esri.views.2d.support.StationaryManager")],t.StationaryManager),Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

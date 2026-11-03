@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../core/libs/gl-matrix-2/math/quat","../../core/libs/gl-matrix-2/factories/quatf64","../../core/libs/gl-matrix-2/factories/vec3f64","../../core/libs/gl-matrix-2/math/common","../../chunks/vec32"],(function(t,e,r,a,o,i){"use strict";const n=a.create(),c=r.create(),l=r.create(),s=r.create(),m=a.fromValues(0,0,1),u=a.fromValues(0,1,0),f=a.fromValues(1,0,0);function g(t){i.copy(n,t),i.normalize(n,n);const a=Math.atan2(n[1],n[0]),c=e.setAxisAngle(r.create(),m,-a);i.transformQuat(n,n,c);const l=-1*Math.atan2(n[2],n[0]);return[o.toDegree(a)+270,o.toDegree(l)+90]}function x(t,r){return e.setAxisAngle(l,m,o.toRadian(t-270)),e.setAxisAngle(s,u,o.toRadian(r-90)),e.multiply(c,l,s),i.copy(n,f),i.transformQuat(n,n,c),i.normalize(n,n),[n[0],n[1],n[2]]}t.computeNormalFromOrientationTilt=x,t.computeOrientationTiltFromNormal=g,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

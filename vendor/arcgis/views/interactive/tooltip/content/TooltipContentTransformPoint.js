@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../chunks/tslib.es6","../../../../core/Logger","../../../../core/has","../../../../core/RandomLCG","../../../../core/Error","../../../../core/accessorSupport/decorators/subclass","./Fields","./TooltipContent","../../../../widgets/support/widgetUtils","../../../../widgets/support/jsxFactory"],(function(o,t,e,n,i,s,r,c,l,d,a){"use strict";o.TooltipContentTransformPoint=class extends l.TooltipContent{_renderContent(){const{fieldContext:o,info:t,mode:e}=this,{visibleElements:n}=t;return a.tsx(c.Fields,{context:o,fields:[n.coordinates?t.effectiveX:void 0,n.coordinates?t.effectiveY:void 0,n.elevation?t.elevation:void 0],mode:e})}},o.TooltipContentTransformPoint=t.__decorate([r.subclass("esri.views.interactive.tooltip.content.TooltipContentTransformPoint")],o.TooltipContentTransformPoint),Object.defineProperty(o,Symbol.toStringTag,{value:"Module"})}));

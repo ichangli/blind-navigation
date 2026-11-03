@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define((function(){"use strict";class t{constructor(t,e,s,i,r,n,h){this.instanceId=t,this.textureKey=e,this.indexStart=s,this.indexCount=i,this.vertexStart=r,this.vertexCount=n,this.overlaps=h}updateBaseOffsets(t){this.vertexStart+=t.vertexFrom,this.indexStart+=t.indexFrom}clone(){return new t(this.instanceId,this.textureKey,this.indexStart,this.indexCount,this.vertexStart,this.vertexCount,this.overlaps)}static write(t,e,s,i,r,n,h,u){t.push(e),t.push(s),t.push(i),t.push(r),t.push(n),t.push(h),t.push(u)}serialize(t){return t.push(this.instanceId),t.push(this.textureKey),t.push(this.indexStart),t.push(this.indexCount),t.push(this.vertexStart),t.push(this.vertexCount),t.push(this.overlaps),t}static deserialize(e){const s=e.readInt32(),i=e.readInt32(),r=e.readInt32(),n=e.readInt32(),h=e.readInt32(),u=e.readInt32(),a=e.readInt32();return new t(s,i,r,n,h,u,a)}}return t.byteSizeHint=7*Uint32Array.BYTES_PER_ELEMENT,t}));

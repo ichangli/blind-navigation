@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../core/Error","../webgl/capabilities"],(function(e,r,t){"use strict";function o(e){const o=t.getWebGLCapabilities();return o.available?"3d"===e&&o.majorPerformanceCaveat?new r("webgl:major-performance-caveat-detected","Your WebGL implementation doesn't seem to support hardware accelerated rendering. Check your browser settings or if your GPU is in a blocklist."):o.supportsHighPrecisionFragment?o.supportsVertexShaderSamplers?null:new r("webgl:vertex-shader-samplers-required","WebGL support for vertex shader samplers is required but not supported."):new r("webgl:high-precision-fragment-required","WebGL support for high precision fragment shaders is required but not supported."):new r("webgl:required","WebGL2 is required but not supported.",(new Error).stack)}e.check=o,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

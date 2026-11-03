@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["require","exports","../core/shaderTechnique/ReloadableShaderModule","../core/shaderTechnique/ShaderTechnique","../lib/DefaultVertexAttributeLocations","../lib/Program","../../../../chunks/OITCompositing.glsl","../../../webgl/enums","../../../webgl/renderState"],(function(e,r,i,t,a,n,l,o,d){"use strict";class s extends t.ShaderTechnique{initializeProgram(e){return new n.Program(e.rctx,s.shader.get().build(),a.Default3D)}initializePipeline(){return d.makePipelineState({blending:d.separateBlendingParams(o.BlendFactor.SRC_ALPHA,o.BlendFactor.ONE,o.BlendFactor.ONE_MINUS_SRC_ALPHA,o.BlendFactor.ONE_MINUS_SRC_ALPHA),colorWrite:d.defaultColorWriteParams})}}s.shader=new i.ReloadableShaderModule(l.OITCompositing,(()=>new Promise(((r,i)=>e(["./OITCompositing.glsl"],r,i))))),r.OITCompositingTechnique=s,Object.defineProperty(r,Symbol.toStringTag,{value:"Module"})}));

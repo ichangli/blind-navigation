@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../chunks/tslib.es6","./BlendModeTechniqueConfiguration","../webgl-engine/core/shaderLibrary/terrain/BaseOpacityMode","../webgl-engine/core/shaderLibrary/terrain/BlendLayersOutput","../webgl-engine/core/shaderLibrary/terrain/PremultipliedAlphaSource","../webgl-engine/core/shaderTechnique/ShaderTechniqueConfiguration"],(function(e,r,t,i,o,a,n){"use strict";class u extends t.BlendModeTechniqueConfiguration{constructor(){super(...arguments),this.output=o.BlendLayersOutput.Composite,this.baseOpacityMode=i.BaseOpacityMode.NotRequired,this.premultipliedSource=a.PremultipliedAlphaSource.Off}}r.__decorate([n.parameter({count:o.BlendLayersOutput.COUNT})],u.prototype,"output",void 0),r.__decorate([n.parameter({count:i.BaseOpacityMode.COUNT})],u.prototype,"baseOpacityMode",void 0),r.__decorate([n.parameter()],u.prototype,"premultipliedSource",void 0),e.TileBlendTechniqueConfiguration=u,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../chunks/tslib.es6","../../../../core/Logger","../../../../core/has","../../../../core/RandomLCG","../../../../core/Error","../../../../core/accessorSupport/decorators/subclass","./Fields","./TooltipContent","../../../../widgets/support/widgetUtils","../../../../widgets/support/jsxFactory"],(function(e,t,o,n,i,r,s,l,c,d,a){"use strict";e.TooltipContentSelectedVertex=class extends c.TooltipContent{_renderContent(){const{fieldContext:e,info:t,mode:o}=this,{visibleElements:n}=t;return a.tsx(l.Fields,{context:e,fields:[n.coordinates?t.effectiveX:void 0,n.coordinates?t.effectiveY:void 0,n.elevation?t.elevation:void 0,n.area&&"polygon"===t.geometryType?t.area:null,n.totalLength&&"polyline"===t.geometryType?t.totalLength:null],mode:o})}},e.TooltipContentSelectedVertex=t.__decorate([s.subclass("esri.views.interactive.tooltip.content.TooltipContentSelectedVertex")],e.TooltipContentSelectedVertex),Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

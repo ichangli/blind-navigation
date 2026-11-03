@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,t,o,s,p,i){"use strict";let d=class extends r.JSONSupport{constructor(e){super(e),this.layerId=null,this.nameField=null,this.siteIdField=null,this.sublayerId=null}};e.__decorate([t.property({type:String,json:{write:!0}})],d.prototype,"layerId",void 0),e.__decorate([t.property({type:String,json:{write:!0}})],d.prototype,"nameField",void 0),e.__decorate([t.property({type:String,json:{write:!0}})],d.prototype,"siteIdField",void 0),e.__decorate([t.property({type:Number,json:{read:{source:"subLayerId"},write:{target:"subLayerId"},origins:{"web-scene":{read:!1,write:!1}}}})],d.prototype,"sublayerId",void 0),d=e.__decorate([i.subclass("esri.layers.support.SiteLayerInfo")],d);return d}));

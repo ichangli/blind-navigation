@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../core/fontUtils","../../core/imageUtils"],(function(e,t){"use strict";class i{constructor(){this._resourceMap=new Map,this._inFlightResourceMap=new Map,this.geometryEngine=null,this.geometryEnginePromise=null}destroy(){this._inFlightResourceMap.clear(),this._resourceMap.clear()}getResource(e){return this._resourceMap.get(e)??null}async fetchResource(e,i){const h=this._resourceMap.get(e);if(h)return{width:h.width,height:h.height};let r=this._inFlightResourceMap.get(e);return r?r.then((e=>({width:e.width,height:e.height}))):(r=t.getImageData(e,i),this._inFlightResourceMap.set(e,r),r.then((t=>(this._inFlightResourceMap.delete(e),this._resourceMap.set(e,t),{width:t.width,height:t.height})),(()=>({width:0,height:0}))))}deleteResource(e){this._inFlightResourceMap.delete(e),this._resourceMap.delete(e)}loadFont(t){return e.loadFont(t)}}return i}));

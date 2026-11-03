@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./VisibleElementsSettingsPane"],(function(t,e,s,o,r,i,c,n){"use strict";let l=class extends e{constructor(t){super(t),this.maxAllowableAssociationsSlider=!1,this.connectivityAssociationsSettings=null,this.structuralAttachmentAssociationsSettings=null}};t.__decorate([s.property({type:Boolean,nonNullable:!0})],l.prototype,"maxAllowableAssociationsSlider",void 0),t.__decorate([s.property({type:n,nonNullable:!0})],l.prototype,"connectivityAssociationsSettings",void 0),t.__decorate([s.property({type:n,nonNullable:!0})],l.prototype,"structuralAttachmentAssociationsSettings",void 0),l=t.__decorate([c.subclass("esri.widgets.UtilityNetworkAssociations.VisibleElements")],l);return l}));

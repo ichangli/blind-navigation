@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../core/Collection","../../../core/reactiveUtils","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","./LayerView3D","../../layers/CatalogDynamicGroupLayerView","../../layers/LayerView"],(function(e,r,o,t,a,s,i,c,p,y,d){"use strict";let l=class extends(y(p.LayerView3D(d))){constructor(){super(...arguments),this.type="catalog-dynamic-group-3d",this.layerViews=new r}initialize(){this.addHandles([this.enableLayerUpdates(),o.when((()=>this.view.stationary),(()=>this.updateLayers()))])}};e.__decorate([t.property()],l.prototype,"layerViews",void 0),e.__decorate([t.property()],l.prototype,"parent",void 0),e.__decorate([t.property()],l.prototype,"view",void 0),l=e.__decorate([c.subclass("esri.views.3d.layers.CatalogDynamicGroupLayerView3D")],l);return l}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../layers/support/fieldUtils"],(function(e,l){"use strict";async function t(e,t=e.popupTemplate){if(null==t)return[];const u=await t.getRequiredFields(e.fieldsIndex),{lastEditInfoEnabled:d}=t,{objectIdField:p,typeIdField:n,globalIdField:i,relationships:s}=e;if(u.includes("*"))return["*"];const a=d?l.getFeatureEditFields(e):[],o=l.fixFields(e.fieldsIndex,[...u,...a]);return n&&o.push(n),o&&p&&e.fieldsIndex?.has(p)&&!o.includes(p)&&o.push(p),o&&i&&e.fieldsIndex?.has(i)&&!o.includes(i)&&o.push(i),s&&s.forEach((l=>{const{keyField:t}=l;o&&t&&e.fieldsIndex?.has(t)&&!o.includes(t)&&o.push(t)})),o}function u(e,l){return e.popupTemplate?e.popupTemplate:null!=l&&l.defaultPopupTemplateEnabled&&null!=e.defaultPopupTemplate?e.defaultPopupTemplate:null}function d(e,l){return null!=u(e,{defaultPopupTemplateEnabled:l})}e.getFetchPopupTemplate=u,e.getRequiredFields=t,e.hasPopupTemplate=d,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

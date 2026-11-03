@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/RandomLCG","../../core/has","../../core/accessorSupport/decorators/enumeration","../../core/accessorSupport/decorators/subclass","../../intl/date"],(function(e,o,r,t,p,s,a,c,n,i){"use strict";let u=class extends(o.ClonableMixin(r.JSONSupport)){constructor(e){super(e),this.dateFormat=null,this.digitSeparator=!1,this.places=null}};e.__decorate([c.enumeration(i.dateFormatJSONMap)],u.prototype,"dateFormat",void 0),e.__decorate([t.property({type:Boolean,json:{write:!0}})],u.prototype,"digitSeparator",void 0),e.__decorate([t.property({type:p.Integer,json:{write:!0}})],u.prototype,"places",void 0),u=e.__decorate([n.subclass("esri.popup.support.FieldInfoFormat")],u);return u}));

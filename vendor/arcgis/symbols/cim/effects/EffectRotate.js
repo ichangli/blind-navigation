@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../geometry/support/boundsUtils"],(function(t,e){"use strict";class n{static local(){return null===n.instance&&(n.instance=new n),n.instance}execute(t,e,n,o,s){return new r(t,e,n)}}n.instance=null;class r{constructor(t,e,n){this._inputGeometries=t,this._rotateAngle=void 0!==e.angle?e.angle*Math.PI/180:0}next(){let t=this._inputGeometries.next();for(;t;){if(0===this._rotateAngle||"esriGeometryPoint"===t.geometryType)return t;if(t.totalSize>0){const n=e.getCursorBoundsXY(t),r=(n[2]+n[0])/2,o=(n[3]+n[1])/2;return t.reset(),this._rotate(t.clone(),r,o)}t=this._inputGeometries.next()}return null}_rotate(t,e,n){const r=Math.cos(this._rotateAngle),o=Math.sin(this._rotateAngle);for(;t.nextPath();)for(;t.nextPoint();){const s=t.x-e,i=t.y-n;t.x=e+s*r-i*o,t.y=n+s*o+i*r}return t.reset(),t}}t.EffectRotate=n,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

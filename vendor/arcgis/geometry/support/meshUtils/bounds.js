@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../Extent","../aaBoundingBox","./projection"],(function(e,t,n,o){"use strict";function r([e,t,n,r,i,a],s,N,m){I??=new Float64Array(24);const c=I;return c[0]=e,c[1]=t,c[2]=n,c[3]=e,c[4]=i,c[5]=n,c[6]=r,c[7]=i,c[8]=n,c[9]=r,c[10]=t,c[11]=n,c[12]=e,c[13]=t,c[14]=a,c[15]=e,c[16]=i,c[17]=a,c[18]=r,c[19]=i,c[20]=a,c[21]=r,c[22]=t,c[23]=a,o.project({positions:c,transform:s,vertexSpace:N,inSpatialReference:m,outSpatialReference:m,outPositions:c}),u(c,m)}let I=null;function i(e){if(0===e.length)return n.zero;const t=n.create([Number.POSITIVE_INFINITY,Number.POSITIVE_INFINITY,Number.POSITIVE_INFINITY,-Number.POSITIVE_INFINITY,-Number.POSITIVE_INFINITY,-Number.POSITIVE_INFINITY]);return n.expandWithBuffer(t,e),t}function u(e,n){const[o,r,I,u,a,s]=i(e);return new t({xmin:o,ymin:r,zmin:I,xmax:u,ymax:a,zmax:s,spatialReference:n})}e.getBoundsFromPositions=i,e.getExtentFromBounds=r,e.getExtentFromPositions=u,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

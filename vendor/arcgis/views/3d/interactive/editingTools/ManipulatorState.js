@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../Manipulator3D","./GrabbingState","./ManipulatorType"],(function(t,a,e,i){"use strict";class r{constructor(){this.grabbingState=e.GrabbingState.NONE,this.zManipulator=null,this.firstSelected=null,this.numSelected=0,this.firstGrabbedXY=null}update(t){this.grabbingState=e.GrabbingState.NONE,this.zManipulator=null,this.numSelected=0,this.firstSelected=null,this.firstGrabbedXY=null,t.forEachManipulator(((t,r)=>{if(r===i.ManipulatorType.TRANSLATE_Z&&(this.zManipulator=t),t instanceof a.Manipulator3D&&(t.selected&&(0===this.numSelected&&(this.firstSelected=t),this.numSelected++),null==this.firstGrabbedXY&&t.grabbing&&r===i.ManipulatorType.TRANSLATE_XY&&(this.firstGrabbedXY=t)),t.grabbing)switch(this.grabbingState|=e.GrabbingState.ANY,r){case i.ManipulatorType.TRANSLATE_Z:this.grabbingState|=e.GrabbingState.Z;break;case i.ManipulatorType.TRANSLATE_XY:this.grabbingState|=e.GrabbingState.XY}}))}}t.ManipulatorState=r,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

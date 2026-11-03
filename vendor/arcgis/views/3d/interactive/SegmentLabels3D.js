@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../chunks/tslib.es6","../../../core/screenUtils","../../../core/Logger","../../../core/has","../../../core/RandomLCG","../../../core/Error","../../../core/accessorSupport/decorators/subclass","../../../core/libs/gl-matrix-2/factories/vec3f64","../../interactive/SegmentLabels","../../interactive/support/viewUtils"],(function(e,t,r,a,s,o,c,n,i,l,m){"use strict";e.SegmentLabels3D=class extends l.SegmentLabels{getCameraOrExtent({view:e}){return e.state.camera}toScreenPointArray({view:e,elevationInfo:t,editGeometryOperations:a},s,o=r.createScreenPointArray()){const{spatialReference:c}=a.data.coordinateHelper;return m.vectorToRender(s,c,t,e,b),e.state.camera.projectToScreen(b,o),o}},e.SegmentLabels3D=t.__decorate([n.subclass("esri.views.3d.interactive.SegmentLabels3D")],e.SegmentLabels3D);const b=i.create();Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

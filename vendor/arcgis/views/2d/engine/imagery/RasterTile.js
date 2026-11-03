@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../core/libs/gl-matrix-2/factories/mat3f32","./RasterBitmap","../webgl/TiledDisplayObject"],(function(t,e,s,i){"use strict";class a extends i.TiledDisplayObject{constructor(t,e,i,a,r,l,n=null){super(t,e,i,a,r,l),this.bitmap=null,this.bitmap=new s.RasterBitmap(n,null,null),this.bitmap.coordScale=[r,l],this.bitmap.once("isReady",(()=>this.ready()))}destroy(){super.destroy(),this.bitmap.destroy(),this.bitmap=null,this.stage=null}set stencilRef(t){this.bitmap.stencilRef=t}get stencilRef(){return this.bitmap.stencilRef}setTransform(t){super.setTransform(t),this.bitmap.transforms.displayViewScreenMat3=this.transforms.displayViewScreenMat3}_createTransforms(){return{displayViewScreenMat3:e.create(),tileMat3:e.create()}}onAttach(){this.bitmap.stage=this.stage}onDetach(){this.bitmap.stage=null}}t.RasterTile=a,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

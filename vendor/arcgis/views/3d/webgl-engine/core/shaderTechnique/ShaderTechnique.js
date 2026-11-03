@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../../core/maybe","../../../../webgl/enums"],(function(i,e,t){"use strict";class r{constructor(i,e,t){this.release=t,this.initializeConfiguration(i,e),this._configuration=e.snapshot(),this._program=this.initializeProgram(i),this._pipeline=this.initializePipeline(i)}destroy(){this._program=e.disposeMaybe(this._program),this._pipeline=this._configuration=null}reload(i){e.disposeMaybe(this._program),this._program=this.initializeProgram(i),this._pipeline=this.initializePipeline(i)}get program(){return this._program}get compiled(){return this.program.compiled}get key(){return this._configuration.key}get configuration(){return this._configuration}ensureAttributeLocations(i){this.program.assertCompatibleVertexAttributeLocations(i)}get primitiveType(){return t.PrimitiveType.TRIANGLES}getPipeline(i,e,t){return this._pipeline}initializeConfiguration(i,e){}}i.ShaderTechnique=r,Object.defineProperty(i,Symbol.toStringTag,{value:"Module"})}));

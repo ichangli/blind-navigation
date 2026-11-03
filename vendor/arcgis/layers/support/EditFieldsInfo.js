@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","../../time/timeZoneUtils"],(function(e,o,t,r,i,p,l,s,d){"use strict";let c=class extends(o.ClonableMixin(t.JSONSupport)){constructor(e){super(e),this.creatorField=null,this.creationDateField=null,this.editorField=null,this.editDateField=null,this.realm=null,this.timeZone=null}};e.__decorate([r.property()],c.prototype,"creatorField",void 0),e.__decorate([r.property()],c.prototype,"creationDateField",void 0),e.__decorate([r.property()],c.prototype,"editorField",void 0),e.__decorate([r.property()],c.prototype,"editDateField",void 0),e.__decorate([r.property()],c.prototype,"realm",void 0),e.__decorate([r.property(d.timeZoneProperty("dateFieldsTimeReference",!0))],c.prototype,"timeZone",void 0),c=e.__decorate([s.subclass("esri.layers.support.EditFieldsInfo")],c);return c}));

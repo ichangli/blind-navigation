@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../core/screenUtils","../../state/controllers/ZoomStepControllerGlobal","../../state/controllers/ZoomStepControllerLocal","../../../input/InputHandler","../../../input/handlers/support"],(function(e,t,o,l,i,n){"use strict";class r extends i.InputHandler{constructor(e,t){super(!0),this._view=e,this.registerIncoming("double-click",t,(e=>this._handleDoubleClick(e)))}_handleDoubleClick(e){const i=e.data;if(n.eventMatchesPointerAction(i,"primary")){const n=this._view.state.isGlobal?new o.ZoomStepControllerGlobal({view:this._view,mode:"animation"}):new l.ZoomStepControllerLocal({view:this._view,mode:"animation"});this._view.state.switchCameraController(n),n.zoomStep(Math.log(.5)/Math.log(.6),t.createScreenPointArray(i.x,i.y)),e.stopPropagation()}}}e.DoubleClickZoom=r,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

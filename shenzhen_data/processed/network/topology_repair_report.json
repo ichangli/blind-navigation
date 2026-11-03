@@ -1,0 +1,29 @@
+{
+  "before": {
+    "segments": 52197,
+    "components": 166,
+    "largest": 50160,
+    "isolated": 31,
+    "dangle_segments": 2324
+  },
+  "after": {
+    "segments": 52201,
+    "components": 163,
+    "largest": 50167,
+    "isolated": 31,
+    "dangle_segments": 2319
+  },
+  "dangle_endpoints_checked": 2355,
+  "components_repaired": 3,
+  "connectors_added": 3,
+  "target_split_points": 3,
+  "rejected_reasons": {
+    "source_already_main_component": 2141,
+    "same_edge": 395,
+    "same_component": 29,
+    "no_larger_target_component": 1,
+    "district_boundary": 6,
+    "grade_or_bridge_tunnel": 3
+  },
+  "output_feature_class": "D:\\盲行\\shenzhen_data\\futian_accessible_network.gdb\\FutianNetwork\\AccessibleRoads_Repaired"
+}

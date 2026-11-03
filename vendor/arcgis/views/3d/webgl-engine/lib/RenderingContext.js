@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../core/has","../effects/ScreenSpaceGeometry","../../../webgl/AppleAmdDriverHelper","../../../webgl/RenderingContext"],(function(e,r,t,s,i){"use strict";class p extends i.RenderingContext{constructor(e,r,s){super(e,r),this.gl=e,this.newCache=s,this._appleAmdDriverHelper=null,this._refCount=1,this.screen=new t.ScreenSpaceGeometry(this)}destroy(){--this._refCount>0||this.dispose()}ref(){++this._refCount}dispose(){super.dispose(),this._appleAmdDriverHelper?.dispose(),this.screen.destroy()}bindTechnique(e,r,t,s,i){return this.useProgram(e.program),this.setPipelineState(e.getPipeline(!!i)),e.program.bindPass(t,r),s&&e.program.bindDraw(s,r,t),e.program}runAppleAmdDriverHelper(){this.driverTest.drawArraysRequiresIndicesTypeReset.result&&(this._appleAmdDriverHelper??=new s.AppleAmdDriverHelper(this),this._appleAmdDriverHelper.run())}get test(){}}e.RenderingContext=p,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

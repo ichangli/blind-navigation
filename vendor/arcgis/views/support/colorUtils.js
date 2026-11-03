@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../Color","../../core/colorUtils"],(function(t,e,o){"use strict";async function n(t){await t.whenReady();const o=t.basemapView?.baseLayerViews.map((t=>t.layer)).toArray()??[];if(!o.length){const o=getComputedStyle(t.container).backgroundColor,n=o?new e(o):void 0;return("background"in t?t.background?.color:void 0)||(0!==n?.a?n:null)||null}const n=(await t.takeScreenshot({format:"png",layers:o})).data.data,r=n.length;let a=0,l=0,u=0,c=0,i=0,s=0;for(let e=0;e<r;e+=4){const t=n[e],o=n[e+1],r=n[e+2],d=n[e+3],g=d/255;a+=t*t*g,l+=o*o*g,u+=r*r*g,i+=g,d&&(c+=d,s++)}a=Math.round(Math.sqrt(a/i)),l=Math.round(Math.sqrt(l/i)),u=Math.round(Math.sqrt(u/i));return new e([a,l,u,c/s/255])}async function r(t){if(!t)return null;const e=await n(t);return null!=e?o.getColorTheme(e):null}t.getBackgroundColor=n,t.getBackgroundColorTheme=r,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

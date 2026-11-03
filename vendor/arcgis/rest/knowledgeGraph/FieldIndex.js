@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,o,r,t,s,p,n){"use strict";let i=class extends o.JSONSupport{constructor(e){super(e),this.name=null,this.unique=null,this.ascending=null,this.description=null,this.fieldNames=null}};e.__decorate([r.property({type:String,json:{write:!0}})],i.prototype,"name",void 0),e.__decorate([r.property({type:Boolean,json:{write:!0}})],i.prototype,"unique",void 0),e.__decorate([r.property({type:Boolean,json:{write:!0}})],i.prototype,"ascending",void 0),e.__decorate([r.property({type:String,json:{write:!0}})],i.prototype,"description",void 0),e.__decorate([r.property({type:[String],json:{write:!0}})],i.prototype,"fieldNames",void 0),i=e.__decorate([n.subclass("esri.rest.knowledgeGraph.FieldIndex")],i);return i}));

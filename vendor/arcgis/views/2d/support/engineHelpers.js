@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../core/screenUtils","../engine/webgl/definitions","../engine/webgl/mesh/templates/shapingUtils"],(function(e,t,n,i){"use strict";async function o(e,o,a){const r={type:"cim-rasterization-info",resource:{type:"text",textString:e.text,font:e.font}},s=o.textureManager.rasterizeItem(r,a),l=await s;return i.shapeGlyphs(l,{angle:e.angle??0,xOffset:t.pt2px(e.xoffset??0),yOffset:t.pt2px(e.yoffset??0),lineHeight:n.magicLabelLineHeight*Math.max(.25,e.lineHeight),maxLineWidth:Math.max(32,Math.min(t.pt2px(e.lineWidth),512)),decoration:e.font.decoration,scale:Math.min(Math.round(t.pt2px(e.font.size)),127)/n.glyphSize,horizontalAlignment:"center",verticalAlignment:"middle",useCIMAngleBehavior:!1,hasBackground:!!e.backgroundColor,borderLineSizePx:t.pt2px(e.borderLineSize)}).boundsT}let a=o;async function r(e,t,n){return a(e,t.stage,n)}const s={stubGetTextBounds:e=>a=e,restoreGetTextBounds:()=>a=o};e.getTextBounds=r,e.test=s,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["require","exports","../../core/handleUtils","../../core/promiseUtils","../../core/reactiveUtils","./workflowUtils"],(function(e,o,a,r,t,n){"use strict";async function l({view:o,data:l,signal:c,next:i,cancel:u}){const{creationInfo:d}=l;if(!d)return a.makeHandle();if(!s(d))return a.makeHandle();const{layer:f}=d,m=null!=d.geometryToPlace;if(d.geometryToPlace=null,m)return u(),a.makeHandle();const{Upload:p}=await new Promise(((o,a)=>e(["./Upload"],o,a)));r.throwIfAborted(c);const w=new p;l.upload=w;let y=null;const g=()=>y?.remove(),U=a.handlesGroup([t.watch((()=>w.state),(e=>{switch(e){case"default":case"error":g();break;case"pending":g(),y=n.showProgressCursor(o);break;case"success":d.maxFeatures=1,d.geometryToPlace=w.result,g(),i()}})),a.makeHandle((()=>{w.cancel(),g()}))]);return w.uploadTo(f),U}function s(e){const o=e?.layer;return"scene"===o?.type}o.handleModelUpload=l,o.isModelUpload=s,Object.defineProperty(o,Symbol.toStringTag,{value:"Module"})}));

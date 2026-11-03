@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../core/Collection","../../support/actions/ActionBase","../../support/actions/ActionButton","../../support/actions/ActionToggle","../support/legacyIcon"],(function(e,o,t,s,a,l){"use strict";const n=o.ofType({key:"type",defaultKeyValue:"button",base:t,typeMap:{button:s,toggle:a}}),c=new s({icon:"magnifying-glass-plus",id:"zoom-to-feature",title:"{messages.zoom}",className:l.legacyIcon.zoomInMagnifyingGlass}),i=new s({icon:"trash",id:"remove-selected-feature",title:"{messages.remove}",className:l.legacyIcon.trash}),r=new s({icon:"magnifying-glass-plus",id:"zoom-to-clustered-features",title:"{messages.zoom}",className:l.legacyIcon.zoomInMagnifyingGlass}),u=new a({icon:"table",id:"browse-clustered-features",title:"{messages.browseClusteredFeatures}",className:l.legacyIcon.table,value:!1}),g=[c,i,u,r];e.ActionsCollection=n,e.all=g,e.browseClusteredFeatures=u,e.removeSelectedFeature=i,e.zoomToClusteredFeatures=r,e.zoomToFeature=c,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

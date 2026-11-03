@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","./mixins/MediaInfo","./support/ImageMediaInfoValue"],(function(e,t,r,o,s,a,i,p){"use strict";var c;let n=c=class extends i{constructor(e){super(e),this.refreshInterval=0,this.type="image",this.value=void 0}clone(){return new c({altText:this.altText,title:this.title,caption:this.caption,refreshInterval:this.refreshInterval,value:this.value?.clone()})}};e.__decorate([t.property({type:Number,json:{write:!0}})],n.prototype,"refreshInterval",void 0),e.__decorate([t.property({type:["image"],readOnly:!0,json:{read:!1,write:!0}})],n.prototype,"type",void 0),e.__decorate([t.property({type:p,json:{write:!0}})],n.prototype,"value",void 0),n=c=e.__decorate([a.subclass("esri.popup.content.ImageMediaInfo")],n);return n}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/enumeration","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,a,c,l,i){"use strict";let u=class extends(r.ClonableMixin(o.JSONSupport)){constructor(e){super(e),this.layerId=null,this.layerUrl=null,this.type="feature-layer"}};e.__decorate([t.property({type:String,json:{write:{overridePolicy(){return{isRequired:null===this.layerUrl}}}}})],u.prototype,"layerId",void 0),e.__decorate([t.property({type:String,json:{write:{overridePolicy(){return{isRequired:null===this.layerId}}}}})],u.prototype,"layerUrl",void 0),e.__decorate([l.enumeration({featureLayer:"feature-layer"},{readOnly:!0})],u.prototype,"type",void 0),u=e.__decorate([i.subclass("esri.webdoc.geotriggersInfo.FeatureLayerSource")],u);return u}));

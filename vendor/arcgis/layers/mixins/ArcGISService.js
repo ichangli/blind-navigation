@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../chunks/tslib.es6","../../core/Logger","../../core/accessorSupport/decorators/property","../../core/has","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","../support/arcgisLayerUrl"],(function(t,e,r,s,i,o,l,c){"use strict";const u=t=>{let i=class extends t{get title(){if(this._get("title")&&"defaults"!==this.originOf("title"))return this._get("title");if(this.url){const t=c.parse(this.url);if(null!=t&&t.title)return t.title}return this._get("title")||""}set title(t){this._set("title",t)}set url(t){this._set("url",c.sanitizeUrl(t,r.getLogger(this)))}};return e.__decorate([s.property()],i.prototype,"title",null),e.__decorate([s.property({type:String})],i.prototype,"url",null),i=e.__decorate([l.subclass("esri.layers.mixins.ArcGISService")],i),i};t.ArcGISService=u,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

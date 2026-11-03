@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../support/errorsupport","../support/FeatureSet","../support/IdSet","../support/shared"],(function(e,t,r,s){"use strict";class a extends t{constructor(e){super(e),this.declaredClass="esri.layers.featureset.sources.Empty",this._maxProcessing=1e3,this._wset=new r([],[],!1,null),this._parent=e.parentfeatureset,this._databaseType=s.FeatureServiceDatabaseType.Standardised}async _getSet(){return this._wset}optimisePagingFeatureQueries(){}_isInFeatureSet(){return s.IdState.NotInFeatureSet}async _getFeature(){throw new e.FeatureSetError(e.FeatureSetErrorCodes.NeverReach)}async queryAttachments(){return[]}async _getFeatures(){return"success"}_featureFromCache(){return null}async _fetchAndRefineFeatures(){throw new e.FeatureSetError(e.FeatureSetErrorCodes.NeverReach)}async _getFilteredSet(){return new r([],[],!1,null)}_stat(e,t,r,s,a,u,n){return this._manualStat(e,t,u,n)}async _canDoAggregates(){return!1}}return a}));

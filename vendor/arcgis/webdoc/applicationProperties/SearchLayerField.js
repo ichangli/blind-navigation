@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/enumeration","../../core/accessorSupport/decorators/subclass","../../layers/support/fieldType"],(function(e,t,r,o,c,s,a,p,n){"use strict";var i;let u=i=class extends t.JSONSupport{constructor(e){super(e),this.exactMatch=!1,this.name=null,this.type=null}clone(){return new i({exactMatch:this.exactMatch,type:this.type,name:this.name})}};e.__decorate([r.property({type:Boolean,json:{write:!0}})],u.prototype,"exactMatch",void 0),e.__decorate([r.property({type:String,json:{write:!0}})],u.prototype,"name",void 0),e.__decorate([a.enumeration(n.kebabDict)],u.prototype,"type",void 0),u=i=e.__decorate([p.subclass("esri.webdoc.applicationProperties.SearchLayerField")],u);return u}));

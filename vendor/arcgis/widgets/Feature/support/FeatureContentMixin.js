@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../chunks/tslib.es6","../../../core/Logger","../../../core/has","../../../core/RandomLCG","../../../core/Error","../../../core/accessorSupport/decorators/subclass","../resources","../../support/widget","../../support/jsxFactory"],(function(e,t,s,o,r,c,n,d,a,i){"use strict";const u=e=>{let s=class extends e{constructor(){super(...arguments),this.renderNodeContent=e=>a.isWidget(e)&&!e.destroyed?i.tsx("div",{class:d.css.contentNode,key:e},e.render()):e instanceof HTMLElement?i.tsx("div",{afterCreate:this._attachToNode,bind:e,class:d.css.contentNode,key:e}):a.hasDomNode(e)?i.tsx("div",{afterCreate:this._attachToNode,bind:e.domNode,class:d.css.contentNode,key:e}):null}_attachToNode(e){const t=this;e.appendChild(t)}};return s=t.__decorate([n.subclass("esri.widgets.Feature.support.FeatureContentMixin")],s),s};e.FeatureContentMixin=u,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

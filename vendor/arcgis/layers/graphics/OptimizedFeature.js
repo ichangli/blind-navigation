@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","./OptimizedGeometry"],(function(t,e){"use strict";class s{constructor(t=null,e={},s,i){this.geometry=t,this.attributes=e,this.centroid=s,this.objectId=i,this.displayId=0,this.geohashX=0,this.geohashY=0}static fromJSON(t,i){const o=t.geometry?e.fromJSON(t.geometry):null,h=t.centroid?e.fromJSON(t.centroid):null,r=t.attributes[i];return new s(o,t.attributes,h,r)}weakClone(){const t=new s(this.geometry,this.attributes,this.centroid,this.objectId);return t.displayId=this.displayId,t.geohashX=this.geohashX,t.geohashY=this.geohashY,t}clone(){const t=this.geometry?.clone(),e=new s(t,{...this.attributes},this.centroid?.clone(),this.objectId);return e.displayId=this.displayId,e.geohashX=this.geohashX,e.geohashY=this.geohashY,e}}function i(t){return!!t.geometry?.coords?.length}class o extends s{}t.OptimizedFeature=s,t.OptimizedFeatureWithGeometry=o,t.hasGeometry=i,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

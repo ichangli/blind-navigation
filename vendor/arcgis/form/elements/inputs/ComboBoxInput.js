@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","./Input"],(function(o,e,t,r,s,p,n){"use strict";var a;let c=a=class extends n{constructor(o){super(o),this.noValueOptionLabel=null,this.showNoValueOption=!0,this.type="combo-box"}clone(){return new a({showNoValueOption:this.showNoValueOption,noValueOptionLabel:this.noValueOptionLabel})}};o.__decorate([e.property({type:String,json:{write:!0}})],c.prototype,"noValueOptionLabel",void 0),o.__decorate([e.property({type:Boolean,json:{write:!0}})],c.prototype,"showNoValueOption",void 0),o.__decorate([e.property({type:["combo-box"],json:{read:!1,write:!0}})],c.prototype,"type",void 0),c=a=o.__decorate([p.subclass("esri.form.elements.inputs.ComboBoxInput")],c);return c}));

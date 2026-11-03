@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,t,o,r,p,s,n,a,i){"use strict";e.HeatmapLegendOptions=class extends(o.ClonableMixin(r.JSONSupport)){constructor(){super(...arguments),this.minLabel=null,this.maxLabel=null,this.title=null}},t.__decorate([p.property({type:String,json:{write:!0}})],e.HeatmapLegendOptions.prototype,"minLabel",void 0),t.__decorate([p.property({type:String,json:{write:!0}})],e.HeatmapLegendOptions.prototype,"maxLabel",void 0),t.__decorate([p.property({type:String,json:{write:!0}})],e.HeatmapLegendOptions.prototype,"title",void 0),e.HeatmapLegendOptions=t.__decorate([i.subclass("esri.renderers.support.HeatmapLegendOptions")],e.HeatmapLegendOptions),Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

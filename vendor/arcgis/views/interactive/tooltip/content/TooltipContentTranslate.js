@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../chunks/tslib.es6","../../../../core/Logger","../../../../core/has","../../../../core/RandomLCG","../../../../core/Error","../../../../core/accessorSupport/decorators/subclass","../components/TooltipField","./TooltipContent","../../../../widgets/support/widgetUtils","../../../../widgets/support/jsxFactory"],(function(t,e,o,s,n,i,r,l,a,c,p){"use strict";t.TooltipContentTranslate=class extends a.TooltipContent{_renderContent(){const{info:t}=this,{visibleElements:e}=t,o=this._messagesTooltip.sketch,s=this._formatters;return p.tsx(p.tsxFragment,null,e.distance?p.tsx(l.TooltipField,{title:o.distance,value:s.length(t.distance)}):null)}},t.TooltipContentTranslate=e.__decorate([r.subclass("esri.views.interactive.tooltip.content.TooltipContentTranslate")],t.TooltipContentTranslate),Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

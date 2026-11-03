@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../core/mathUtils","../../core/unitUtils"],(function(e,t,n){"use strict";const r=96;function i(e,t){const i=t||e.extent,o=e.width,c=n.getMetersPerUnitForSR(i?.spatialReference);return i&&o?i.width/o*c*n.inchesPerMeter*r:0}function o(e,t){return e/(n.getMetersPerUnitForSR(t)*n.inchesPerMeter*r)}function c(e){return e/(n.inchesPerMeter*r)}function u(e,t){return e*(n.getMetersPerUnitForSR(t)*n.inchesPerMeter*r)}function l(e,t){const n=e.extent,r=e.width-(e.padding?e.padding.left+e.padding.right:0),i=o(t,n.spatialReference);return n.clone().expand(i*r/n.width)}function s(e,t,n){return a(e,t)&&f(e,n)}function a(e,n){return 0===n||t.floatEqualAbsolute(e,n)||e<n}function f(e,n){return 0===n||t.floatEqualAbsolute(e,n)||e>n}e.getExtentForScale=l,e.getResolutionForScale=o,e.getResolutionInMetersForScale=c,e.getScale=i,e.getScaleForResolution=u,e.isInScaleRange=s,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

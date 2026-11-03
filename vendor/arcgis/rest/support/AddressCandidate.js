@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","../../geometry/Extent","../../geometry/Point"],(function(e,t,r,o,s,p,c,i,n){"use strict";let d=class extends t.JSONSupport{constructor(e){super(e),this.address=null,this.attributes=null,this.extent=null,this.location=null,this.score=null}};e.__decorate([r.property({type:String,json:{write:!0}})],d.prototype,"address",void 0),e.__decorate([r.property({type:Object,json:{write:!0}})],d.prototype,"attributes",void 0),e.__decorate([r.property({type:i,json:{write:!0}})],d.prototype,"extent",void 0),e.__decorate([r.property({type:n,json:{write:!0}})],d.prototype,"location",void 0),e.__decorate([r.property({type:Number,json:{write:!0}})],d.prototype,"score",void 0),d=e.__decorate([c.subclass("esri.rest.support.AddressCandidate")],d);return d}));

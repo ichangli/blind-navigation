@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../core/JSONSupport","../../../core/accessorSupport/decorators/property","../../../core/accessorSupport/ensureType","../../../core/RandomLCG","../../../core/has","../../../core/accessorSupport/decorators/subclass"],(function(r,e,t,o,s,p,a){"use strict";var c;let i=c=class extends e.JSONSupport{static from(r){return o.ensureClass(c,r)}constructor(r){super(r),this.globalIds=[],this.creators=[],this.tags=[],this.names=[]}};r.__decorate([t.property({type:[String],json:{write:!0}})],i.prototype,"globalIds",void 0),r.__decorate([t.property({type:[String],json:{write:!0}})],i.prototype,"creators",void 0),r.__decorate([t.property({type:[String],json:{write:!0}})],i.prototype,"tags",void 0),r.__decorate([t.property({type:[String],json:{write:!0}})],i.prototype,"names",void 0),i=c=r.__decorate([a.subclass("esri.rest.networks.support.QueryNamedTraceConfigurationsParameters")],i);return i}));

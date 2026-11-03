@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports"],(function(n){"use strict";function e(){return new Float32Array(4)}function t(n){const e=new Float32Array(4);return e[0]=n[0],e[1]=n[1],e[2]=n[2],e[3]=n[3],e}function r(n,e,t,r){const o=new Float32Array(4);return o[0]=n,o[1]=e,o[2]=t,o[3]=r,o}function o(n,e){return new Float32Array(n,e,4)}function u(){return e()}function i(){return r(1,1,1,1)}function c(){return r(1,0,0,0)}function a(){return r(0,1,0,0)}function f(){return r(0,0,1,0)}function l(){return r(0,0,0,1)}const s=u(),_=i(),N=c(),T=a(),y=f(),I=l(),S=Object.freeze(Object.defineProperty({__proto__:null,ONES:_,UNIT_W:I,UNIT_X:N,UNIT_Y:T,UNIT_Z:y,ZEROS:s,clone:t,create:e,createView:o,fromValues:r,ones:i,unitW:l,unitX:c,unitY:a,unitZ:f,zeros:u},Symbol.toStringTag,{value:"Module"}));n.ONES=_,n.UNIT_W=I,n.UNIT_X=N,n.UNIT_Y=T,n.UNIT_Z=y,n.ZEROS=s,n.clone=t,n.create=e,n.createView=o,n.fromValues=r,n.ones=i,n.unitW=l,n.unitX=c,n.unitY=a,n.unitZ=f,n.vec4f32=S,n.zeros=u,Object.defineProperty(n,Symbol.toStringTag,{value:"Module"})}));

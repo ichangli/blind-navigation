@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../core/Collection","../../../core/Logger","../../../core/has","../../../core/RandomLCG","../../../core/Error","../../../core/accessorSupport/decorators/subclass","./LayerView2D","../../layers/CatalogDynamicGroupLayerView","../../layers/LayerView"],(function(e,r,a,t,s,i,n,o,c,l){"use strict";let d=class extends(c(o.LayerView2DMixin(l))){constructor(){super(...arguments),this.unsupportedItemTypes=["Scene Service"],this.layerViews=new r}attach(){this.addAttachHandles([this.layerViews.on("after-changes",(()=>this._updateStageChildren())),this.enableLayerUpdates()])}detach(){this.container.removeAllChildren()}update(e){this.updateLayers()}viewChange(){}moveEnd(){this.requestUpdate()}_updateStageChildren(){this.container.removeAllChildren(),this.layerViews.forEach(((e,r)=>this.container.addChildAt(e.container,r)))}};d=e.__decorate([n.subclass("esri.views.2d.layers.CatalogDynamicGroupLayerView2D")],d);return d}));

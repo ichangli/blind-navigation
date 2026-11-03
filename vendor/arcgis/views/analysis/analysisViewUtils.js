@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../core/asyncUtils","../../core/maybe","../../core/promiseUtils","../../core/reactiveUtils"],(function(e,o,t,n,i){"use strict";function a(e,a){e.interactive=!0;const{tool:l,view:c}=e;c.activeTool=l;let s=n.onAbort(a,(()=>{c.activeTool===l&&(c.activeTool=null)}));return o.createTask((async e=>{await i.whenOnce((()=>null==l||!l.active),e),s=t.removeMaybe(s)}),a)}function l(e,o){return i.watch((()=>e.interactive),(()=>c(e,o)),i.syncAndInitial)}function c(e,o){e.interactive?s(e,o):r(e)}function s(e,o){r(e);const{view:t,analysis:n}=e,i=new o({view:t,analysis:n,analysisViewData:e});return e.tool=i,t.tools.add(i),i}function r(e){const{view:o,tool:t}=e;null!=t&&(o.tools.remove(t),e.tool=null)}e.activateAnalysisViewTool=a,e.connectAnalysisViewToTool=l,e.removeAnalysisViewTool=r,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

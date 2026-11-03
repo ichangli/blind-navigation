@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../definitions","./AFillMeshWriter","./meshWriterUtils","../../../../../../webgl/enums"],(function(e,t,o,i,r){"use strict";const a={createComputedParams:e=>e,optionalAttributes:{zoomRange:{type:r.DataType.SHORT,count:2,packPrecisionFactor:t.minMaxZoomPrecisionFactor,pack:({scaleInfo:e},{tileInfo:t})=>i.getMinMaxZoom(e,t)}},attributes:{id:{type:r.DataType.UNSIGNED_BYTE,count:3,pack:"id"},bitset:{type:r.DataType.UNSIGNED_BYTE,count:1},pos:{type:r.DataType.SHORT,count:2,pack:"position",packPrecisionFactor:10},color:{type:r.DataType.UNSIGNED_BYTE,count:4,normalized:!0,pack:({color:e})=>i.processColorInput(e)}}};class c extends o.AFillMeshWriter{constructor(){super(...arguments),this.vertexSpec=a}createTesselationParams(e){return null}}e.FillMeshWriter=c,e.fillVertexSpec=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

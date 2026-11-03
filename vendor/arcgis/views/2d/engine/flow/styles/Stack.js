@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports"],(function(t){"use strict";class e{constructor(t){this._styles=t}get animated(){return this._styles.reduce(((t,e)=>t||e.animated),!1)}isCompatible(t){if(!(t instanceof e))return!1;if(this._styles.length!==t._styles.length)return!1;const s=this._styles.length;for(let e=0;e<s;e++)if(!this._styles[e].isCompatible(t._styles[e]))return!1;return!0}async load(t,e){const r=await Promise.all(this._styles.map((s=>s.load(t,e))));return new s(r)}render(t,e,s){for(let r=0;r<this._styles.length;r++)this._styles[r].render(t,e,s.resources[r])}}class s{constructor(t){this.resources=t}attach(t){for(const e of this.resources)e.attach(t)}detach(){for(const t of this.resources)t.detach()}get ready(){return this.resources.reduce(((t,e)=>t&&e.ready),!0)}}t.Stack=e,t.StackResources=s,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

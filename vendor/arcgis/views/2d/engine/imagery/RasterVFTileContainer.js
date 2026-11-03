@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../geometry/support/aaBoundingRect","./BrushVectorField","./RasterVFTile","../webgl/enums","../webgl/TileContainer"],(function(e,s,t,r,i,n){"use strict";class a extends n{constructor(){super(...arguments),this.isCustomTilingScheme=!1,this.symbolTypes=["triangle"]}createTile(e){const t=this._tileInfoView.getTileBounds(s.create(),e),[i,n]=this._tileInfoView.tileInfo.size,a=this._tileInfoView.getTileResolution(e.level);return new r.RasterVFTile(e,a,t[0],t[3],i,n)}prepareRenderPasses(e){const s=e.registerRenderPass({name:"imagery (vf tile)",brushes:[t],target:()=>this.children.map((e=>e.tileData)),drawPhase:i.WGLDrawPhase.MAP});return[...super.prepareRenderPasses(e),s]}doRender(e){this.visible&&e.drawPhase===i.WGLDrawPhase.MAP&&this.symbolTypes.forEach((s=>{e.renderPass=s,super.doRender(e)}))}}e.RasterVFTileContainer=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

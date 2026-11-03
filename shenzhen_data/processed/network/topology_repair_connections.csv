@@ -1,0 +1,4 @@
+﻿repair_id,endpoint_oid,target_road_oid,gap_m,target_component
+1,2316,51288,0.124,1
+2,2057,43106,2.012,1
+3,1633,14834,1.711,15

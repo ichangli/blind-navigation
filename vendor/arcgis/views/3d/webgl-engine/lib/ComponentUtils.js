@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../core/arrayUtils"],(function(t,i){"use strict";function n(t,n,e,l){if(e>=n)return t;null==t&&(t=r());const s=t.isVisibleBit;let a=t.data;const c=u(a),f=e/c|0,b=e-c*f,d=(n-1)/c|0,h=a,g=l===s;if(!(e<h.length*c)&&g){const t=f+1,n=Math.ceil(h.length*i.reallocGrowthFactor),e=d+1;let r=Math.max(t,n);r=Math.min(r,e),a=new Uint32Array(r),a.set(h)}return f<a.length&&(a[f]=o(a[f],b,g)),t.data=a,t}function e(t,i){if(null==t)return!0;const{isVisibleBit:n,data:e}=t,r=u(e);return i<e.length*r?l(n,e,i,r):!t.isVisibleBit}function r(t=!0){return{isVisibleBit:!t,data:new Uint32Array(0)}}function l(t,i,n,e){const r=n/e|0,l=n-r*e;return s(i[r],l)===t}function u(t){const i=8;return t.BYTES_PER_ELEMENT*i}function o(t,i,n){return t&~(1<<i)|(n?1:0)<<i}function s(t,i){return!!(t&1<<i)}t.defaultVisibilities=r,t.getVisibility=e,t.updateVisibilityWithCount=n,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

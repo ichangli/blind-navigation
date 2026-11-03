@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../chunks/tslib.es6","../../../../core/accessorSupport/decorators/property","../../../../core/has","../../../../core/Logger","../../../../core/RandomLCG","../../../../core/accessorSupport/decorators/subclass","./SketchTooltipInfo","./TooltipInfoWithCoordinates"],(function(o,t,e,r,s,i,n,l,a){"use strict";o.TransformPointTooltipInfo=class extends(a.TooltipInfoWithCoordinates(l.SketchTooltipInfo)){constructor(o){super(o),this.type="transform-point",this.allFields.forEach((o=>{o.lockable=!1,o.setActual(null)}))}get allFields(){return[this.longitude,this.latitude,this.x,this.y,this.elevation]}},t.__decorate([e.property()],o.TransformPointTooltipInfo.prototype,"allFields",null),o.TransformPointTooltipInfo=t.__decorate([n.subclass("esri.views.interactive.tooltip.infos.TransformPointTooltipInfo")],o.TransformPointTooltipInfo),Object.defineProperty(o,Symbol.toStringTag,{value:"Module"})}));

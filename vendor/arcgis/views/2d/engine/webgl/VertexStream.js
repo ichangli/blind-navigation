@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["./shaderGraph/techniques/mesh/utils","../../../webgl/BufferObject","../../../webgl/enums","../../../webgl/VertexArrayObject","../../../webgl/VertexElementDescriptor"],(function(t,e,r,i,s){"use strict";class a{constructor(a,n){this._rctx=a,this._attributes=[{name:"position",offset:0,type:r.DataType.SHORT,count:2}],this.layout={hash:t.vertexLayoutHash(this._attributes),attributes:this._attributes,stride:4},this._vertexBuffer=e.BufferObject.createVertex(a,r.Usage.STATIC_DRAW,new Uint16Array(n)),this._vao=new i.VertexArrayObject(a,new Map([["a_position",0]]),{geometry:[new s.VertexElementDescriptor("a_position",2,r.DataType.SHORT,0,4)]},{geometry:this._vertexBuffer}),this._count=n.length/2}bind(){this._rctx.bindVAO(this._vao)}unbind(){this._rctx.bindVAO(null)}dispose(){this._vao.dispose()}draw(){this._rctx.bindVAO(this._vao),this._rctx.drawArrays(r.PrimitiveType.TRIANGLE_STRIP,0,this._count)}}return a}));

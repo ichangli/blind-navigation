@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../core/handleUtils"],(function(e,n){"use strict";let o,t;const a=globalThis.esriConfig?.locale??globalThis.dojoConfig?.locale;function c(){return a??globalThis.navigator?.language??"en"}function i(){return void 0===t&&(t=c()),t}function l(e){o=e||void 0,L()}function r(e=i()){const n=/^([a-zA-Z]{2,3})(?:[_-]\w+)*$/.exec(e);return n?.[1].toLowerCase()}const s={he:!0,ar:!0};function u(e=i()){const n=r(e);return void 0!==n&&(s[n]||!1)}const g=[];function f(e){return g.push(e),n.makeHandle((()=>g.splice(g.indexOf(e),1)))}const d=[];function h(e){return d.push(e),n.makeHandle((()=>d.splice(d.indexOf(e),1)))}function L(){const e=o??c();t!==e&&([...d].forEach((n=>n(e))),t=e,[...g].forEach((n=>n(e))))}globalThis.addEventListener?.("languagechange",L),e.beforeLocaleChange=h,e.getDefaultLocale=c,e.getLanguage=r,e.getLocale=i,e.onLocaleChange=f,e.prefersRTL=u,e.setLocale=l,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

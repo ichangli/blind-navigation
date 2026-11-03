@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","./MemCache"],(function(e,t){"use strict";class c{constructor(e,c){this._cache=e(c,((e,c,s)=>{switch(c){case t.RemoveMode.ALL:return e.forEach((e=>e.dispose())),0;case t.RemoveMode.SOME:{const t=e.shift();return t&&(s-=Math.round(t.usedMemory),t.dispose()),s}}}))}hitrate(){return this._cache.hitRate}destroy(){this._cache.destroy()}clear(){this._cache.clear()}getSize(e){return this._cache.getSize(e)}pop(e){const t=this._cache.peek(e);if(!t)return;const c=t.pop();if(t.length>0){if(c){const s=this._cache.getSize(e)-Math.round(c.usedMemory);this._cache.updateSize(e,t,s)}}else this._cache.pop(e);return c}put(e,c,s=t.NoPriority){const h=this._cache.peek(e);if(!h)return void this._cache.put(e,[c],c.usedMemory,s);h.push(c);const o=this._cache.getSize(e)+Math.round(c.usedMemory);this._cache.updateSize(e,h,o)}}e.MemCachePool=c,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../../core/arrayUtils","../../../../../core/mathUtils","../../lib/screenSizePerspectiveUtils"],(function(t,e,n,r){"use strict";function o(t,e,o,l,i){let c=(o.screenLength||0)*t.pixelRatio;null!=i&&(c=r.scale(c,l,e,i));const a=c*Math.tan(.5*t.fovY)/(.5*t.fullHeight);return n.clamp(a*e,o.minWorldLength||0,null!=o.maxWorldLength?o.maxWorldLength:1/0)}function l(t,e){const n=e?l(e):{};for(const r in t){let e=t[r];e?.forEach&&(e=c(e)),null==e&&r in n||(n[r]=e)}return n}function i(t,n){let r=!1;for(const o in n){const l=n[o];void 0!==l&&(Array.isArray(l)?null===t[o]?(t[o]=l.slice(),r=!0):e.update(t[o],l)&&(r=!0):t[o]!==l&&(r=!0,t[o]=l))}return r}function c(t){const e=[];return t.forEach((t=>e.push(t))),e}const a={multiply:1,ignore:2,replace:3,tint:4};t.colorMixModes=a,t.copyParameters=l,t.updateParameters=i,t.verticalOffsetAtDistance=o,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

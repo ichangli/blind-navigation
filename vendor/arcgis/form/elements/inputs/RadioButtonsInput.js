@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","./Input"],(function(o,e,t,r,s,n,p){"use strict";var a;let i=a=class extends p{constructor(o){super(o),this.noValueOptionLabel=null,this.showNoValueOption=!0,this.type="radio-buttons"}clone(){return new a({noValueOptionLabel:this.noValueOptionLabel,showNoValueOption:this.showNoValueOption})}};o.__decorate([e.property({type:String,json:{write:!0}})],i.prototype,"noValueOptionLabel",void 0),o.__decorate([e.property({type:Boolean,json:{write:!0}})],i.prototype,"showNoValueOption",void 0),o.__decorate([e.property({type:["radio-buttons"],json:{read:!1,write:!0}})],i.prototype,"type",void 0),i=a=o.__decorate([n.subclass("esri.form.elements.inputs.RadioButtonsInput")],i);return i}));

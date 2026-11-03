@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/lang","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/accessorSupport/decorators/enumeration","../../core/accessorSupport/decorators/subclass","./PointCloudFilter"],(function(e,o,r,t,s,i,c,l){"use strict";var u;let a=u=class extends l{constructor(e){super(e),this.mode="exclude",this.type="value",this.values=[]}clone(){return new u({field:this.field,mode:this.mode,values:o.clone(this.values)})}};e.__decorate([r.property({type:["exclude","include"],json:{write:{enabled:!0,isRequired:!0}}})],a.prototype,"mode",void 0),e.__decorate([i.enumeration({pointCloudValueFilter:"value"})],a.prototype,"type",void 0),e.__decorate([r.property({type:[Number],json:{write:{enabled:!0,isRequired:!0}}})],a.prototype,"values",void 0),a=u=e.__decorate([c.subclass("esri.layers.pointCloudFilters.PointCloudValueFilter")],a);return a}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,o,t,r,s,i,c){"use strict";let p=class extends o{constructor(){super(...arguments),this.timeRangeSlider=!0,this.timezone=!0,this.datePicker=!0,this.visualizationOptions=!0,this.colorPicker=!0,this.tooltip=!0}};e.__decorate([t.property()],p.prototype,"timeRangeSlider",void 0),e.__decorate([t.property()],p.prototype,"timezone",void 0),e.__decorate([t.property()],p.prototype,"datePicker",void 0),e.__decorate([t.property()],p.prototype,"visualizationOptions",void 0),e.__decorate([t.property()],p.prototype,"colorPicker",void 0),e.__decorate([t.property()],p.prototype,"tooltip",void 0),p=e.__decorate([c.subclass("esri.widgets.ShadowCast.ShadowCastVisibleElements")],p);return p}));

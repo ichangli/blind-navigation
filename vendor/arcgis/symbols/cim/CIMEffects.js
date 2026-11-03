@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../geometry/GeometryCursor","../../geometry/support/TileClipper"],(function(e,t,o){"use strict";const r=512;let n;class s{constructor(e){this._geometry=e}next(){const e=this._geometry;return this._geometry=null,e}}function i(e,s){n||(n=new o.TileClipper(0,0,0,1));const i="esriGeometryPolygon"===e.geometryType,y=i?o.GeometryType.Polygon:o.GeometryType.LineString,l=i?3:2;let c,p;for(n.reset(y),n.setPixelMargin(s+1),n.setExtent(r);e.nextPath();)if(!(e.pathSize<l)){for(e.nextPoint(),c=e.x,p=-e.y,n.moveTo(c,p);e.nextPoint();)c=e.x,p=-e.y,n.lineTo(c,p);i&&n.close()}const u=n.result(!1);if(u){const o=t.GeometryCursor.createEmptyOptimizedCIM(e.geometryType);for(const e of u){o.startPath();for(const t of e)o.pushXY(t.x,-t.y)}return o.reset(),o}return null}e.SimpleEffectCursor=s,e.clipCursorToTileExtent=i,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

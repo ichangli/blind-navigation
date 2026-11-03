@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../core/typedArrayUtil"],(function(e,t){"use strict";function r(e,t){f(e.typedBuffer,t.typedBuffer,e.typedBufferStride,t.typedBufferStride)}function f(e,r,f=2,n=f){const i=r.length/2;let o=0,l=0;if(t.isArray(r)||t.isFloat(r)){for(let t=0;t<i;++t)e[o]=r[l],e[o+1]=r[l+1],o+=f,l+=n;return}const u=t.maximumValue(r);if(t.isSigned(r))for(let t=0;t<i;++t)e[o]=Math.max(r[l]/u,-1),e[o+1]=Math.max(r[l+1]/u,-1),o+=f,l+=n;else for(let t=0;t<i;++t)e[o]=r[l]/u,e[o+1]=r[l+1]/u,o+=f,l+=n}function n(e,t,r,f){const n=e.typedBuffer,i=e.typedBufferStride,o=f?.count??e.count;let l=(f?.dstIndex??0)*i;for(let u=0;u<o;++u)n[l]=t,n[l+1]=r,l+=i}const i=Object.freeze(Object.defineProperty({__proto__:null,fill:n,normalizeIntegerBuffer:f,normalizeIntegerBufferView:r},Symbol.toStringTag,{value:"Module"}));e.fill=n,e.normalizeIntegerBuffer=f,e.normalizeIntegerBufferView=r,e.vec2=i}));

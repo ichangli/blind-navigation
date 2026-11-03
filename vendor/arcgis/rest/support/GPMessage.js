@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/jsonMap","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,s,o,t,p,i,c){"use strict";const a=new r.JSONMap({esriJobMessageTypeInformative:"informative",esriJobMessageTypeProcessDefinition:"process-definition",esriJobMessageTypeProcessStart:"process-start",esriJobMessageTypeProcessStop:"process-stop",esriJobMessageTypeWarning:"warning",esriJobMessageTypeError:"error",esriJobMessageTypeEmpty:"empty",esriJobMessageTypeAbort:"abort"});let n=class extends s.JSONSupport{constructor(e){super(e),this.description=null,this.type=null}};e.__decorate([o.property({type:String,json:{write:!0}})],n.prototype,"description",void 0),e.__decorate([o.property({type:String,json:{read:a.read,write:a.write}})],n.prototype,"type",void 0),n=e.__decorate([c.subclass("esri.rest.support.GPMessage")],n);return n}));

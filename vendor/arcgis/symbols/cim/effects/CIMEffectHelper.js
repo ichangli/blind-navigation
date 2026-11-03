@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../geometry/GeometryCursor","../../../geometry/geometryCursorCollectUtils","../CIMEffects","../CIMOperators","../CIMSymbolHelper"],(function(e,t,r,o,f,l){"use strict";const s=96/72;class c{static executeEffects(e,t,r,c){const n=s,u=l.getEffectsInflateSize(e);let i=new o.SimpleEffectCursor(t);for(const o of e){const e=f.getEffectOperator(o);e&&(i=e.execute(i,o,n,r,c,u))}return i}static applyEffects(e,s,c){if(!e)return s;const n=l.getEffectsInflateSize(e);let u,i=new o.SimpleEffectCursor(t.GeometryCursor.fromJSONCIM(s));for(const t of e){const e=f.getEffectOperator(t);e&&(i=e.execute(i,t,1,null,c,n))}const p=[];let a=null;for(;u=i.next();)p.push(...r.collectMultipath(u)),a=u.geometryType;return 0===p.length||null===a?null:"esriGeometryPolygon"===a?{rings:p}:{paths:p}}}e.CIMEffectHelper=c,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

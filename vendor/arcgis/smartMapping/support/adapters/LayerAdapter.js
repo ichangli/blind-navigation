@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../core/Loadable","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass"],(function(e,o,r,t,p,c,s){"use strict";let a=class extends o{constructor(e){super(e)}};e.__decorate([r.property({constructOnly:!0})],a.prototype,"layer",void 0),e.__decorate([r.property()],a.prototype,"geometryType",void 0),e.__decorate([r.property()],a.prototype,"objectIdField",void 0),e.__decorate([r.property()],a.prototype,"supportsSQLExpression",void 0),e.__decorate([r.property()],a.prototype,"hasQueryEngine",void 0),e.__decorate([r.property()],a.prototype,"minScale",void 0),e.__decorate([r.property()],a.prototype,"maxScale",void 0),e.__decorate([r.property()],a.prototype,"fullExtent",void 0),a=e.__decorate([s.subclass("esri.smartMapping.support.adapters.LayerAdapter")],a);return a}));

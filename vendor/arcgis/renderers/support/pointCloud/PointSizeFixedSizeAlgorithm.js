@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/enumeration","../../../core/accessorSupport/decorators/subclass","./PointSizeAlgorithm"],(function(e,o,r,s,t,i,l,c){"use strict";var p;let n=p=class extends c{constructor(){super(...arguments),this.type="fixed-size",this.size=0,this.useRealWorldSymbolSizes=null}clone(){return new p({size:this.size,useRealWorldSymbolSizes:this.useRealWorldSymbolSizes})}};e.__decorate([i.enumeration({pointCloudFixedSizeAlgorithm:"fixed-size"})],n.prototype,"type",void 0),e.__decorate([o.property({type:Number,nonNullable:!0,json:{write:!0}})],n.prototype,"size",void 0),e.__decorate([o.property({type:Boolean,json:{write:!0}})],n.prototype,"useRealWorldSymbolSizes",void 0),n=p=e.__decorate([l.subclass("esri.renderers.support.pointCloud.PointSizeFixedSizeAlgorithm")],n);return n}));

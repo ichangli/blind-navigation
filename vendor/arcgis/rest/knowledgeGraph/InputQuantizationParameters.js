@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,o,r,t,s,i,p){"use strict";let l=class extends o{constructor(e){super(e),this.xyResolution=null,this.xFalseOrigin=null,this.yFalseOrigin=null,this.zResolution=null,this.zFalseOrigin=null,this.mResolution=null,this.mFalseOrigin=null}};e.__decorate([r.property()],l.prototype,"xyResolution",void 0),e.__decorate([r.property()],l.prototype,"xFalseOrigin",void 0),e.__decorate([r.property()],l.prototype,"yFalseOrigin",void 0),e.__decorate([r.property()],l.prototype,"zResolution",void 0),e.__decorate([r.property()],l.prototype,"zFalseOrigin",void 0),e.__decorate([r.property()],l.prototype,"mResolution",void 0),e.__decorate([r.property()],l.prototype,"mFalseOrigin",void 0),l=e.__decorate([p.subclass("esri.rest.knowledgeGraph.InputQuantizationParameters")],l);return l}));

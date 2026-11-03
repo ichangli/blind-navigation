@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["./chunks/tslib.es6","./core/Clonable","./core/accessorSupport/decorators/property","./core/has","./core/Logger","./core/RandomLCG","./core/accessorSupport/decorators/subclass"],(function(o,e,r,t,s,c,l){"use strict";let n=class extends e.Clonable{constructor(o){super(o),this.row=0,this.column=0,this.rows=1,this.columns=1}equals(o){return null!=o&&(this.row===o.row&&this.rows===o.rows&&this.column===o.column&&this.columns===o.columns)}};o.__decorate([r.property({type:Number,nonNullable:!0,json:{read:!1,write:!1}})],n.prototype,"row",void 0),o.__decorate([r.property({type:Number,nonNullable:!0,json:{read:!1,write:!1}})],n.prototype,"column",void 0),o.__decorate([r.property({type:Number,nonNullable:!0,json:{read:!1,write:!1}})],n.prototype,"rows",void 0),o.__decorate([r.property({type:Number,nonNullable:!0,json:{read:!1,write:!1}})],n.prototype,"columns",void 0),n=o.__decorate([l.subclass("esri.CameraLayout")],n);return n}));

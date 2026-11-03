@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../FeatureTechnique","../featureTechniqueUtils","../TechniqueType","../line/utils","../shaders/PatternOutlineFillShader"],(function(e,t,i,n,r,s){"use strict";class a extends t.FeatureTechnique{constructor(){super(...arguments),this.type=n.TechniqueType.PatternOutlineFill,this.shaders={geometry:new s.PatternOutlineFillShader}}render(e,t){const{context:n,painter:s,pixelRatio:a}=e,l=t.instance.getInput();s.setShader({shader:this.shaders.geometry,uniforms:{...i.resolveDynamicUniforms(e,t.target,l.uniforms),...i.getFeatureUniforms(e,t.target),antialiasingControls:r.getAntialiasingControls(a),mosaicInfo:s.textureManager.getMosaicInfo(n,t.textureKey),localTileOffset:i.getLocalTileOffset(t.target)},defines:{...i.getSelectionDefines(e)},optionalAttributes:l.optionalAttributes,useComputeBuffer:i.isHittest(e)}),s.setPipelineState(i.getFeaturePipelineState(e)),s.submitDraw(e,t)}}e.PatternOutlineFillTechnique=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

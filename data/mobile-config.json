@@ -1,0 +1,37 @@
+{
+  "_说明": "前端配置数据 — 永久保留，定义页面结构、UI 设置等不变的配置",
+  "app": {
+    "name": "无障碍出行"
+  },
+  "api": {
+    "baseUrl": "auto"
+  },
+  "tabs": [
+    { "id": "home", "icon": "🏠", "label": "首页", "active": true },
+    { "id": "nav", "icon": "🧭", "label": "导航" },
+    { "id": "bus", "icon": "🚌", "label": "公交" },
+    { "id": "report", "icon": "📝", "label": "上报" },
+    { "id": "me", "icon": "👤", "label": "我的" }
+  ],
+  "profile": {
+    "settings": {
+      "voiceTypes": ["温柔女声", "沉稳男声", "清晰女声", "标准女声"],
+      "defaults": {
+        "speed": 1,
+        "volume": 80,
+        "vibration": 2,
+        "voiceType": "温柔女声",
+        "toggles": {
+          "nav_blind_lane": true,
+          "nav_avoid_construction": true,
+          "nav_avoid_stairs": false,
+          "nav_auto_reroute": true,
+          "ui_large_font": false,
+          "ui_high_contrast": false,
+          "ui_screen_reader": true,
+          "ui_key_sound": true
+        }
+      }
+    }
+  }
+}

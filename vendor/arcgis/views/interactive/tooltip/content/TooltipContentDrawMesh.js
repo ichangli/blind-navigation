@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../chunks/tslib.es6","../../../../core/Logger","../../../../core/has","../../../../core/RandomLCG","../../../../core/Error","../../../../core/accessorSupport/decorators/subclass","./Fields","./TooltipContent","../../../../widgets/support/widgetUtils","../../../../widgets/support/jsxFactory"],(function(e,o,t,i,s,n,r,c,l,a,d){"use strict";e.TooltipContentDrawMesh=class extends l.TooltipContent{_renderContent(){const{fieldContext:e,info:o,mode:t}=this,{visibleElements:i}=o;return d.tsx(c.Fields,{context:e,fields:[i.coordinates?o.effectiveX:void 0,i.coordinates?o.effectiveY:void 0,i.elevation?o.elevation:void 0,i.orientation?o.orientation:void 0,i.scale?o.scale:void 0],mode:t})}},e.TooltipContentDrawMesh=o.__decorate([r.subclass("esri.views.interactive.tooltip.content.TooltipContentDrawMesh")],e.TooltipContentDrawMesh),Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>视障人士无障碍出行助手 - Web管理端</title>
+<link rel="stylesheet" href="./styles/webcss.css?v=20260721-web-controls">
+</head>
+<body>
+
+<script>
+if (!localStorage.getItem('a11y_web_logged_in')) {
+  window.location.href = '登录.html';
+}
+</script>
+
+<!-- Sidebar -->
+<div class="sidebar" role="navigation" aria-label="主导航">
+  <div class="sidebar-logo">
+    <div class="logo-icon">♿</div>
+    <div class="logo-text">无障碍出行助手<small>GeoScene · 深圳福田</small></div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-label">Web 管理端</div>
+      <div class="nav-item active" data-page="dashboard" tabindex="0" role="button" aria-current="page" onkeydown="if(event.key==='Enter'||event.key===' ')this.click()" onclick="goPage('dashboard', this)">
+        <span class="nav-icon">🗺️</span> 三维数字孪生大屏
+      </div>
+      <div class="nav-item" data-page="events" id="nav-events" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ')this.click()" onclick="goPage('events', this)">
+        <span class="nav-icon">📋</span> <span id="navEventsLabel">事件管理</span> <span class="badge" id="navEventsBadge">5</span>
+      </div>
+      <div class="nav-item" data-page="charts" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ')this.click()" onclick="goPage('charts', this)">
+        <span class="nav-icon">📊</span> 趋势图表分析
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main -->
+<div class="main">
+  <div class="topbar">
+    <span class="page-title" id="pageTitle">三维数字孪生大屏</span>
+    <span class="breadcrumb" id="breadcrumb">Web 管理端 / 三维数字孪生大屏</span>
+    <span class="spacer"></span>
+    <button class="tb-btn" id="refreshWebButton" onclick="manualRefreshWebData(this)">⟳ 刷新数据</button>
+    <div class="user-info">
+      <div class="user-avatar" id="topAvatar">管</div>
+      <span class="user-name" id="topUserName">管理员</span>
+      <button class="tb-btn" onclick="doLogout()" style="font-size:11px;margin-left:4px;">退出</button>
+    </div>
+  </div>
+  <div class="content-area">
+
+    <!-- ========== Dashboard ========== -->
+    <div class="page active" id="page-dashboard">
+      <div class="dash-layout">
+        <aside class="dash-layer-panel" aria-label="场景图层控制面板">
+          <div class="map-legend" id="mapLegend">
+            <div class="layer-panel-header">
+              <div><strong>场景图层</strong><small id="mapLayerMode">城市总览</small></div>
+              <span class="layer-total" id="mapFacilityTotal">数据加载中</span>
+            </div>
+            <div class="layer-quality-note" id="mapQualityNote">空字段按“信息未知”处理</div>
+            <div class="layer-group-title">GeoScene 基础场景</div>
+            <div class="leg-row leg-toggle on" data-map-layer="buildings" onclick="toggleMapDataLayer('buildings', this)"><span class="leg-swatch building-swatch"></span><span class="leg-check">✓</span><span class="leg-label">建筑白模</span><span class="layer-count">8,897</span></div>
+            <div class="leg-row leg-toggle off" data-map-layer="semantic" onclick="toggleMapDataLayer('semantic', this)"><span class="leg-swatch semantic-swatch"></span><span class="leg-check"></span><span class="leg-label">语义建筑光层</span><span class="layer-count" id="semanticBuildingCount">加载中</span></div>
+            <div class="leg-row leg-toggle on" data-map-layer="water" onclick="toggleMapDataLayer('water', this)"><span class="leg-swatch water-swatch"></span><span class="leg-check">✓</span><span class="leg-label">动态水面</span><span class="layer-count">764</span></div>
+            <div class="leg-row leg-toggle off" data-map-layer="roads" onclick="toggleMapDataLayer('roads', this)"><span class="leg-line road-swatch"></span><span class="leg-check"></span><span class="leg-label">福田道路网络</span><span class="layer-count" id="roadFeatureCount">52,201</span></div>
+            <div class="road-render-summary"><span class="road-mode-pulse"></span><span id="roadRenderMode">城市骨架·分级显隐</span><small>放大逐级展开 · 点击查看完整属性</small></div>
+            <div class="road-access-legend" id="roadThemeLegend" aria-label="无障碍道路等级">
+              <div><span class="road-level-line safe"></span><b>条件较好</b></div>
+              <div><span class="road-level-line caution"></span><b>需要注意</b></div>
+              <div><span class="road-level-line blocked"></span><b>明显障碍</b></div>
+              <div><span class="road-level-line unknown"></span><b>信息未知</b></div>
+            </div>
+            <div class="leg-row leg-toggle off" data-map-layer="boundary" onclick="toggleMapDataLayer('boundary', this)"><span class="leg-line boundary-swatch"></span><span class="leg-check"></span><span class="leg-label">福田区边界</span><span class="layer-count">1</span></div>
+            <div class="layer-group-title">交通与服务设施</div>
+            <div id="facilityLegendRows"><div class="layer-loading-row">正在读取福田设施数据…</div></div>
+            <div class="layer-group-title">无障碍治理事件</div>
+            <div class="leg-row leg-toggle on" onclick="toggleLayer('danger-dots', this)" id="leg-danger"><span class="leg-dot" style="background:var(--danger);"></span><span class="leg-check">✓</span><span class="leg-label">盲道被占</span></div>
+            <div class="leg-row leg-toggle on" onclick="toggleLayer('warning-dots', this)" id="leg-warning"><span class="leg-dot" style="background:var(--warning);"></span><span class="leg-check">✓</span><span class="leg-label">盲道损坏</span></div>
+            <div class="leg-row leg-toggle on" onclick="toggleLayer('muted-dots', this)" id="leg-muted"><span class="leg-dot" style="background:var(--text-muted);"></span><span class="leg-check">✓</span><span class="leg-label">盲道缺失</span></div>
+          </div>
+        </aside>
+        <div class="dash-map" id="dashMap">
+          <div class="map-bg" id="mapBg">
+            <div class="map-fallback-visual" aria-hidden="true">
+              <svg viewBox="0 0 1000 620" preserveAspectRatio="none">
+                <path class="fallback-road major" d="M-40 430 C180 350 330 390 520 280 S790 160 1050 220"/>
+                <path class="fallback-road major" d="M410 -30 C430 120 390 250 500 380 S650 540 690 660"/>
+                <path class="fallback-road" d="M-20 150 C210 180 340 100 560 130 S820 330 1040 300"/>
+                <path class="fallback-road" d="M120 650 C180 490 270 320 390 210 S620 40 840 -20"/>
+                <text x="530" y="260">深南大道</text>
+                <text x="455" y="110">益田路</text>
+                <text x="675" y="455">福华路</text>
+                <circle cx="520" cy="280" r="7"/>
+                <text class="fallback-landmark" x="535" y="300">深圳市民中心</text>
+              </svg>
+            </div>
+            <div class="map-grid"></div>
+            <div class="map-crosshair"></div>
+            <div class="map-coords">📍 114.055°E, 22.535°N | 深圳福田中心区示范区</div>
+            <div class="scene-status" id="sceneStatus">地图数据初始化中</div>
+
+            <button class="web-navigation-toggle" id="webNavigationToggle" type="button" onclick="startWebNavigationTest()" aria-controls="webNavigationPanel">
+              <span class="web-navigation-toggle-icon">➤</span><span>导航测试</span>
+            </button>
+            <section class="web-navigation-panel" id="webNavigationPanel" aria-live="polite" hidden>
+              <div class="web-navigation-head">
+                <div><small>GEOSCENE NETWORK ANALYSIS</small><strong>无障碍导航测试</strong></div>
+                <button type="button" class="web-navigation-close" onclick="clearWebNavigationTest()" aria-label="关闭导航测试">×</button>
+              </div>
+              <div class="web-navigation-hint" id="webNavigationHint">请在地图上点击选择起点</div>
+              <div class="web-navigation-points">
+                <div><span class="web-navigation-point start">起</span><span id="webNavigationOrigin">等待选择</span></div>
+                <div><span class="web-navigation-point end">终</span><span id="webNavigationDestination">等待选择</span></div>
+              </div>
+              <div class="web-navigation-summary" id="webNavigationSummary">
+                <span class="web-navigation-route-sample"></span><span>黄色路线将在求解后缓缓延伸</span>
+              </div>
+              <div class="web-navigation-error" id="webNavigationError" hidden></div>
+              <div class="web-navigation-actions">
+                <button type="button" onclick="swapWebNavigationPoints()">交换</button>
+                <button type="button" onclick="replayWebNavigationRoute()">重播</button>
+                <button type="button" onclick="resetWebNavigationPoints()">重新选点</button>
+                <button type="button" class="danger" onclick="clearWebNavigationTest()">清除</button>
+              </div>
+            </section>
+
+            <!-- Buildings W-01 -->
+            <div class="building" style="left:55px;top:170px;width:70px;height:50px;" onclick="bldPopup(event,'卓悦中心','78%','120m')">卓悦中心</div>
+            <div class="building tall" style="left:150px;top:100px;width:48px;height:80px;" onclick="bldPopup(event,'领展中心城','65%','200m')">领展中心城</div>
+            <div class="building" style="left:230px;top:190px;width:82px;height:42px;" onclick="bldPopup(event,'香蜜湖广场','82%','80m')">香蜜湖广场</div>
+            <div class="building tall" style="left:340px;top:90px;width:52px;height:90px;" onclick="bldPopup(event,'平安金融中心','71%','150m')">金融中心</div>
+            <div class="building" style="left:120px;top:290px;width:60px;height:38px;"></div>
+            <div class="building" style="left:280px;top:270px;width:88px;height:46px;"></div>
+            <div class="building tall" style="left:410px;top:240px;width:44px;height:68px;"></div>
+            <div class="building" style="left:380px;top:320px;width:64px;height:36px;"></div>
+
+            <!-- Events W-03 -->
+            <div class="event-dot dot-danger" style="top:155px;left:145px;" onclick="toast('E20260701: 盲道被占 — 福华路市民中心')" title="盲道被占"></div>
+            <div class="event-dot dot-warning" style="top:210px;left:275px;" onclick="toast('E20260702: 盲道损坏 — 深南大道')" title="盲道损坏"></div>
+            <div class="event-dot dot-danger" style="top:290px;left:360px;" onclick="toast('E20260703: 盲道缺失 — 彩田路')" title="盲道缺失"></div>
+            <div class="event-dot dot-warning" style="top:115px;left:395px;" onclick="toast('E20260704: 盲道被占 — 福民路')" title="盲道被占"></div>
+          </div>
+
+          <div class="view-tabs" id="viewTabs">
+            <div class="view-tab active" data-theme="overview" onclick="setView(this)">城市总览</div>
+            <div class="view-tab" data-theme="accessible" onclick="setView(this)">无障碍专题</div>
+            <div class="view-tab" data-theme="transit" onclick="setView(this)">公共交通</div>
+            <div class="view-tab" data-theme="services" onclick="setView(this)">服务设施</div>
+          </div>
+          <div class="map-ctrls">
+            <div class="map-ctrl" title="放大" onclick="mapZoom('in')">+</div>
+            <div class="map-ctrl" title="缩小" onclick="mapZoom('out')">−</div>
+            <div class="map-ctrl" title="复位" onclick="mapReset()">⌂</div>
+            <div class="map-ctrl" title="图层" onclick="toggleLegend()">≡</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== Events List ========== -->
+    <div class="page" id="page-events">
+      <div class="evt-toolbar">
+        <div class="filter-row">
+          <span class="filter-label">问题类型：</span>
+          <span class="filter-chip on" data-group="type" data-val="all" onclick="toggleFilter(this)">全部类型</span>
+          <span class="filter-chip" data-group="type" data-val="盲道被占" onclick="toggleFilter(this)">盲道被占</span>
+          <span class="filter-chip" data-group="type" data-val="盲道损坏" onclick="toggleFilter(this)">盲道损坏</span>
+          <span class="filter-chip" data-group="type" data-val="盲道缺失" onclick="toggleFilter(this)">盲道缺失</span>
+        </div>
+        <div class="filter-row">
+          <span class="filter-label">处理状态：</span>
+          <span class="filter-chip on" data-group="status" data-val="all" onclick="toggleFilter(this)">全部状态</span>
+          <span class="filter-chip" data-group="status" data-val="待审核" onclick="toggleFilter(this)">待审核</span>
+          <span class="filter-chip" data-group="status" data-val="处理中" onclick="toggleFilter(this)">处理中</span>
+          <span class="filter-chip" data-group="status" data-val="已修复" onclick="toggleFilter(this)">已修复</span>
+          <span class="filter-chip" data-group="status" data-val="驳回" onclick="toggleFilter(this)">驳回</span>
+          <input class="evt-search" placeholder="搜索事件ID / 区域..." oninput="applyEventFilters()">
+        </div>
+      </div>
+      <div class="evt-table-wrap">
+        <table class="evt-table">
+          <thead>
+            <tr><th>事件ID</th><th>类型</th><th>坐标</th><th>区域</th><th>上报人</th><th>时间</th><th>状态</th><th>操作</th></tr>
+          </thead>
+          <tbody>
+            <tr onclick="goPage('event-detail')">
+              <td style="color:var(--accent);">E20260701</td><td>盲道被占</td><td>114.055,22.535</td><td>福田区</td><td>张**</td><td>07-01 09:32</td>
+              <td><span class="st-badge st-pending">待审核</span></td>
+              <td><span class="act-link" onclick="event.stopPropagation();goPage('event-detail')">查看</span><span class="act-link" onclick="event.stopPropagation();goPage('event-detail')">审核</span></td>
+            </tr>
+            <tr onclick="goPage('event-detail')">
+              <td style="color:var(--accent);">E20260702</td><td>盲道损坏</td><td>114.060,22.537</td><td>福田区</td><td>李**</td><td>07-01 10:15</td>
+              <td><span class="st-badge st-processing">处理中</span></td>
+              <td><span class="act-link" onclick="event.stopPropagation();goPage('event-detail')">查看</span><span class="act-link" onclick="event.stopPropagation();goPage('event-detail')">更新</span></td>
+            </tr>
+            <tr onclick="toast('事件 E20260703 已修复')">
+              <td style="color:var(--accent);">E20260703</td><td>盲道缺失</td><td>114.049,22.541</td><td>福田区</td><td>王**</td><td>07-02 08:44</td>
+              <td><span class="st-badge st-done">已修复</span></td>
+              <td><span class="act-link" onclick="event.stopPropagation();toast('事件 E20260703 已修复')">查看</span></td>
+            </tr>
+            <tr onclick="goPage('event-detail')">
+              <td style="color:var(--accent);">E20260704</td><td>盲道被占</td><td>114.066,22.529</td><td>福田区</td><td>赵**</td><td>07-02 14:20</td>
+              <td><span class="st-badge st-pending">待审核</span></td>
+              <td><span class="act-link" onclick="event.stopPropagation();goPage('event-detail')">查看</span><span class="act-link" onclick="event.stopPropagation();goPage('event-detail')">审核</span></td>
+            </tr>
+            <tr onclick="toast('事件 E20260705 已被驳回')">
+              <td style="color:var(--accent);">E20260705</td><td>盲道损坏</td><td>114.058,22.539</td><td>福田区</td><td>孙**</td><td>07-03 11:08</td>
+              <td><span class="st-badge st-rejected">驳回</span></td>
+              <td><span class="act-link" onclick="event.stopPropagation();goPage('event-detail')">查看</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pager" id="eventPager">
+        <span class="pg" id="pagerInfo">共 5 条记录</span>
+        <button onclick="goEventPage(event, 'prev')">«</button>
+        <button onclick="goEventPage(event, 'next')">»</button>
+      </div>
+    </div>
+
+    <!-- ========== Event Detail ========== -->
+    <div class="page" id="page-event-detail">
+      <div class="det-back"><button class="btn btn-outline" onclick="goPage('events')" style="font-size:12px;">← 返回事件列表</button></div>
+      <div class="det-grid">
+        <div class="det-card full">
+          <h3>事件详情 — E20260701 (W-10)</h3>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+            <div>
+              <div class="det-field"><span class="df-lbl">事件类型</span><span class="df-val"><span class="st-badge st-pending" id="detStatus">盲道被占</span></span></div>
+              <div class="det-field"><span class="df-lbl">当前状态</span><span class="df-val"><span class="st-badge st-pending" id="detStateBadge">待审核</span></span></div>
+              <div class="det-field"><span class="df-lbl">上报人</span><span class="df-val">张** (低视力)</span></div>
+            </div>
+            <div>
+              <div class="det-field"><span class="df-lbl">坐标</span><span class="df-val">114.055, 22.535</span></div>
+              <div class="det-field"><span class="df-lbl">区域</span><span class="df-val">福田区 · 福华路</span></div>
+              <div class="det-field"><span class="df-lbl">上报时间</span><span class="df-val">2026-07-01 09:32</span></div>
+            </div>
+            <div>
+              <div class="det-field"><span class="df-lbl">参考地标</span><span class="df-val">市民中心地铁站C口</span></div>
+              <div class="det-field"><span class="df-lbl">优先级</span><span class="df-val" style="color:var(--danger);">高</span></div>
+              <div class="det-field"><span class="df-lbl">SLA</span><span class="df-val">48小时内响应</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="det-card">
+          <h3>问题描述</h3>
+          <p style="font-size:12px;color:var(--text-secondary);line-height:1.8;">
+            "福华路市民中心往香蜜湖方向，地铁站C出口外约30米处，大量共享单车堆积占用盲道，视障人士需绕行机动车道，存在严重安全隐患。"
+          </p>
+          <div style="margin-top:12px;font-size:11px;color:var(--text-muted);">上报方式: 语音一键上报 (M-11)</div>
+        </div>
+        <div class="det-card">
+          <h3>现场照片 (W-10)</h3>
+          <div class="det-photo empty">📷<div>选择事件后显示已上传的现场照片</div></div>
+        </div>
+        <div class="det-card full" id="auditSection">
+          <h3>审核操作 (W-09)</h3>
+          <div class="det-actions">
+            <button class="btn btn-success" onclick="eventApprove()">✓ 通过 · 转入处理中</button>
+            <button class="btn btn-danger" onclick="eventReject()">✗ 驳回</button>
+            <button class="btn btn-outline" onclick="locateEventOnMap((APP_DATA && APP_DATA.eventDetail && APP_DATA.eventDetail.id) || SELECTED_EVENT_ID)">📍 地图定位</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== Charts ========== -->
+    <div class="page" id="page-charts">
+      <div class="evt-toolbar">
+        <span class="filter-chip" data-period="day" onclick="switchChartPeriod('day',this)">按日</span>
+        <span class="filter-chip" data-period="week" onclick="switchChartPeriod('week',this)">按周</span>
+        <span class="filter-chip on" data-period="month" onclick="switchChartPeriod('month',this)">按月</span>
+      </div>
+      <div class="charts-grid">
+        <div class="chart-card">
+          <h3 id="chartTitle">上报事件趋势 — 近30天 (W-11)</h3>
+          <div class="chart-zone" id="chartTrendArea"></div>
+        </div>
+        <div class="chart-card">
+          <h3>事件类型分布 (W-11)</h3>
+          <div class="chart-zone" style="flex-direction:column;">
+            <svg viewBox="0 0 240 240" width="200" height="200">
+              <defs>
+                <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ff4560"/><stop offset="100%" stop-color="#ff8a9a"/></linearGradient>
+                <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f0a030"/><stop offset="100%" stop-color="#f5c060"/></linearGradient>
+                <linearGradient id="g3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#5a6380"/><stop offset="100%" stop-color="#8993ad"/></linearGradient>
+              </defs>
+              <circle cx="120" cy="120" r="84" fill="none" stroke="url(#g1)" stroke-width="34"
+                stroke-dasharray="237.5 527.8" transform="rotate(-90 120 120)"/>
+              <circle cx="120" cy="120" r="84" fill="none" stroke="url(#g2)" stroke-width="34"
+                stroke-dasharray="158.3 527.8" stroke-dashoffset="-237.5" transform="rotate(-90 120 120)"/>
+              <circle cx="120" cy="120" r="84" fill="none" stroke="url(#g3)" stroke-width="34"
+                stroke-dasharray="132 527.8" stroke-dashoffset="-395.8" transform="rotate(-90 120 120)"/>
+              <text x="120" y="115" fill="#e0e6f0" font-size="20" font-weight="700" text-anchor="middle">5</text>
+              <text x="120" y="135" fill="#5a6380" font-size="11" text-anchor="middle">事件总数</text>
+            </svg>
+            <div style="display:flex;gap:20px;font-size:11px;margin-top:8px;">
+              <span><span style="color:#ff4560;">●</span> 被占 45%</span>
+              <span><span style="color:#f0a030;">●</span> 损坏 30%</span>
+              <span><span style="color:#5a6380;">●</span> 缺失 25%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Admin delete confirmation -->
+<div class="web-dialog" id="eventDeleteDialog" hidden role="dialog" aria-modal="true" aria-labelledby="eventDeleteDialogTitle">
+  <div class="web-dialog-backdrop" onclick="closeEventDeleteDialog()"></div>
+  <div class="web-dialog-panel web-delete-dialog-panel">
+    <div class="web-delete-icon">🗑️</div>
+    <div class="web-dialog-eyebrow">管理员操作</div>
+    <h2 id="eventDeleteDialogTitle">永久删除事件记录？</h2>
+    <p>该操作会同时从事件列表、地图和统计中移除记录，且无法恢复。</p>
+    <div class="web-delete-summary">
+      <strong id="eventDeleteDialogId"></strong>
+      <span id="eventDeleteDialogMeta"></span>
+    </div>
+    <div class="web-dialog-actions">
+      <button type="button" class="btn btn-outline" onclick="closeEventDeleteDialog()">取消</button>
+      <button type="button" class="btn btn-danger" id="confirmDeleteEventButton" onclick="confirmDeleteEvent()">确认永久删除</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toastBox"></div>
+
+<script src="./road-visuals.js?v=20260721-web-controls"></script>
+<script src="./water-visuals.js?v=20260721-web-controls"></script>
+<script src="./web.js?v=20260721-web-controls"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports"],(function(i){"use strict";class t{constructor(i,t){this._editGeometry=i,this._newPositions=t}apply(){const i=null==this._originalPositions?"apply":"redo";if(!this._originalPositions){const i=this._editGeometry.coordinateHelper;this._originalPositions=this._editGeometry.allVertices.map((t=>i.clone(t.pos)))}this._apply(i,this._newPositions)}undo(){this._originalPositions&&this._apply("undo",this._originalPositions)}accumulate(i){return i instanceof t&&(this._newPositions=i._newPositions,this._apply("apply",this._newPositions),!0)}_apply(i,t){const o=this._editGeometry.coordinateHelper,e=this._editGeometry.allVertices;for(let s=0;s<e.length;s++)o.copy(t[s],e[s].pos);this._editGeometry.components.forEach((i=>i.unnormalizeVertexPositions())),this._editGeometry.notifyChanges({operation:i,updatedVertices:e})}}i.SetAllVertexPositions=t,Object.defineProperty(i,Symbol.toStringTag,{value:"Module"})}));

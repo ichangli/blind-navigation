@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../core/JSONSupport","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","../../../geometry/Multipoint","../../../geometry/Polygon","../../../geometry/Polyline"],(function(e,o,r,t,p,s,n,c,i,l){"use strict";let y=class extends o.JSONSupport{constructor(e){super(e),this.line=null,this.multipoint=null,this.polygon=null}};e.__decorate([r.property({type:l,json:{write:!0},readOnly:!0})],y.prototype,"line",void 0),e.__decorate([r.property({type:c,json:{read:{source:"point"},write:{target:"point"}},readOnly:!0})],y.prototype,"multipoint",void 0),e.__decorate([r.property({type:i,json:{write:!0},readOnly:!0})],y.prototype,"polygon",void 0),y=e.__decorate([n.subclass("esri.rest.networks.support.AggregatedGeometry")],y);return y}));

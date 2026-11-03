@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,o,t,r,s,c,l){"use strict";let p=class extends o{constructor(e){super(e),this.arrowsToggle=!1,this.capSelect=!1,this.colorPicker=!0,this.stylePicker=!0,this.widthInput=!0}};e.__decorate([t.property({type:Boolean,nonNullable:!0})],p.prototype,"arrowsToggle",void 0),e.__decorate([t.property({type:Boolean,nonNullable:!0})],p.prototype,"capSelect",void 0),e.__decorate([t.property({type:Boolean,nonNullable:!0})],p.prototype,"colorPicker",void 0),e.__decorate([t.property({type:Boolean,nonNullable:!0})],p.prototype,"stylePicker",void 0),e.__decorate([t.property({type:Boolean,nonNullable:!0})],p.prototype,"widthInput",void 0),p=e.__decorate([l.subclass("esri.widgets.UtilityNetworkAssociations.VisibleElementsSettingsPane")],p);return p}));

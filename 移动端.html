@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>无障碍出行助手 - 移动端</title>
+<link rel="stylesheet" href="./styles/mobilecss.css?v=20260719-report-photos">
+</head>
+<body>
+
+<script>
+if (!localStorage.getItem('a11y_mobile_logged_in')) {
+  window.location.href = '移动端登录.html';
+}
+</script>
+
+<div class="phone">
+  <div class="phone-inner">
+
+    <!-- ===== Page: Home ===== -->
+    <div class="content page active" id="mPage-home">
+      <div class="home-header">
+        <div class="home-title">无障碍出行</div>
+        <div class="home-sub">深圳 · 今日晴 32°C</div>
+        <button type="button" class="voice-btn" id="homeVoiceBtn" onclick="startDestinationVoiceInput('homeDestinationInput', this)" aria-label="语音输入目的地">🎤</button>
+        <div class="voice-hint" id="homeVoiceHint">点击麦克风，说出目的地 (M-01)</div>
+        <div class="route-search-box home-destination-search">
+          <div class="route-search-row">
+            <span class="route-point-label start">起</span>
+            <input id="homeOriginInput" type="text" value="福田中心演示点（购物公园）" placeholder="输入出发点" oninput="syncOriginInput(this)" onkeydown="if(event.key==='Enter'){document.getElementById('homeDestinationInput').focus();}" aria-label="手动输入出发点">
+            <button class="location-origin-btn" onclick="useCurrentLocationAsOrigin(this)" aria-label="使用设备真实定位为出发点">◎ 真实定位</button>
+          </div>
+          <div class="route-search-row">
+            <span class="route-point-label end">终</span>
+            <input id="homeDestinationInput" type="text" placeholder="输入目的地，如：购物公园" onkeydown="if(event.key==='Enter'){startRouteFromInput('homeDestinationInput');}" aria-label="手动输入目的地">
+            <button onclick="startRouteFromInput('homeDestinationInput')" aria-label="搜索并规划路线">规划</button>
+          </div>
+        </div>
+      </div>
+      <div class="quick-grid">
+        <button type="button" class="quick-card" onclick="startFavRoute('市民中心地铁站F口')">
+          <div class="qc-title">🕐 最近常用</div>
+          <div class="qc-desc">市民中心地铁站F口</div>
+        </button>
+        <button type="button" class="quick-card" onclick="mGoPage('me', null, 'mePerceptionSection')">
+          <div class="qc-title">👁️ AI感知演示</div>
+          <div class="qc-desc">模拟障碍与信号反馈</div>
+        </button>
+        <button type="button" class="quick-card" onclick="mGoPage('bus')">
+          <div class="qc-title">🚌 智慧公交</div>
+          <div class="qc-desc">查看附近公交</div>
+        </button>
+        <button type="button" class="quick-card" onclick="mGoPage('report')">
+          <div class="qc-title">📝 一键上报</div>
+          <div class="qc-desc">反馈盲道问题</div>
+        </button>
+      </div>
+      <div class="fav-section" id="homeFavRoutes">
+        <div class="fs-title">
+          ⭐ 常用路线
+          <button type="button" class="fs-add" onclick="mGoPage('me', null, 'meFavRoutesSection')">管理</button>
+        </div>
+        <button type="button" class="fav-route-item" onclick="startFavRoute('市民中心地铁站F口')">
+          <div class="fr-icon">🏠</div>
+          <div class="fr-info"><div class="fr-name">市民中心地铁站F口</div><div class="fr-detail">福华路 · 约850m · 有盲道</div></div>
+          <div class="fr-go">→</div>
+        </button>
+        <button type="button" class="fav-route-item" onclick="startFavRoute('莲花山公园')">
+          <div class="fr-icon">⭐</div>
+          <div class="fr-info"><div class="fr-name">莲花山公园</div><div class="fr-detail">约3.2km · 地铁可达</div></div>
+          <div class="fr-go">→</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== Page: Navigation ===== -->
+    <div class="content page" id="mPage-nav">
+      <div class="nav-header">
+        <h2 id="navStatusTitle">无障碍导航 (M-01~M-04)</h2>
+        <div class="nav-meta">尚未规划路线</div>
+        <div class="route-search-box nav-destination-search">
+          <div class="route-search-row">
+            <span class="route-point-label start">起</span>
+            <input id="navOriginInput" type="text" value="福田中心演示点（购物公园）" placeholder="输入出发点" oninput="syncOriginInput(this)" onkeydown="if(event.key==='Enter'){document.getElementById('navDestinationInput').focus();}" aria-label="导航出发点">
+            <button class="location-origin-btn" onclick="useCurrentLocationAsOrigin(this)" aria-label="使用设备真实定位为出发点">◎ 真实定位</button>
+          </div>
+          <div class="route-search-row">
+            <span class="route-point-label end">终</span>
+            <input id="navDestinationInput" type="text" placeholder="输入新目的地" onkeydown="if(event.key==='Enter'){startRouteFromInput('navDestinationInput');}" aria-label="导航目的地">
+            <button onclick="startRouteFromInput('navDestinationInput')" aria-label="重新规划路线">规划</button>
+            <button class="voice-search-btn" id="navVoiceBtn" onclick="startDestinationVoiceInput('navDestinationInput', this)" aria-label="语音输入目的地">🎤</button>
+          </div>
+        </div>
+      </div>
+      <div class="nav-map" id="amapNavMap" aria-label="无障碍导航地图">
+        <div class="nav-map-placeholder" id="navMapPlaceholder">🗺️ 选择目的地后显示真实路线</div>
+        <div class="nav-loading" id="navLoading" hidden><span></span> 正在规划无障碍路线...</div>
+      </div>
+      <div class="route-comparison" id="routeComparison" hidden>
+        <div class="route-comparison-title">路线方案对比</div>
+        <div class="route-option-grid" id="routeOptionGrid"></div>
+      </div>
+      <div class="route-facilities" id="routeFacilities" hidden>
+        <div class="route-facilities-title">沿途无障碍保障设施</div>
+        <div class="facility-filter" id="facilityFilter"></div>
+        <div class="facility-list" id="facilityList"></div>
+      </div>
+      <div class="alert-card alert-info">
+        <strong>无障碍导航：</strong><br>
+        规划后将显示安全评分、风险提示和语义化路线播报。
+      </div>
+      <div class="alert-card alert-warn">
+        <strong>路线提示：</strong><br>
+        默认使用福田演示点，确保比赛现场稳定调用 GeoScene 无障碍路网。
+      </div>
+      <div class="vibrate-hint">
+        <div class="vh-title">震动编码反馈 (M-04)
+          <button onclick="vibrateDemo()" style="float:right;font-size:10px;padding:2px 10px;border:1px solid var(--border);border-radius:10px;background:var(--primary-bg);color:var(--primary);cursor:pointer;">▶ 试震</button>
+        </div>
+        <div class="vh-row">
+          <span>⚡⚡⚡ 障碍</span>
+          <span>⚡⚡·· 红灯</span>
+          <span>⚡·⚡· 绿灯</span>
+          <span>⚡━━ 偏航</span>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <button class="nav-start-btn" id="navStartBtn" onclick="startLiveNavigation()" disabled>▶ 开始实时导航</button>
+      </div>
+      <div class="nav-steps" id="navSteps" hidden>
+        <div class="nav-steps-title">路线步骤</div>
+        <ol id="navStepsList"></ol>
+      </div>
+      <div style="padding:0 18px 12px;">
+        <button type="button" class="m-btn secondary" onclick="endNavigation()">结束导航</button>
+      </div>
+    </div>
+
+    <!-- ===== Page: Bus ===== -->
+    <div class="content page" id="mPage-bus">
+      <div class="bus-header">
+        <div class="bus-title-row">
+          <div>
+            <h2>无障碍公交接驳</h2>
+            <div class="bus-meta">真实站点数据 · 步行到站 · 语音提示</div>
+          </div>
+          <span class="bus-data-badge">福田数据</span>
+        </div>
+      </div>
+      <div class="bus-toolbar">
+        <div class="bus-loc" id="busLocationLabel">📍 福田中心演示点（购物公园）</div>
+        <button class="bus-refresh-btn" id="busRefreshBtn" type="button" onclick="refreshNearbyBusStops({ locate: true })">◎ 使用真实定位</button>
+      </div>
+      <div class="bus-section-heading">
+        <div>
+          <strong>附近公交站</strong>
+          <span id="busStatus" aria-live="polite">正在读取真实站点…</span>
+        </div>
+        <span>按距离排序</span>
+      </div>
+      <div class="bus-station-list" id="busStationList" aria-label="附近公交站列表">
+        <div class="bus-loading"><span></span> 正在计算最近站点</div>
+      </div>
+
+      <section class="bus-stop-detail" id="busStopDetail" hidden aria-live="polite">
+        <div class="bus-detail-kicker">已选择站点</div>
+        <h3 id="busDetailName">—</h3>
+        <div class="bus-detail-address" id="busDetailAddress">—</div>
+        <div class="bus-detail-tags">
+          <span id="busDetailDistance">距离 —</span>
+          <span>真实空间数据</span>
+        </div>
+        <div class="bus-detail-guide">系统将调用现有 GeoScene 无障碍路网，规划从当前演示起点或设备位置步行到该站的接驳路线。</div>
+        <div class="bus-action-grid">
+          <button class="bus-action-btn secondary" type="button" onclick="announceBusStop()">🔊 播报站点</button>
+          <button class="bus-action-btn primary" type="button" onclick="startBusStopNavigation()">🧭 步行到站</button>
+        </div>
+      </section>
+
+      <div class="bus-alert">
+        <div class="bus-alert-head">
+          <div class="ba-title">语音与振动反馈</div>
+          <span class="bus-simulation-badge">模拟提醒</span>
+        </div>
+        <div id="busAlertText">选择一个站点后，可演示车辆临近时的语音与振动提醒。</div>
+        <button id="busAlertDemoBtn" type="button" onclick="playBusArrivalDemo()">▶ 体验提醒</button>
+      </div>
+    </div>
+
+    <!-- ===== Page: Report ===== -->
+    <div class="content page" id="mPage-report">
+      <div class="report-header">
+        <h2>事件上报</h2>
+        <div class="report-hint">描述现场问题，提交前可完整核对，上报后可凭事件编号查询进度</div>
+        <div class="report-steps" aria-label="上报流程">
+          <span class="active"><b>1</b>填写</span><i></i>
+          <span><b>2</b>核对</span><i></i>
+          <span><b>3</b>完成</span>
+        </div>
+      </div>
+
+      <div class="report-form-card">
+        <div class="report-field-label">问题类型 <span>必选</span></div>
+        <div class="report-type-grid" id="reportTypeGrid" role="group" aria-label="选择问题类型">
+          <button type="button" onclick="chooseReportType(this, '盲道被占')">🚲 盲道被占</button>
+          <button type="button" onclick="chooseReportType(this, '盲道损坏')">⚠️ 盲道损坏</button>
+          <button type="button" onclick="chooseReportType(this, '盲道缺失')">🚫 盲道缺失</button>
+          <button type="button" onclick="chooseReportType(this, '其他障碍')">➕ 其他障碍</button>
+        </div>
+
+        <div class="report-label-row">
+          <label class="report-field-label" for="reportDescription">现场描述 <span>必填</span></label>
+          <button type="button" class="report-voice-inline" id="reportVoiceButton" onclick="showRecognition()" aria-label="语音描述现场问题">🎤 语音描述</button>
+        </div>
+        <textarea id="reportDescription" class="report-textarea" maxlength="300" rows="4" placeholder="例如：地铁口旁的盲道被共享单车堵住，无法通行" oninput="updateReportDraft()"></textarea>
+        <div class="report-input-meta"><span>请说明障碍物或损坏情况</span><span id="reportDescriptionCount">0/300</span></div>
+
+        <label class="report-field-label" for="reportLocationInput">发生位置 <span class="optional">选填</span></label>
+        <input id="reportLocationInput" class="report-location-input" type="text" maxlength="120" placeholder="例如：市民中心地铁站 C 口旁" oninput="updateReportDraft()">
+        <button type="button" class="report-location-btn" id="reportLocationButton" onclick="refreshReportLocation()">📍 获取当前位置</button>
+        <div class="report-location-state" id="reportLocationState" aria-live="polite">尚未获取定位，可填写上方位置</div>
+
+        <input id="reportPhotoInput" type="file" accept="image/*" capture="environment" hidden onchange="handleReportPhoto(this)">
+        <button type="button" class="report-photo-btn" onclick="document.getElementById('reportPhotoInput').click()">📷 添加现场照片 <span>选填</span></button>
+        <div class="report-photo-state" id="reportPhotoState" hidden></div>
+        <div class="report-privacy-hint">照片仅用于事件核验，请避免拍摄人脸、车牌等隐私信息</div>
+      </div>
+
+      <div class="report-preview" aria-live="polite">
+        <div class="report-preview-title"><span>本次将上报</span><small>提交前还会再次确认</small></div>
+        <div class="report-preview-row"><span>类型</span><strong id="reportPreviewType">尚未选择</strong></div>
+        <div class="report-preview-row"><span>描述</span><strong id="reportPreviewDescription">尚未填写</strong></div>
+        <div class="report-preview-row"><span>位置</span><strong id="reportPreviewLocation">尚未填写或定位</strong></div>
+        <div class="report-preview-row"><span>时间</span><strong id="reportPreviewTime">提交时由系统实时记录</strong></div>
+      </div>
+
+      <button class="m-btn success" id="reportSubmitButton" type="button" onclick="submitReport()" disabled>核对并提交</button>
+      <div class="report-submit-hint" id="reportSubmitHint">请选择问题类型并填写现场描述</div>
+
+      <div class="report-history">
+        <div class="rh-title">我的上报记录</div>
+      </div>
+    </div>
+
+    <div class="report-sheet" id="reportConfirmSheet" hidden role="dialog" aria-modal="true" aria-labelledby="reportConfirmTitle">
+      <div class="report-sheet-backdrop" onclick="closeReportSheet('reportConfirmSheet')"></div>
+      <div class="report-sheet-panel">
+        <div class="report-sheet-handle"></div>
+        <div class="report-sheet-step">第 2 步，共 3 步</div>
+        <h3 id="reportConfirmTitle">请确认上报内容</h3>
+        <p class="report-sheet-sub">确认后将提交给无障碍治理平台</p>
+        <div class="report-confirm-list">
+          <div><span>问题类型</span><strong id="confirmReportType"></strong></div>
+          <div><span>现场描述</span><strong id="confirmReportDescription"></strong></div>
+          <div><span>发生位置</span><strong id="confirmReportLocation"></strong></div>
+          <div><span>提交时间</span><strong id="confirmReportTime"></strong></div>
+          <div><span>现场照片</span><strong id="confirmReportPhoto"></strong></div>
+        </div>
+        <div class="report-sheet-actions">
+          <button type="button" class="secondary" onclick="closeReportSheet('reportConfirmSheet')">返回修改</button>
+          <button type="button" class="primary" id="confirmReportButton" onclick="confirmReportSubmission()">确认提交</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="report-sheet" id="reportResultSheet" hidden role="dialog" aria-modal="true" aria-labelledby="reportResultTitle">
+      <div class="report-sheet-backdrop"></div>
+      <div class="report-sheet-panel report-result-panel">
+        <div class="report-success-icon">✓</div>
+        <div class="report-sheet-step">第 3 步，共 3 步</div>
+        <h3 id="reportResultTitle">上报成功</h3>
+        <p class="report-sheet-sub">平台已收到以下事件，请留存事件编号</p>
+        <div class="report-event-id" id="reportResultEventId"></div>
+        <div class="report-confirm-list">
+          <div><span>问题类型</span><strong id="reportResultType"></strong></div>
+          <div><span>上报内容</span><strong id="reportResultDescription"></strong></div>
+          <div><span>发生位置</span><strong id="reportResultLocation"></strong></div>
+          <div><span>提交时间</span><strong id="reportResultTime"></strong></div>
+          <div><span>当前状态</span><strong id="reportResultStatus"></strong></div>
+        </div>
+        <div class="report-result-photo" id="reportResultPhoto" hidden>
+          <img id="reportResultPhotoImage" alt="本次事件上报的现场照片">
+          <span id="reportResultPhotoStatus">现场照片</span>
+        </div>
+        <button type="button" class="report-result-delete" id="reportDeleteButton" onclick="requestDeleteOwnReport()" hidden>🗑️ 删除这条上报记录</button>
+        <button type="button" class="report-result-done" onclick="closeReportResult()">完成并查看记录</button>
+      </div>
+    </div>
+
+    <div class="report-sheet" id="reportDeleteSheet" hidden role="dialog" aria-modal="true" aria-labelledby="reportDeleteTitle">
+      <div class="report-sheet-backdrop" onclick="closeReportDeleteDialog(true)"></div>
+      <div class="report-sheet-panel report-delete-panel">
+        <div class="report-delete-icon">🗑️</div>
+        <h3 id="reportDeleteTitle">删除这条上报？</h3>
+        <p class="report-sheet-sub">删除后无法恢复，请确认这不是误操作</p>
+        <div class="report-delete-summary">
+          <strong id="reportDeleteEventId"></strong>
+          <span id="reportDeleteDescription"></span>
+        </div>
+        <div class="report-sheet-actions">
+          <button type="button" class="secondary" onclick="closeReportDeleteDialog(true)">取消</button>
+          <button type="button" class="danger" id="confirmDeleteReportButton" onclick="confirmDeleteOwnReport()">确认删除</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Page: Me (我的) ===== -->
+    <div class="content page" id="mPage-me">
+      <div class="me-header">
+        <div class="me-avatar">👤</div>
+        <div class="me-name" id="meUserName">视障用户</div>
+        <div class="me-role">深圳 · 普通用户</div>
+        <button type="button" class="me-logout" onclick="doLogout()">退出登录</button>
+      </div>
+
+      <div class="settings-section" id="mePerceptionSection">
+        <div class="ss-title">👁️ AI 环境感知模拟 <span class="demo-badge">演示</span></div>
+        <div class="percept-alert danger" style="margin:0;border-radius:0;">
+          <strong>红绿灯识别模拟：</strong>当前红灯，请等待
+        </div>
+        <div class="percept-alert warn" style="margin:0;border-radius:0;border-top:0.5px solid var(--border);">
+          <strong>障碍物检测模拟：</strong>前方3米检测到锥桶
+        </div>
+        <div class="percept-alert info" style="margin:0;border-radius:0;border-top:0.5px solid var(--border);">
+          <strong>盲道评估模拟：</strong>评分 7.2/10，轻微磨损
+        </div>
+        <div style="padding:8px 16px 12px;text-align:center;">
+          <button type="button" class="perception-demo-btn" onclick="runPerceptionDemo()">▶ 运行感知模拟</button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="ss-title">⚙️ 个性化设置</div>
+        <div class="settings-row">
+          <div class="sr-label">播报语速<span><small>当前 <span id="meSpeedVal">1.0x</span></small></span></div>
+          <input type="range" aria-label="播报语速" min="0.5" max="2.0" step="0.1" value="1.0" oninput="updateMeSetting('speed', this.value)" onchange="previewVoiceSetting()">
+          <span class="range-val" id="meSpeedDisp">1.0x</span>
+        </div>
+        <div class="settings-row">
+          <div class="sr-label">播报音量<span><small>当前 <span id="meVolVal">80%</span></small></span></div>
+          <input type="range" aria-label="播报音量" min="20" max="100" step="5" value="80" oninput="updateMeSetting('volume', this.value)" onchange="previewVoiceSetting()">
+          <span class="range-val" id="meVolDisp">80%</span>
+        </div>
+        <div class="settings-row">
+          <div class="sr-label">震动强度<span><small>当前 <span id="meVibVal">中</span></small></span></div>
+          <input type="range" aria-label="震动强度" min="1" max="3" step="1" value="2" oninput="updateMeSetting('vibration', this.value)" onchange="vibrateDemo(true)">
+          <span class="range-val" id="meVibDisp">中</span>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="ss-title">🗺️ 导航偏好</div>
+        <div class="settings-row">
+          <div class="sr-label">优先无障碍安全路线</div>
+          <label class="toggle"><input type="checkbox" aria-label="优先无障碍安全路线" checked onchange="saveMePrefs()"><span class="slider"></span></label>
+        </div>
+        <div class="settings-row">
+          <div class="sr-label">显示施工风险提示</div>
+          <label class="toggle"><input type="checkbox" aria-label="显示施工风险提示" checked onchange="saveMePrefs()"><span class="slider"></span></label>
+        </div>
+        <div class="settings-row">
+          <div class="sr-label">减少台阶/天桥路线</div>
+          <label class="toggle"><input type="checkbox" aria-label="减少台阶和天桥路线" onchange="saveMePrefs()"><span class="slider"></span></label>
+        </div>
+        <div class="settings-row">
+          <div class="sr-label">偏航时自动重规划</div>
+          <label class="toggle"><input type="checkbox" aria-label="偏航时自动重规划" checked onchange="saveMePrefs()"><span class="slider"></span></label>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="ss-title">🎨 显示与辅助</div>
+        <div class="settings-row">
+          <div class="sr-label">大字体模式</div>
+          <label class="toggle"><input type="checkbox" aria-label="大字体模式" onchange="saveMePrefs()"><span class="slider"></span></label>
+        </div>
+        <div class="settings-row">
+          <div class="sr-label">高对比度</div>
+          <label class="toggle"><input type="checkbox" aria-label="高对比度" onchange="saveMePrefs()"><span class="slider"></span></label>
+        </div>
+        <div class="settings-row">
+          <div class="sr-label">屏幕阅读器增强</div>
+          <label class="toggle"><input type="checkbox" aria-label="屏幕阅读器增强" checked onchange="saveMePrefs()"><span class="slider"></span></label>
+        </div>
+        <div class="settings-row">
+          <div class="sr-label">按键音反馈</div>
+          <label class="toggle"><input type="checkbox" aria-label="按键音反馈" checked onchange="saveMePrefs()"><span class="slider"></span></label>
+        </div>
+      </div>
+
+      <div class="settings-section" id="meFavRoutesSection">
+        <div class="ss-title">⭐ 常用路线</div>
+        <div style="padding:0 16px 12px;">
+          <button type="button" class="fav-route-item" onclick="startFavRoute('市民中心地铁站F口')" style="margin-bottom:6px;">
+            <div class="fr-icon">🏠</div>
+            <div class="fr-info"><div class="fr-name">市民中心地铁站F口</div><div class="fr-detail">福华路 · 约850m · 有盲道</div></div>
+            <div class="fr-go">→</div>
+          </button>
+          <button type="button" class="fav-route-item" onclick="startFavRoute('莲花山公园')" style="margin-bottom:6px;">
+            <div class="fr-icon">⭐</div>
+            <div class="fr-info"><div class="fr-name">莲花山公园</div><div class="fr-detail">约3.2km · 地铁可达</div></div>
+            <div class="fr-go">→</div>
+          </button>
+          <button type="button" class="fav-route-item" onclick="startFavRoute('深圳市眼科医院')" style="margin-bottom:6px;">
+            <div class="fr-icon">🏥</div>
+            <div class="fr-info"><div class="fr-name">深圳市眼科医院</div><div class="fr-detail">福田区 · 约5.8km</div></div>
+            <div class="fr-go">→</div>
+          </button>
+          <div style="text-align:center;margin-top:4px;">
+            <button onclick="addFavRoute()" style="font-size:11px;padding:6px 18px;border:1px dashed var(--border);border-radius:16px;background:transparent;color:var(--text3);cursor:pointer;">+ 添加常用路线</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="ss-title">📋 上报历史</div>
+        <div style="padding:0 16px 12px;">
+          <button type="button" class="fav-route-item" onclick="mToast('E20260701: 福华路盲道被占，处理中')" style="margin-bottom:4px;">
+            <div class="fr-info"><div class="fr-name">07-01 · 盲道被占</div><div class="fr-detail">福华路市民中心</div></div>
+            <span style="font-size:10px;color:var(--warning);font-weight:600;">处理中</span>
+          </button>
+          <button type="button" class="fav-route-item" onclick="mToast('E20260702: 市民中心盲道损坏，已修复')" style="margin-bottom:4px;">
+            <div class="fr-info"><div class="fr-name">06-28 · 盲道损坏</div><div class="fr-detail">市民中心</div></div>
+            <span style="font-size:10px;color:var(--success);font-weight:600;">已修复</span>
+          </button>
+          <div style="text-align:center;margin-top:6px;">
+            <button type="button" class="text-action-button" onclick="mGoPage('report')">查看全部上报历史 →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="ss-title">ℹ️ 关于</div>
+        <div class="settings-row">
+          <span>版本号</span>
+          <span style="font-size:11px;color:var(--text3);">v1.0.0</span>
+        </div>
+        <div class="settings-row">
+          <span>无障碍出行助手</span>
+          <span style="font-size:11px;color:var(--text3);">GeoScene · 深圳福田</span>
+        </div>
+        <button type="button" class="settings-row settings-action-row" onclick="doLogout()">
+          <span style="color:var(--danger);">退出登录</span>
+          <span style="font-size:18px;">→</span>
+        </button>
+      </div>
+
+      <div style="text-align:center;padding:14px 18px 30px;">
+        <button type="button" class="m-btn secondary" onclick="doResetSettings()">恢复默认设置</button>
+        <span style="font-size:10px;color:var(--text3);">设置已自动保存到本地 · v1.0</span>
+      </div>
+    </div>
+
+    <!-- Tab Bar -->
+    <div class="tab-bar">
+      <button type="button" class="tab-item active" data-tab="home" aria-current="page" onclick="mGoPage('home', this)">
+        <div class="tab-icon">🏠</div>首页
+      </button>
+      <button type="button" class="tab-item" data-tab="nav" onclick="mGoPage('nav', this)">
+        <div class="tab-icon">🧭</div>导航
+      </button>
+      <button type="button" class="tab-item" data-tab="bus" onclick="mGoPage('bus', this)">
+        <div class="tab-icon">🚌</div>公交
+      </button>
+      <button type="button" class="tab-item" data-tab="report" onclick="mGoPage('report', this)">
+        <div class="tab-icon">📝</div>上报
+      </button>
+      <button type="button" class="tab-item" data-tab="me" onclick="mGoPage('me', this)">
+        <div class="tab-icon">👤</div>我的
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<div id="mToast" role="status" aria-live="polite" aria-atomic="true" style="display:none;"></div>
+
+<script src="./mobile.js?v=20260719-report-photos"></script>
+</body>
+</html>

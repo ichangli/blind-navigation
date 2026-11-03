@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../core/screenUtils","../../state/controllers/RotateController","../../../input/InputHandler"],(function(e,t,r,n){"use strict";class a extends n.InputHandler{constructor(e,t=!1){super(!0),this._view=e,this._invert=t,this.registerIncoming("vertical-two-finger-drag",(e=>this._handleTwoFinger(e)))}_handleTwoFinger(e){const n=this._invert?-1:1,a=t.createScreenPointArray(0,e.data.delta*n);switch(e.data.action){case"begin":this._cameraController?.end(),this._cameraController=new r.RotateController({view:this._view,pivot:r.PivotPoint.CENTER}),this._view.state.switchCameraController(this._cameraController),this._cameraController.begin(a);break;case"update":this._cameraController?.update(a);break;case"end":this._cameraController?.end(),this._cameraController=null}}}e.TwoFingerTilt=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../geometry","../../../Graphic","../../../symbols","../../../core/Collection","../../../symbols/PointSymbol3D","../../../symbols/IconSymbol3DLayer","../../../symbols/TextSymbol3DLayer","../../../geometry/Point"],(function(e,i,o,s,t,r,l,c,h){"use strict";class a{constructor(e,i,o=""){this.graphics=e,this._symbol=new r({symbolLayers:new t([new l({material:{color:i},outline:{color:[255,255,255],size:1},resource:{primitive:"circle"}}),new c({text:o,halo:{color:"white",size:1/.75},material:{color:i},size:12})])})}show(e,i){if(null==i)return;this.hide();const s=new h({x:e[0],y:e[1],z:e[2],spatialReference:i});this._graphic=new o({geometry:s,symbol:this._symbol}),this.graphics.add(this._graphic)}hide(){null!=this._graphic&&(this.graphics.remove(this._graphic),this._graphic=null)}}e.PointGraphics=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

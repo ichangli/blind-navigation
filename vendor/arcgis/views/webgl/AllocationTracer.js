@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports"],(function(e){"use strict";class t{constructor(e){this._objectType=e,this._active=new Map}add(e){const t=(new Error).stack.split("\n");t.shift(),t.shift(),this._active.set(e,t.join("\n"))}remove(e){this._active.delete(e)}resetLog(){const e=new Map;this._active.forEach(((t,{usedMemory:r})=>{e.has(t)||e.set(t,new Map);const o=e.get(t);o.set(r??0,o.get(r??0)??1)})),this._active.clear();let t=0;const r=new Array;return e.forEach(((e,o)=>{let s=0;e.forEach(((e,t)=>s+=e*t)),e.set(-1,s),t+=s,r.push([o,e])})),e.clear(),r.sort(((e,t)=>t[1].get(-1)-e[1].get(-1))),r.reduce(((e,[t,r])=>{const o=Math.round(r.get(-1)/1024);r.delete(-1);return e+=`  ${o}KB from ${Array.from(r.values()).reduce(((e,t)=>e+t),0)} allocations at ${t}\n`}),`Total unestimated ${this._objectType} memory: ${Math.round(t/1024)}KB\n`)}}e.AllocationTracer=t,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

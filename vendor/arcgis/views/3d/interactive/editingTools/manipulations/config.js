@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports"],(function(e){"use strict";const r=128,i=70,t=80,a=.02,n=54,o=100,c=Math.ceil(i/3*2),s=160,d=.5,l=24,g=9,h=s+30,u=s+53,I=60,f=23,A=5*Math.PI/12,T=1*Math.PI/3,R=10,S=.2,m=30,w=53,P=.2,p=.3,M=200,y=3,O=1e6;e.alignArrowsScaleThreshold=O,e.discCollisionRadius=t,e.discHeight=a,e.discRadius=i,e.discRadiusSmall=c,e.discTranslateArrowOffset=o,e.discTranslateArrowSize=n,e.dragThresholdPx=R,e.geometrySegments=r,e.indicatorThickness=g,e.innerIndicatorRadius=h,e.outerIndicatorRadius=u,e.ringHeight=d,e.ringIndicatorDelayMs=M,e.ringRadius=s,e.ringResetAnimationSpeedFactor=y,e.ringThickness=l,e.rotateIndicatorArcLength=A,e.rotateIndicatorArrowPlacementPercentage=S,e.rotateIndicatorArrowTipLength=I,e.rotateIndicatorArrowTipRadius=f,e.rotateIndicatorDirectionBuffer=p,e.scaleIndicatorArcLength=T,e.scaleIndicatorDirectionBuffer=P,e.scaleIndicatorOffset1=m,e.scaleIndicatorOffset2=w,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

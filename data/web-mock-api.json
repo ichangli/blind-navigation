@@ -1,0 +1,179 @@
+{
+  "_说明": "后端模拟数据 — 临时文件，后端 API 开发完成后可删除。对应接口见各字段注释",
+  "mapConfig": {
+    "portalUrl": "",
+    "webSceneId": "",
+    "center": {
+      "longitude": 114.055,
+      "latitude": 22.535,
+      "z": 2200,
+      "heading": 0,
+      "tilt": 55
+    },
+    "layers": {
+      "buildingLayerUrl": "",
+      "eventLayerUrl": ""
+    },
+    "localBuildings": {
+      "enabled": true,
+      "type": "geojson-extrusion",
+      "name": "福田区建筑白模",
+      "url": "./shenzhen_data/processed/buildings/futian_buildings_cityengine.geojson",
+      "heightField": "height_m",
+      "classField": "bldg_class",
+      "featureCount": 8897
+    },
+    "tiles3d": {
+      "enabled": false
+    }
+  },
+  "dashboard": {
+    "_api": "GET /api/dashboard/stats + GET /api/dashboard/map",
+    "stats": [
+      {
+        "icon": "📏",
+        "iconBg": "rgba(0,212,255,0.13)",
+        "value": "18.6",
+        "unit": "km",
+        "label": "示范区盲道里程 (W-06)",
+        "change": "深圳福田中心区",
+        "changeColor": "success",
+        "action": "events"
+      },
+      {
+        "icon": "📊",
+        "iconBg": "rgba(46,204,113,0.13)",
+        "value": "86.4%",
+        "unit": "",
+        "label": "盲道可通行率 (W-02)",
+        "change": "福田中心区示范数据",
+        "changeColor": "success",
+        "action": "toast",
+        "actionMsg": "福田中心区盲道可通行率：86.4%"
+      },
+      {
+        "icon": "⚠️",
+        "iconBg": "rgba(255,69,96,0.13)",
+        "value": "3",
+        "unit": "",
+        "label": "待处理事件 (W-06)",
+        "change": "需紧急: 1",
+        "changeColor": "danger",
+        "action": "events"
+      },
+      {
+        "icon": "📈",
+        "iconBg": "rgba(168,85,247,0.13)",
+        "value": "5",
+        "unit": "",
+        "label": "本月新增上报 (W-06)",
+        "change": "↑ +15% vs 上月",
+        "changeColor": "success",
+        "action": "charts"
+      }
+    ],
+    "map": {
+      "_api": "GET /api/map/data",
+      "center": {
+        "lon": "114.055°E",
+        "lat": "22.535°N",
+        "location": "深圳福田中心区示范区"
+      },
+      "viewTabs": ["城市总览", "无障碍专题", "公共交通", "服务设施"],
+      "buildings": [
+        { "left": 55, "top": 170, "width": 70, "height": 50, "type": "normal", "name": "卓悦中心", "coverage": "78%", "facility": "120m" },
+        { "left": 150, "top": 100, "width": 48, "height": 80, "type": "tall", "name": "领展中心城", "coverage": "65%", "facility": "200m" },
+        { "left": 230, "top": 190, "width": 82, "height": 42, "type": "normal", "name": "香蜜湖广场", "coverage": "82%", "facility": "80m" },
+        { "left": 340, "top": 90, "width": 52, "height": 90, "type": "tall", "name": "平安金融中心", "coverage": "71%", "facility": "150m" },
+        { "left": 120, "top": 290, "width": 60, "height": 38, "type": "normal", "name": "", "coverage": "", "facility": "" },
+        { "left": 280, "top": 270, "width": 88, "height": 46, "type": "normal", "name": "", "coverage": "", "facility": "" },
+        { "left": 410, "top": 240, "width": 44, "height": 68, "type": "tall", "name": "", "coverage": "", "facility": "" },
+        { "left": 380, "top": 320, "width": 64, "height": 36, "type": "normal", "name": "", "coverage": "", "facility": "" }
+      ],
+      "events": [
+        { "top": 155, "left": 145, "type": "danger", "id": "E20260701", "title": "盲道被占", "location": "福华路市民中心" },
+        { "top": 210, "left": 275, "type": "warning", "id": "E20260702", "title": "盲道损坏", "location": "深南大道" },
+        { "top": 290, "left": 360, "type": "danger", "id": "E20260703", "title": "盲道缺失", "location": "彩田路" },
+        { "top": 115, "left": 395, "type": "warning", "id": "E20260704", "title": "盲道被占", "location": "福民路" }
+      ],
+      "legend": [
+        { "key": "danger-dots", "color": "#ff4560", "label": "盲道被占", "enabled": true },
+        { "key": "warning-dots", "color": "#f0a030", "label": "盲道损坏", "enabled": true },
+        { "key": "muted-dots", "color": "#5a6380", "label": "盲道缺失", "enabled": true }
+      ]
+    }
+  },
+  "events": [
+    { "id": "E20260701", "type": "盲道被占", "coords": "114.0550,22.5350", "district": "福田区", "reporter": "张**", "time": "07-01 09:32", "status": "待审核", "canAudit": true, "canUpdate": false, "detailPage": true },
+    { "id": "E20260702", "type": "盲道损坏", "coords": "114.0602,22.5372", "district": "福田区", "reporter": "李**", "time": "07-01 10:15", "status": "处理中", "canAudit": false, "canUpdate": true, "detailPage": true },
+    { "id": "E20260703", "type": "盲道缺失", "coords": "114.0518,22.5403", "district": "福田区", "reporter": "王**", "time": "07-02 08:44", "status": "已修复", "canAudit": false, "canUpdate": false, "detailPage": false },
+    { "id": "E20260704", "type": "盲道被占", "coords": "114.0644,22.5326", "district": "福田区", "reporter": "赵**", "time": "07-02 14:20", "status": "待审核", "canAudit": true, "canUpdate": false, "detailPage": true },
+    { "id": "E20260705", "type": "盲道损坏", "coords": "114.0489,22.5309", "district": "福田区", "reporter": "孙**", "time": "07-03 11:08", "status": "驳回", "canAudit": false, "canUpdate": false, "detailPage": true }
+  ],
+  "eventDetail": {
+    "_api": "GET /api/events/:id",
+    "id": "E20260701",
+    "type": "盲道被占",
+    "status": "待审核",
+    "reporter": "张**",
+    "reporterType": "低视力",
+    "coords": "114.0550, 22.5350",
+    "district": "福田区",
+    "address": "福华路",
+    "landmark": "市民中心地铁站C口",
+    "priority": "高",
+    "sla": "48小时内响应",
+    "reportTime": "2026-07-01 09:32",
+    "description": "\"福华路市民中心往香蜜湖方向，地铁站C出口外约30米处，大量共享单车堆积占用盲道，视障人士需绕行机动车道，存在严重安全隐患。\"",
+    "reportMethod": "语音一键上报 (M-11)"
+  },
+  "chartPeriods": {
+    "_api": "GET /api/charts/trend?period=day|week|month",
+    "day": {
+      "title": "上报事件趋势 — 近14天 (W-11)",
+      "points": "60,165 90,145 120,125 150,100 180,135 210,85 240,110 270,75 300,95 330,65 360,80 390,55 420,70 450,50",
+      "labels": [
+        { "x": 60, "y": 255, "label": "6/24" },
+        { "x": 150, "y": 255, "label": "6/27" },
+        { "x": 240, "y": 255, "label": "6/30" },
+        { "x": 330, "y": 255, "label": "7/03" },
+        { "x": 450, "y": 255, "label": "7/07" }
+      ]
+    },
+    "week": {
+      "title": "上报事件趋势 — 近8周 (W-11)",
+      "points": "70,170 130,120 190,145 250,80 310,110 370,65 430,95 470,55",
+      "labels": [
+        { "x": 70, "y": 255, "label": "W19" },
+        { "x": 130, "y": 255, "label": "W20" },
+        { "x": 190, "y": 255, "label": "W21" },
+        { "x": 250, "y": 255, "label": "W22" },
+        { "x": 310, "y": 255, "label": "W23" },
+        { "x": 370, "y": 255, "label": "W24" },
+        { "x": 430, "y": 255, "label": "W25" },
+        { "x": 470, "y": 255, "label": "W26" }
+      ]
+    },
+    "month": {
+      "title": "上报事件趋势 — 近6月 (W-11)",
+      "points": "70,175 140,140 210,100 280,120 350,75 430,50",
+      "labels": [
+        { "x": 70, "y": 255, "label": "1月" },
+        { "x": 140, "y": 255, "label": "2月" },
+        { "x": 210, "y": 255, "label": "3月" },
+        { "x": 280, "y": 255, "label": "4月" },
+        { "x": 350, "y": 255, "label": "5月" },
+        { "x": 430, "y": 255, "label": "6月" }
+      ]
+    }
+  },
+  "chartTypeDistribution": {
+    "_api": "GET /api/charts/distribution",
+    "total": 5,
+    "segments": [
+      { "type": "被占", "percent": "45%", "color": "#ff4560" },
+      { "type": "损坏", "percent": "30%", "color": "#f0a030" },
+      { "type": "缺失", "percent": "25%", "color": "#5a6380" }
+    ]
+  }
+}

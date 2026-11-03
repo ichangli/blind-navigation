@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../core/compilerUtils","../../../webgl/enums"],(function(e,r,t){"use strict";const o={baseColorFactor:[1,1,1,1],metallicFactor:1,roughnessFactor:1},a={pbrMetallicRoughness:o,emissiveFactor:[0,0,0],alphaMode:"OPAQUE",alphaCutoff:.5,doubleSided:!1},l={ESRI_externalColorMixMode:"tint",ESRI_receiveShadows:!0,ESRI_receiveAmbientOcclusion:!0},i=(e={})=>{const r={...o,...e.pbrMetallicRoughness},t=n({...l,...e.extras});return{...a,...e,pbrMetallicRoughness:r,extras:t}};function n(e){switch(e.ESRI_externalColorMixMode){case"multiply":case"tint":case"ignore":case"replace":break;default:r.neverReached(e.ESRI_externalColorMixMode),e.ESRI_externalColorMixMode="tint"}return e}const c={magFilter:t.TextureSamplingMode.LINEAR,minFilter:t.TextureSamplingMode.LINEAR_MIPMAP_LINEAR,wrapS:t.TextureWrapMode.REPEAT,wrapT:t.TextureWrapMode.REPEAT},s=e=>({...c,...e});e.material=i,e.textureSampler=s,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

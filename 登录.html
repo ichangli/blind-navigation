@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web管理端 - 登录</title>
+<style>
+:root {
+  --bg: #080b1a; --card: #111a33; --border: #1a2744;
+  --accent: #00d4ff; --text: #e0e6f0; --text2: #8993ad; --text3: #5a6380;
+  --radius: 10px; --radius-sm: 6px;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: "Microsoft YaHei", "PingFang SC", -apple-system, sans-serif;
+  background: radial-gradient(ellipse at 50% 30%, #0d1a35 0%, #080b1a 70%);
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  color: var(--text);
+}
+.login-card {
+  width: 380px; background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 44px 36px 36px;
+  box-shadow: 0 0 60px rgba(0,212,255,0.08);
+}
+.logo-row { text-align: center; margin-bottom: 36px; }
+.logo-icon {
+  width: 56px; height: 56px; margin: 0 auto 14px;
+  background: linear-gradient(135deg, var(--accent), #a855f7);
+  border-radius: 14px; display: flex; align-items: center;
+  justify-content: center; font-size: 28px; color: #fff;
+}
+.logo-title { font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.logo-sub { font-size: 11px; color: var(--text3); }
+
+.form-group { margin-bottom: 18px; }
+.form-label { display: block; font-size: 12px; color: var(--text2); margin-bottom: 6px; font-weight: 500; }
+.form-input {
+  width: 100%; padding: 12px 14px;
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  background: rgba(8,11,26,0.6); color: var(--text); font-size: 14px;
+  outline: none; transition: 0.15s; font-family: inherit;
+}
+.form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,212,255,0.08); }
+.form-input::placeholder { color: var(--text3); }
+
+.login-btn {
+  width: 100%; padding: 13px; border: none; border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, var(--accent), #00a8cc);
+  color: #080b1a; font-size: 15px; font-weight: 700; cursor: pointer;
+  transition: 0.2s; margin-top: 6px; font-family: inherit;
+}
+.login-btn:hover { box-shadow: 0 0 24px rgba(0,212,255,0.3); }
+.login-btn:active { transform: scale(0.98); }
+.mode-link {
+  margin-top: 14px; text-align: center; font-size: 12px; color: var(--text2);
+}
+.mode-link button {
+  border: 0; background: transparent; color: var(--accent); cursor: pointer;
+  font: inherit; font-weight: 700; padding: 0 2px;
+}
+
+.toast {
+  position: fixed; top: 40px; left: 50%; transform: translateX(-50%);
+  background: var(--card); border: 1px solid var(--accent);
+  color: var(--accent); padding: 10px 24px; border-radius: 20px;
+  font-size: 13px; z-index: 999; white-space: nowrap;
+  animation: tIn 0.25s ease, tOut 0.25s 2s ease forwards;
+  box-shadow: 0 0 20px rgba(0,212,255,0.15);
+}
+@keyframes tIn { from { opacity:0; transform:translateX(-50%) translateY(-12px); } to { opacity:1; transform:translateX(-50%) translateY(0); } }
+@keyframes tOut { from { opacity:1; } to { opacity:0; } }
+</style>
+</head>
+<body>
+
+<div class="login-card">
+  <div class="logo-row">
+    <div class="logo-icon">♿</div>
+    <div class="logo-title">无障碍出行助手</div>
+    <div class="logo-sub">Web 管理端 · GeoScene 深圳福田</div>
+  </div>
+
+  <div class="form-group">
+    <label class="form-label">用户名</label>
+    <input class="form-input" type="text" id="username" placeholder="请输入用户名" autocomplete="username">
+  </div>
+  <div class="form-group">
+    <label class="form-label">密码</label>
+    <input class="form-input" type="password" id="password" placeholder="请输入密码" autocomplete="current-password">
+  </div>
+  <button class="login-btn" onclick="doLogin()">登 录</button>
+  <div class="mode-link">
+    <span id="modeHint">没有账号？</span><button onclick="toggleMode()" id="modeToggle">注册</button>
+  </div>
+</div>
+
+<script>
+var API_BASE = (window.location.port === '8000') ? window.location.origin : 'http://127.0.0.1:8000';
+var authMode = 'login';
+
+function toggleMode() {
+  authMode = authMode === 'login' ? 'register' : 'login';
+  document.querySelector('.login-btn').textContent = authMode === 'login' ? '登 录' : '注 册';
+  document.getElementById('modeHint').textContent = authMode === 'login' ? '没有账号？' : '已有账号？';
+  document.getElementById('modeToggle').textContent = authMode === 'login' ? '注册' : '登录';
+}
+
+function doLogin() {
+  var user = document.getElementById('username').value.trim();
+  var pass = document.getElementById('password').value.trim();
+
+  if (!user) { toast('请输入用户名'); return; }
+  if (!pass) { toast('请输入密码'); return; }
+  if (!/^[A-Za-z0-9]{6,}$/.test(pass)) { toast('密码至少6位，仅支持英文或数字'); return; }
+
+  fetch(API_BASE + '/api/auth/' + authMode, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: user, password: pass })
+  })
+    .then(function(r) {
+      return r.json().then(function(data) {
+        if (!r.ok) throw new Error(data.detail || '请求失败');
+        return data;
+      });
+    })
+    .then(function(data) {
+      localStorage.setItem('a11y_web_token', data.token);
+      localStorage.setItem('a11y_web_role', data.role);
+      localStorage.setItem('a11y_web_user', data.username);
+      localStorage.setItem('a11y_web_logged_in', 'true');
+
+      toast(authMode === 'login' ? '欢迎，正在进入系统...' : '注册成功，正在进入系统...');
+      setTimeout(function() {
+        window.location.href = 'Web管理端.html?role=' + data.role + '&user=' + encodeURIComponent(data.username);
+      }, 600);
+    })
+    .catch(function(err) {
+      toast(err.message || '后端服务不可用');
+    });
+}
+
+function toast(msg) {
+  var old = document.querySelector('.toast');
+  if (old) old.remove();
+  var t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(function() { t.remove(); }, 2500);
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') doLogin();
+});
+
+// Autofocus first input
+document.getElementById('username').focus();
+</script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../core/Accessor","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","./layerUtils","../../support/layerViewUtils","../../../widgets/Feature/support/featureUtils"],(function(e,r,t,s,i,o,h,l,a,c){"use strict";let g=class extends r{constructor(e){super(e),this.view=null}add(e){const r=!e||Array.isArray(e)?e:[e];r?.length&&r.forEach((e=>this._highlight(e)))}remove(e){const r=!e||Array.isArray(e)?e:[e];r?.length&&r.forEach((e=>this._removeHighlight(e)))}removeAll(){this.removeAllHandles()}_highlight(e){const r=l.findLayerView(this.view,e.layer);a.highlightsSupported(r)&&this.addHandles(r.highlight(e),c.getHighlightKeyForFeature(e))}_removeHighlight(e){e&&this.removeHandles(c.getHighlightKeyForFeature(e))}};e.__decorate([t.property()],g.prototype,"view",void 0),g=e.__decorate([h.subclass("esri.views.draw.support.HighlightHelper")],g);return g}));

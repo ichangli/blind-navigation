@@ -1,0 +1,85 @@
+version "2025.0"
+
+// Futian architectural white-model rule.
+// Attributes are read directly from futian_buildings_cityengine.geojson.
+
+attr height_m = 15
+attr name = ""
+attr bldg_class = "generic"
+attr roof_shape = "flat"
+
+@StartRule
+Building -->
+    alignScopeToAxes(y)
+    SelectMass
+
+SelectMass -->
+    case height_m >= 120 && name != "" : LandmarkMass
+    case height_m >= 50                : TowerMass
+    case height_m >= 24                : MidriseMass
+    else                               : LowriseMass
+
+LandmarkMass -->
+    color("#B9CDD8")
+    extrude(height_m)
+    comp(f) { top : LandmarkRoof | side : LandmarkFacade }
+
+TowerMass -->
+    color("#C4D3DB")
+    extrude(height_m)
+    comp(f) { top : StandardRoof | side : SimpleGlassFacade }
+
+MidriseMass -->
+    BuildingMaterial
+    extrude(height_m)
+    comp(f) { top : StandardRoof | side : MidriseFacade }
+
+LowriseMass -->
+    BuildingMaterial
+    extrude(height_m)
+    comp(f) { top : StandardRoof | side : LowriseFacade }
+
+BuildingMaterial -->
+    case bldg_class == "residential" : color("#EEEAE2")
+    case bldg_class == "commercial"  : color("#D9E3E9")
+    case bldg_class == "industrial"  : color("#D3D8DA")
+    case bldg_class == "public"      : color("#E7E2D8")
+    case bldg_class == "utility"     : color("#C9D0D3")
+    else                              : color("#E7ECEF")
+
+LandmarkFacade -->
+    split(y) { 1.4 : DarkBase | ~1 : LandmarkUpper }
+
+LandmarkUpper -->
+    split(y) { ~3.0 : LandmarkFloor }*
+
+LandmarkFloor -->
+    split(x) { ~2.4 : GlassPanel | 0.28 : LightMullion }*
+
+MidriseFacade -->
+    split(y) { 1.2 : DarkBase | ~1 : WhiteWall }
+
+LowriseFacade -->
+    split(y) { 1.0 : DarkBase | ~1 : WhiteWall }
+
+GlassPanel --> color("#91AEBE")
+SimpleGlassFacade --> color("#AFC3CE")
+LightMullion --> color("#E9EFF2")
+DarkBase --> color("#818D95")
+WhiteWall --> BuildingMaterial
+FloorBand --> color("#B7C2C8")
+
+LandmarkRoof -->
+    color("#A9BAC3")
+    extrude(1.2)
+
+StandardRoof -->
+    case height_m >= 24 : RoofEquipment
+    else                : FlatRoof
+
+RoofEquipment -->
+    color("#C5CDD2")
+    extrude(0.65)
+
+FlatRoof -->
+    color("#C5CDD2")

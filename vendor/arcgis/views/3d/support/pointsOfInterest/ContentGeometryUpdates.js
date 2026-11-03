@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../core/Evented","../../../../core/Handles","../../../../core/maybe"],(function(e,t,s,n){"use strict";class a{constructor(e){this._handles=new s,this.events=new t,this._contentLayerViews=e.contentLayerViews,this._handles.add(this._contentLayerViews.on("change",(e=>this._layerViewsChanged(e)))),this._layerViewsChanged({added:this._contentLayerViews.toArray(),removed:[],moved:[],target:this._contentLayerViews})}destroy(){this._handles=n.destroyMaybe(this._handles),this._contentLayerViews.destroy()}_layerViewsChanged(e){e.added.forEach((e=>{"esri.views.3d.layers.SceneLayerView3D"===e.declaredClass&&this._handles.add(e.on("visible-geometry-changed",(()=>this._contentChanged())),e.uid)})),e.removed.forEach((e=>this._handles.remove(e.uid)))}_contentChanged(){this.events.emit("request-update",d)}}const d={};e.ContentGeometryUpdates=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

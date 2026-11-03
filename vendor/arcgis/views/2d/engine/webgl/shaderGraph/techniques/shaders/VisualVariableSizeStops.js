@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../../../../chunks/tslib.es6","../../GraphShaderModule","../../graph/glsl","./utils"],(function(e,s,t,i,a){"use strict";class r extends t.UniformGroup{getSize(e,s){const t=i.cond([a.isNan(e),s],[i.lessThanEqual(e,this.values.first()),this.sizes.first()],[i.greaterThanEqual(e,this.values.last()),this.sizes.last()],[!0,()=>{const s=this.values.findIndex((s=>i.greaterThan(s,e))),t=this.values.get(s),a=s.subtract(1),r=this.values.get(a),o=e.subtract(r).divide(t.subtract(r));return i.mix(this.sizes.get(a),this.sizes.get(s),o)}]);return i.ifElse(a.isNan(t),s,t)}}s.__decorate([t.uniform(i.FixedArray.ofType(i.Float,8))],r.prototype,"sizes",void 0),s.__decorate([t.uniform(i.FixedArray.ofType(i.Float,8))],r.prototype,"values",void 0),e.VisualVariableSizeStops=r,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

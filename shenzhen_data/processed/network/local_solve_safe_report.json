@@ -1,0 +1,15 @@
+{
+  "network_dataset": "E:\\GIS_data\\futian_safe_network_v2.gdb\\FutianNetwork\\FutianAccessibleSafe_ND",
+  "solve_succeeded": true,
+  "impedance": "SafeMinutes",
+  "start_xy": [
+    498593.4911000002,
+    2491735.9494000003
+  ],
+  "end_xy": [
+    510253.5493000001,
+    2493392.6116000004
+  ],
+  "test_stops": "E:\\GIS_data\\futian_safe_network_v2.gdb\\LocalSolve_TestStops",
+  "route_export_skipped": true
+}

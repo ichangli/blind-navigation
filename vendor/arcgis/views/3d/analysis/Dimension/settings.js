@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../Color","../../../../core/colorUtils"],(function(e,t,n){"use strict";function o(e){return n.multiplyOpacity(e.accentColor,.5)}function i(e){return n.getContrast(e.accentColor)}const r=5,a=new t([127,127,127,.5]),l=.8,c=4,s=6,u=.1,d=.5,g=18,f=2,C=.3,P=2,S=.25,h=20,p=5,m=5,x=10,F=2500,L=50,M=2;e.constraintThresholdPx=x,e.disabledPointColor=a,e.focusedLinePaddingPx=s,e.getContrastColor=i,e.getTransparentAccentColor=o,e.initialOffsetPx=L,e.labelMarginPx=h,e.lengthFraction=d,e.linePaddingPx=c,e.markerLineSizeFraction=l,e.minLengthMeters=u,e.minScreenLengthFontSizeFactor=p,e.offsetLineSizeFraction=S,e.orientationCalloutOffsetPx=g,e.orientationCalloutWidth=f,e.orientationDiscScale=C,e.orientationFocusMultiplier=P,e.orientationSnapThresholdDegrees=m,e.pointRadius=r,e.pointerMoveTimeoutMs=F,e.smallScreenLengthLineSizeFactor=M,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

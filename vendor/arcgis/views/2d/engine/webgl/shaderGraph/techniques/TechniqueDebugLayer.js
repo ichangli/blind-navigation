@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../../../../chunks/tslib.es6","../../../../../../core/accessorSupport/decorators/subclass","../../../../../../layers/Layer","./createTestMeshData","./FeatureInstanceStore","./TechniqueDebugContainer","./TechniqueDebugLayerView"],(function(e,n,t,a,r,s,c){"use strict";var i;let u=i=class extends t{static async create(e){const n=new r,t=e.featureInfos.map((e=>{const t=n.ensureInstance(e.technique,e.techniqueInputs).instanceId;return{...e,instanceId:t}})),c=await a.createTestMeshData(t),u=new s.TechniqueDebugContainer(n,c),h=new i;return h._container=u,h}whenRender(){return this._container.whenRender()}async createLayerView(e,n){const t=new c.TechniqueDebugLayerView;return t.container=this._container,t.attach(),t}};u=i=e.__decorate([n.subclass("esri.views.2d.engine.webgl.shaderGraph.techniques.TechniqueDebugLayer")],u);return u}));

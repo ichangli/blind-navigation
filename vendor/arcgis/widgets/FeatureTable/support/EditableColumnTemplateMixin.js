@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../chunks/tslib.es6","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","../../../form/elements/support/inputs"],(function(e,t,r,o,p,s,i,n){"use strict";const a=e=>{let o=class extends e{constructor(){super(...arguments),this.editable=!0,this.hint=null,this.input=null,this.required=!1}};return t.__decorate([r.property({type:Boolean,json:{write:!0}})],o.prototype,"editable",void 0),t.__decorate([r.property({type:String,json:{write:!0}})],o.prototype,"hint",void 0),t.__decorate([r.property({types:n.types,json:{read:{source:"inputType"},write:{target:"inputType"}}})],o.prototype,"input",void 0),t.__decorate([r.property()],o.prototype,"required",void 0),o=t.__decorate([i.subclass("esri.widgets.FeatureTable.support.EditableColumnTemplateMixin")],o),o};e.EditableColumnTemplateMixin=a,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

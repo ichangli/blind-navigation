@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../core/arrayUtils","../EditGeometry"],(function(e,t,i){"use strict";class r{constructor(e,t){this._editGeometry=e,this._component=t,this._createdEdge=null}apply(){let e="redo";if(null==this._createdEdge){e="apply";const t=this._component.getFirstVertex(),r=this._component.getLastVertex();if(this._component.isClosed()||this._component.vertices.length<3||null==t||null==r)return;this._createdEdge=new i.Edge(this._component,r,t)}this._createdEdge.leftVertex.rightEdge=this._createdEdge,this._createdEdge.rightVertex.leftEdge=this._createdEdge,this._component.edges.push(this._createdEdge),this._editGeometry.notifyChanges({operation:e})}undo(){null!=this._createdEdge&&(t.remove(this._component.edges,this._createdEdge),this._createdEdge.leftVertex.rightEdge=null,this._createdEdge.rightVertex.leftEdge=null,this._editGeometry.notifyChanges({operation:"undo"}))}accumulate(){return!1}}e.CloseComponent=r,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

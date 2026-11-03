@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/arrayUtils","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/accessorSupport/ensureType","../../core/has","../../core/accessorSupport/decorators/subclass","../../geometry/support/jsonUtils"],(function(e,r,t,o,s,p,i,a){"use strict";let c=class extends t.JSONSupport{constructor(e){super(e),this.deviationUnit=null,this.geometries=null,this.maxDeviation=null}};e.__decorate([o.property({type:String,json:{write:!0}})],c.prototype,"deviationUnit",void 0),e.__decorate([o.property({json:{read:{reader:e=>e?e.map((e=>a.fromJSON(e))).filter(r.isSome):null},write:{writer:(e,r)=>{r.geometries=e?.map((e=>e.toJSON()))??null}}}})],c.prototype,"geometries",void 0),e.__decorate([o.property({type:Number,json:{write:!0}})],c.prototype,"maxDeviation",void 0),c=e.__decorate([i.subclass("esri.rest.support.GeneralizeParameters")],c),c.from=s.ensureType(c);return c}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../../../core/libs/gl-matrix-2/factories/vec3f64","../../../../../2d/engine/imagery/enums","./Colormap.glsl","./Common.glsl","../terrain/TileBackground.glsl","../terrain/TileComposite.glsl","../util/ColorConversion.glsl","../../shaderModules/BooleanPassUniform","../../shaderModules/Float2PassUniform","../../shaderModules/FloatPassUniform","../../shaderModules/FloatsPassUniform","../../shaderModules/IntegerPassUniform","../../shaderModules/interfaces","../../shaderModules/ShaderBuilder","../../shaderModules/Texture2DPassUniform","../../../../../../chunks/RasterColorizer.glsl"],(function(e,r,o,s,l,i,a,n,d,t,m,u,f,h,g,C,U){"use strict";e.ColorizerHillshadeUniforms=U.ColorizerHillshadeUniforms,e.ColorizerStretchUniforms=U.ColorizerStretchUniforms,e.ColorizerUniforms=U.ColorizerUniforms,e.build=U.build,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

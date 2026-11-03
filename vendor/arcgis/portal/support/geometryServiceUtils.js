@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../config","../../core/Error","../Portal","../../rest/geometryService/project","../../rest/support/ProjectParameters"],(function(e,r,t,o,n,i){"use strict";async function a(e=null,n){if(r.geometryServiceUrl)return r.geometryServiceUrl;if(!e)throw new t("internal:geometry-service-url-not-configured");let i;i="portal"in e?e.portal||o.getDefault():e,await i.load({signal:n});const a=i.helperServices?.geometry?.url;if(!a)throw new t("internal:geometry-service-url-not-configured");return a}async function c(e,r,o=null,c){const l=await a(o,c),s=new i({geometries:[e],outSpatialReference:r}),u=await n.project(l,s,{signal:c});if(u&&Array.isArray(u)&&1===u.length)return u[0];throw new t("internal:geometry-service-projection-failed")}e.getGeometryServiceURL=a,e.projectGeometry=c,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

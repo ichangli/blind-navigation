@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports"],(function(t){"use strict";const e="theme-style";function n(t,e){return a(i(o(r(t),e)),e.size)}function o(t,{accentColor:n,contrastColor:o}){const r=n.toHex(),i=n.a,a=o.toHex(),s=o.a,c=t.getElementsByTagNameNS("http://www.w3.org/2000/svg","style").namedItem(e);return c&&(c.innerHTML=`\n      .contrast-fill { fill: ${a}; fill-opacity: ${s}; }\n      .contrast-stroke { stroke: ${a}; stroke-opacity: ${s};  }\n      .accent-fill { fill: ${r}; fill-opacity: ${i}; }\n      .accent-stroke { stroke: ${r}; stroke-opacity:  ${i}; }`),t}function r(t){const e=t.split(",")[1],n=atob(e);return(new DOMParser).parseFromString(n,"image/svg+xml")}function i(t){const e=(new XMLSerializer).serializeToString(t);return`data:image/svg+xml;base64,${btoa(e)}`}function a(t,e){const n=new Image(e,e);return n.src=t,n}t.generateStyledTexture=n,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["require","exports","../core/shaderTechnique/ReloadableShaderModule","../core/shaderTechnique/ShaderTechnique","../lib/DefaultVertexAttributeLocations","../lib/OrderIndependentTransparency","../lib/Program","../../../../chunks/ShadowCastVisualize.glsl","../../../webgl/enums","../../../webgl/renderState"],(function(e,i,r,t,a,l,n,s,u,d){"use strict";class o extends t.ShaderTechnique{constructor(e,i){super(e,i,(()=>this.destroy()))}initializeProgram(e){return new n.Program(e.rctx,o.shader.get().build(this.configuration),a.Default3D)}initializePipeline(){return d.makePipelineState({blending:l.blendingDefault,colorWrite:d.defaultColorWriteParams,depthTest:null,depthWrite:null})}get primitiveType(){return u.PrimitiveType.TRIANGLE_STRIP}}o.shader=new r.ReloadableShaderModule(s.ShadowCastVisualize,(()=>new Promise(((i,r)=>e(["./ShadowCastVisualize.glsl"],i,r))))),i.ShadowCastVisualizeTechnique=o,Object.defineProperty(i,Symbol.toStringTag,{value:"Module"})}));

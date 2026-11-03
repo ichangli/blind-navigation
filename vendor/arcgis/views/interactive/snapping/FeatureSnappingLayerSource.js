@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../core/Accessor","../../../core/Collection","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,c,a,p){"use strict";let i=class extends r{constructor(e){super(e),this.layer=null,this.enabled=!0,this.updating=!1,this.availability=1,this.sublayerSources=new o}};e.__decorate([t.property({constructOnly:!0})],i.prototype,"layer",void 0),e.__decorate([t.property()],i.prototype,"enabled",void 0),e.__decorate([t.property()],i.prototype,"updating",void 0),e.__decorate([t.property()],i.prototype,"availability",void 0),e.__decorate([t.property()],i.prototype,"sublayerSources",void 0),i=e.__decorate([p.subclass("esri.views.interactive.snapping.FeatureSnappingLayerSource")],i);return i}));

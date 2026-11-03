@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../chunks/vec32","../../../../core/libs/gl-matrix-2/factories/vec3f64","../intersectionUtils"],(function(e,t,o,n){"use strict";function r(o,r,E=e.Mode.EYE){const s=o.state.constraints;if(!s.collision.enabled)return!1;const l=n.surfaceElevationBelowRenderLocation(o,r.eye),a=o.renderCoordsHelper.getAltitude(r.eye),d=l+s.collision.elevationMargin;if(a>=d)return!1;const _=t.length(r.eye);if(t.subtract(i,r.center,r.eye),r.eye=o.renderCoordsHelper.setAltitude(c,d,r.eye),E===e.Mode.EYE_AND_CENTER)r.center=t.add(i,r.eye,i);else if(E===e.Mode.EYE_AND_CENTER_SCALE){const e=(_-a+d)/_;r.center=t.scale(i,r.center,e)}return!0}var E;e.Mode=void 0,(E=e.Mode||(e.Mode={}))[E.EYE=0]="EYE",E[E.EYE_AND_CENTER=1]="EYE_AND_CENTER",E[E.EYE_AND_CENTER_SCALE=2]="EYE_AND_CENTER_SCALE";const i=o.create(),c=o.create();e.applySurfaceCollisionConstraint=r,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

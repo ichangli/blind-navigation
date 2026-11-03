@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/Clonable","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,o,t,s,p,c,n){"use strict";let i=class extends(r.ClonableMixin(o.JSONSupport)){constructor(e){super(e),this.onFields=null,this.operator=null,this.searchTerm=null,this.searchType=null}};e.__decorate([t.property({type:[String],json:{write:{enabled:!0,overridePolicy(){return{enabled:null!=this.onFields&&this.onFields.length>0}}}}})],i.prototype,"onFields",void 0),e.__decorate([t.property({type:String,json:{write:!0}})],i.prototype,"operator",void 0),e.__decorate([t.property({type:String,json:{write:!0}})],i.prototype,"searchTerm",void 0),e.__decorate([t.property({type:String,json:{write:!0}})],i.prototype,"searchType",void 0),i=e.__decorate([n.subclass("esri.rest.support.FullTextSearch")],i);return i}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../../core/sql","../../../../../layers/support/FeatureFilter"],(function(e,l,o){"use strict";function r(e,l){return null!=e.floorInfo&&(e.floorInfo.viewAllLevelIds.length>0||l.floors.length>0)}function n(e,l,r){const n=t(e,l?.where,r);return n?(l??=new o,l.where=n,l):l}function t(e,o,r){if(null==e.floorInfo||!r.floors?.length)return o;let n=r.floors;const{floorField:t,viewAllLevelIds:i}=e.floorInfo;i.length&&(n=i);const f=n.filter((e=>""!==e)).map((e=>"'"+e+"'"));if(f.push("''"),o?.includes(t)){let e=new RegExp("AND \\("+t+".*NULL\\)","g");o=o.replace(e,""),e=new RegExp("\\("+t+".*NULL\\)","g"),o=(o=o.replace(e,"")).replaceAll(/\s+/g," ").trim()}let s="("+t+" IN ({ids}) OR "+t+" IS NULL)";return s=s.replace("{ids}",f.join(", ")),l.sqlAnd(o,s)}e.addFloorFilter=n,e.hasFloorFilter=r,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports"],(function(t){"use strict";function a(t,a,M,S){return[[[M-t/Math.SQRT2,S-t/Math.SQRT2],[M+t/Math.SQRT2,S-t/Math.SQRT2],[M+a/Math.SQRT2,S-a/Math.SQRT2],[M-a/Math.SQRT2,S-a/Math.SQRT2]],[[M+t/Math.SQRT2,S-t/Math.SQRT2],[M+t/Math.SQRT2,S+t/Math.SQRT2],[M+a/Math.SQRT2,S+a/Math.SQRT2],[M+a/Math.SQRT2,S-a/Math.SQRT2]],[[M+t/Math.SQRT2,S+t/Math.SQRT2],[M-t/Math.SQRT2,S+t/Math.SQRT2],[M-a/Math.SQRT2,S+a/Math.SQRT2],[M+a/Math.SQRT2,S+a/Math.SQRT2]],[[M-t/Math.SQRT2,S+t/Math.SQRT2],[M-t/Math.SQRT2,S-t/Math.SQRT2],[M-a/Math.SQRT2,S-a/Math.SQRT2],[M-a/Math.SQRT2,S+a/Math.SQRT2]]]}function M(t,a,M){const[S,h,T,Q]=t;return`M ${S.join(" ")} A ${a} ${a} 0 0 1 ${h.join(" ")} L ${T.join(" ")} A ${M} ${M} 0 0 0 ${Q.join(" ")} Z`}function S(t,S,h){const[T,Q,R,n]=[...t,0];return[...a(T,Q,S,h).map((t=>M(t,T,Q))),...a(Q,R,S,h).map((t=>M(t,Q,R))),...a(R,n,S,h).map((t=>M(t,R,n)))]}t.getAllArcPath=S,Object.defineProperty(t,Symbol.toStringTag,{value:"Module"})}));

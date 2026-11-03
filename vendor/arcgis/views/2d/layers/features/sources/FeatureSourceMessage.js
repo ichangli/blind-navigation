@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports"],(function(e){"use strict";class t{constructor(e,t,i,s,r){this.subscription=e,this.reader=t,this.clear=i,this.end=s,this.debugInfo=r,this.type="append"}get id(){return this.subscription.tile.id}createMessage(e,t,i){return{type:"append",clear:this.clear,id:this.id,append:e,end:this.end,debugInfo:this.debugInfo,subscriptionVesrion:this.subscription.version,version:t,attributeEpoch:i}}}class i{constructor(e,t,i,s,r){this.subscription=e,this.reader=t,this.remove=i,this.end=s,this.debugInfo=r,this.type="update"}get id(){return this.subscription.tile.id}createMessage(e,t,i){return{type:"update",id:this.id,modify:e,debugInfo:this.debugInfo,remove:this.remove,version:t,subscriptionVesrion:this.subscription.version,end:this.end,attributeEpoch:i}}}e.FeatureTileAppendMessage=t,e.FeatureTileUpdateMessage=i,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

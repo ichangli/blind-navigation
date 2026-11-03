@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../core/Collection","../../../core/accessorSupport/decorators/property","../../../core/has","../../../core/Logger","../../../core/RandomLCG","../../../core/accessorSupport/decorators/subclass","./LayerView2D","../../layers/CatalogLayerView","../../layers/LayerView"],(function(e,r,a,t,i,s,o,c,n,l){"use strict";let d=class extends(n(c.LayerView2DMixin(l))){constructor(){super(...arguments),this.layerViews=new r}update(e){}viewChange(){}moveEnd(){}attach(){this.addAttachHandles([this._updatingHandles.addOnCollectionChange((()=>this.layerViews),(()=>this._updateStageChildren()),{initial:!0})])}detach(){this.container.removeAllChildren()}_updateStageChildren(){this.container.removeAllChildren(),this.layerViews.forEach(((e,r)=>this.container.addChildAt(e.container,r)))}};e.__decorate([a.property()],d.prototype,"layerViews",void 0),d=e.__decorate([o.subclass("esri.views.2d.layers.CatalogLayerView2D")],d);return d}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../chunks/tslib.es6","../../core/object","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","../support/OrderByInfo"],(function(e,r,o,t,s,n,c,d,i){"use strict";function a(e,r,o){if(!e)return null;const t=e.find((e=>!!e.field));if(!t)return null;const s=new i;return s.read(t,o),[s]}function u(e,r,t,s){const n=e.find((e=>!!e.field));n&&o.setDeepValue(t,[n.toJSON()],r)}const l={type:[i],json:{origins:{"web-scene":{write:!1,read:!1}},name:"layerDefinition.orderBy",read:{reader:a},write:{writer:u}}},p=e=>{let o=class extends e{constructor(){super(...arguments),this.orderBy=null}};return r.__decorate([t.property(l)],o.prototype,"orderBy",void 0),o=r.__decorate([d.subclass("esri.layers.mixins.OrderedLayer")],o),o};e.OrderedLayer=p,e.orderByProperty=l,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

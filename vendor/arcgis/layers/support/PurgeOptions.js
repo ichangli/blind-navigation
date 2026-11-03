@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/JSONSupport","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass"],(function(e,r,t,o,s,p,a){"use strict";var i;let c=i=class extends r.JSONSupport{constructor(){super(...arguments),this.age=null,this.ageReceived=null,this.displayCount=null,this.maxObservations=1}clone(){return new i({age:this.age,ageReceived:this.ageReceived,displayCount:this.displayCount,maxObservations:this.maxObservations})}};e.__decorate([t.property({type:Number,json:{write:!0}})],c.prototype,"age",void 0),e.__decorate([t.property({type:Number,json:{write:!0}})],c.prototype,"ageReceived",void 0),e.__decorate([t.property({type:Number,json:{write:!0}})],c.prototype,"displayCount",void 0),e.__decorate([t.property({type:Number,json:{write:!0}})],c.prototype,"maxObservations",void 0),c=i=e.__decorate([a.subclass("esri.layers.support.PurgeOptions")],c);return c}));

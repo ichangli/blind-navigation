@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../../chunks/tslib.es6","../../../../../core/accessorSupport/decorators/property","../../support/UpdateTracking2D","../../../../support/QueueProcessor"],(function(e,r,t,s,o){"use strict";class u{constructor(e){this._updateTracking=new s.UpdateTracking2D({debugName:"AttributeStoreCommandQueue"}),this._queueProcessor=new o.QueueProcessor({concurrency:1,process:e.process})}destroy(){this._updateTracking.destroy(),this.clear()}get updateTracking(){return this._updateTracking}clear(){this._queueProcessor.clear()}async push(e){return this._updateTracking.addPromise(this._doPush(e))}async _doPush(e){const r=this._queueProcessor,t=r.last();switch(e.type){case"update":return t?.type===e.type?r.lastPromise():r.push(e);case"initialize":return r.push(e)}}}r.__decorate([t.property()],u.prototype,"process",void 0),e.AttributeStoreCommmandQueue=u,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

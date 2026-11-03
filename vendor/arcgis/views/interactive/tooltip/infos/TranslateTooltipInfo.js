@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../../chunks/tslib.es6","../../../../core/quantityUtils","../../../../core/accessorSupport/decorators/property","../../../../core/has","../../../../core/Logger","../../../../core/RandomLCG","../../../../core/accessorSupport/decorators/subclass","./SketchTooltipInfo"],(function(o,e,t,r,s,a,c,i,n){"use strict";o.TranslateTooltipInfo=class extends n.SketchTooltipInfo{constructor(o){super(o),this.type="translate",this.distance=t.zeroMeters}clear(){this.distance=t.zeroMeters}},e.__decorate([r.property()],o.TranslateTooltipInfo.prototype,"type",void 0),e.__decorate([r.property()],o.TranslateTooltipInfo.prototype,"distance",void 0),o.TranslateTooltipInfo=e.__decorate([i.subclass("esri.views.interactive.tooltip.infos.TranslateTooltipInfo")],o.TranslateTooltipInfo),Object.defineProperty(o,Symbol.toStringTag,{value:"Module"})}));

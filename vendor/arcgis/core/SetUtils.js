@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports"],(function(n){"use strict";function t(n,t){for(const e of n.entries())if(t(e[0]))return!0;return!1}function e(n,t){if(!t)return n;for(const e of t)null!=e&&n.add(e);return n}function r(n,t){return null!=t&&n.add(t),n}function o(n,t){const r=new Set;return e(r,n),e(r,t),r}function u(n,t){const e=new Set;for(const r of t)n.has(r)&&e.add(r);return e}function f(n,t){if(!n||!t)return!1;if(n===t)return!0;for(const e of n)if(!t.has(e))return!1;return!0}function i(n,t){if(null==n&&null==t)return!0;if(null==n||null==t||n.size!==t.size)return!1;for(const e of n)if(!t.has(e))return!1;return!0}function c(n,t){const e=new Set(n);for(const r of t)e.delete(r);return e}function s(n,t){return c(o(n,t),u(n,t))}function l(n){let t;for(t of n);return t}n.addMany=e,n.addMaybe=r,n.difference=c,n.equals=i,n.intersection=u,n.isSubsetOf=f,n.last=l,n.someSet=t,n.symmetricDifference=s,n.union=o,Object.defineProperty(n,Symbol.toStringTag,{value:"Module"})}));

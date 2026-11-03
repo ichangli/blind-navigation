@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../chunks/tslib.es6","../../core/Accessor","../../core/accessorSupport/decorators/property","../../core/has","../../core/Logger","../../core/RandomLCG","../../core/accessorSupport/decorators/subclass","../../geometry/Point"],(function(e,o,t,r,c,s,p,a){"use strict";let i=class extends o{constructor(e){super(e),this.categories=null,this.distance=null,this.icon=null,this.location=null,this.name=null,this.placeId=null}};e.__decorate([t.property()],i.prototype,"categories",void 0),e.__decorate([t.property()],i.prototype,"distance",void 0),e.__decorate([t.property()],i.prototype,"icon",void 0),e.__decorate([t.property({type:a})],i.prototype,"location",void 0),e.__decorate([t.property()],i.prototype,"name",void 0),e.__decorate([t.property()],i.prototype,"placeId",void 0),i=e.__decorate([p.subclass("esri.rest.support.PlaceResult")],i);return i}));

@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../chunks/tslib.es6","../core/Error","../core/JSONSupport","../core/accessorSupport/decorators/property","../core/has","../core/Logger","../core/RandomLCG","../core/accessorSupport/decorators/subclass"],(function(e,t,r,o,p,s,l,c){"use strict";let a=class extends r.JSONSupport{constructor(e){super(e),this.created=null,this.id=null,this.portal=null,this.title=null,this.username=null}get url(){const e=this.portal?.restUrl;return e?`${e}/content/users/${this.username}/${this.id}`:null}toJSON(){throw new t("internal:not-yet-implemented","PortalFolder.toJSON is not yet implemented")}};e.__decorate([o.property({type:Date})],a.prototype,"created",void 0),e.__decorate([o.property()],a.prototype,"id",void 0),e.__decorate([o.property()],a.prototype,"portal",void 0),e.__decorate([o.property()],a.prototype,"title",void 0),e.__decorate([o.property({readOnly:!0})],a.prototype,"url",null),e.__decorate([o.property()],a.prototype,"username",void 0),a=e.__decorate([c.subclass("esri.portal.PortalFolder")],a);return a}));

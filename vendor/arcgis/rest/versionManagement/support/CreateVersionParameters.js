@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["../../../chunks/tslib.es6","../../../core/JSONSupport","../../../core/accessorSupport/decorators/property","../../../core/accessorSupport/ensureType","../../../core/RandomLCG","../../../core/has","../../../core/accessorSupport/decorators/subclass"],(function(e,r,t,s,o,c,p){"use strict";var i;let a=i=class extends r.JSONSupport{static from(e){return s.ensureClass(i,e)}constructor(e){super(e),this.versionName=void 0,this.description=null,this.access="private"}};e.__decorate([t.property({type:String,json:{write:!0}})],a.prototype,"versionName",void 0),e.__decorate([t.property({type:String,json:{write:!0}})],a.prototype,"description",void 0),e.__decorate([t.property({type:["private","public","protected","hidden"],json:{name:"accessPermission",write:!0}})],a.prototype,"access",void 0),a=i=e.__decorate([p.subclass("esri.rest.versionManagement.support.CreateVersionParameters")],a);return a}));

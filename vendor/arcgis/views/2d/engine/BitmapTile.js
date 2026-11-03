@@ -1,0 +1,5 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../../../core/libs/gl-matrix-2/factories/mat3f32","./Bitmap","./webgl/TiledDisplayObject"],(function(e,t,s,i){"use strict";class r extends i.TiledDisplayObject{constructor(e,t,i,r,a,n,p=null){super(e,t,i,r,a,n),this.bitmap=new s.Bitmap(p),this.bitmap.coordScale=[a,n],this.bitmap.once("isReady",(()=>this.ready()))}destroy(){super.destroy(),this.bitmap.destroy()}beforeRender(e){this.bitmap.beforeRender(e),super.beforeRender(e)}afterRender(e){this.bitmap.afterRender(e),super.afterRender(e)}set stencilRef(e){this.bitmap.stencilRef=e}get stencilRef(){return this.bitmap.stencilRef}_createTransforms(){return{displayViewScreenMat3:t.create(),tileMat3:t.create()}}setTransform(e){super.setTransform(e),this.bitmap.transforms.displayViewScreenMat3=this.transforms.displayViewScreenMat3}onAttach(){this.bitmap.stage=this.stage}onDetach(){this.bitmap&&(this.bitmap.stage=null)}}e.BitmapTile=r,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

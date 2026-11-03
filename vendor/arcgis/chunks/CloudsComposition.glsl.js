@@ -1,0 +1,12 @@
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.30/esri/copyright.txt for details.
+*/
+define(["exports","../core/libs/gl-matrix-2/math/mat4","../core/libs/gl-matrix-2/factories/mat4f64","../views/3d/webgl-engine/core/shaderLibrary/shading/EvaluateAmbientLighting.glsl","../views/3d/webgl-engine/core/shaderLibrary/shading/Gamma.glsl","../views/3d/webgl-engine/core/shaderLibrary/shading/MainLighting.glsl","../views/3d/webgl-engine/core/shaderLibrary/shading/PhysicallyBasedRenderingParameters.glsl","../views/3d/webgl-engine/core/shaderLibrary/shading/PiUtils.glsl","../views/3d/webgl-engine/core/shaderLibrary/util/CloudsParallaxShading.glsl","../views/3d/webgl-engine/core/shaderLibrary/util/ColorConversion.glsl","../views/3d/webgl-engine/core/shaderLibrary/util/RgbaFloatEncoding.glsl","../views/3d/webgl-engine/core/shaderModules/Float3PassUniform","../views/3d/webgl-engine/core/shaderModules/interfaces","../views/3d/webgl-engine/core/shaderModules/Matrix4PassUniform","../views/3d/webgl-engine/core/shaderModules/ShaderBuilder","../views/3d/webgl-engine/lib/VertexAttribute"],(function(e,i,r,a,n,o,l,s,d,t,g,c,u,b,v,w){"use strict";function m(){const e=new v.ShaderBuilder,{attributes:r,varyings:m,vertex:y,fragment:P}=e;return r.add(w.VertexAttribute.POSITION,"vec2"),m.add("worldRay","vec3"),y.uniforms.add(new b.Matrix4PassUniform("inverseProjectionMatrix",((e,i)=>i.camera.inverseProjectionMatrix)),new b.Matrix4PassUniform("inverseViewMatrix",((e,r)=>i.invertOrIdentity(h,r.camera.viewMatrix)))),y.code.add(u.glsl`void main(void) {
+vec3 posViewNear = (inverseProjectionMatrix * vec4(position, -1.0, 1.0)).xyz;
+worldRay = (inverseViewMatrix * vec4(posViewNear, 0.0)).xyz;
+gl_Position = vec4(position, 1.0, 1.0);
+}`),P.include(t.ColorConversion),P.include(g.RgbaFloatEncoding),e.include(a.EvaluateAmbientLighting,{pbrMode:l.PBRMode.Disabled,lightingSphericalHarmonicsOrder:2}),e.include(s.PiUtils),e.include(n.Gamma),e.include(o.MainLighting),e.include(d.CloudsParallaxShading),P.uniforms.add(new c.Float3PassUniform("cameraPosition",((e,i)=>i.camera.eye))),P.code.add(u.glsl`void main() {
+vec4 cloudsColor = renderClouds(normalize(worldRay), cameraPosition);
+fragColor = vec4((1.0 - totalFadeInOut) * cloudsColor.rgb, cloudsColor.a);
+}`),e}const h=r.create(),y=Object.freeze(Object.defineProperty({__proto__:null,build:m},Symbol.toStringTag,{value:"Module"}));e.CloudsCompositionShader=y,e.build=m}));
