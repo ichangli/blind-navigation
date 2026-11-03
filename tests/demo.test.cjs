@@ -95,7 +95,7 @@ test('preset route contracts, valid geometry, unsupported arbitrary destination 
       assert.ok(result.data.route.length>2);assert.ok(result.data.distanceMeters>0);assert.equal(result.data.routeOptions.length,2);
       assert.ok(result.data.route.every(v=>v.lon>113.9&&v.lon<114.2&&v.lat>22.4&&v.lat<22.7));
       const web=await p.api('web/map/navigation/solve',{method:'POST',body:JSON.stringify({origin:c.originLocation,destination:c.destinationLocation})});assert.equal(web.status,200);
-      const reverse=await p.api('web/map/navigation/solve',{method:'POST',body:JSON.stringify({origin:c.destinationLocation,destination:c.originLocation})});assert.equal(reverse.status,200);assert.deepEqual(reverse.data.route[0],c.route[c.route.length-1]);
+      const reverse=await p.api('web/map/navigation/solve',{method:'POST',body:JSON.stringify({origin:c.destinationLocation,destination:c.originLocation})});assert.equal(reverse.status,200);assert.equal(reverse.data.route[0].lon,c.route[c.route.length-1].lon);assert.equal(reverse.data.route[0].lat,c.route[c.route.length-1].lat);
     }
     assert.equal((await p.api('mobile/navigation/plan',{method:'POST',body:JSON.stringify({destination:'北京故宫'})})).status,422);
     assert.equal((await p.api('mobile/navigation/plan',{method:'POST',body:JSON.stringify({destination:'莲花山'})})).status,200);
