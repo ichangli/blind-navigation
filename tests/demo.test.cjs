@@ -147,7 +147,13 @@ test('3D bootstrap references the packaged stylesheet, loader and CSS dependenci
       assert.ok(fs.existsSync(resource),'3D startup resource exists: '+href);
     };
     p.w.require=function(ids,success){success(...ids.map(id=>id==='esri/config'?{}:function(){}));};
-    await p.w.loadGeoSceneModules();
+    const modules=await p.w.loadGeoSceneModules();
+    assert.equal(p.w.esriConfig.assetsPath,'https://example.github.io/blind-navigation/vendor/arcgis/esri/assets/');
+    assert.equal(modules.config.workers.loaderUrl,'https://example.github.io/blind-navigation/vendor/arcgis/init.js');
+    for(const href of [modules.config.workers.loaderUrl,modules.config.workers.workerPath]){
+      const asset=path.join(root,new URL(href).pathname.replace('/blind-navigation/',''));
+      assert.ok(fs.existsSync(asset),'Worker bootstrap exists: '+href);
+    }
     const cssPath=requested.find(href=>href.endsWith('.css'));
     assert.equal(cssPath,'./vendor/arcgis/esri/assets/esri/themes/dark/main.css');
     const cssFile=path.join(root,cssPath);

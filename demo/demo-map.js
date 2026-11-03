@@ -9,8 +9,12 @@
     window[name]=function(id,url){return original(id,url).catch(function(){var node=document.getElementById(id);if(node)node.remove();var error=new Error((name==='loadStyleOnce'?'三维样式':'三维脚本')+'加载失败：'+url);window._demo3DError=error.message;throw error;});};
   });
   function data(name){return new URL('data/'+name,D.base).href;}
+  var assetsURL=new URL('vendor/arcgis/esri/assets/',D.base).href;
+  var workerSettings={loaderUrl:new URL('vendor/arcgis/init.js',D.base).href,workerPath:new URL('vendor/arcgis/esri/core/workers/RemoteClient.js',D.base).href,loaderConfig:{baseUrl:new URL('vendor/arcgis/',D.base).href,packages:[{name:'esri',location:new URL('vendor/arcgis/esri/',D.base).href}],has:{'host-webworker':1,'host-browser':0,dom:0}}};
+  // Apply before AMD modules execute; the npm assets omit the CDN worker init.
+  window.esriConfig=Object.assign({},window.esriConfig,{assetsPath:assetsURL,workers:workerSettings});
   var originalModules=window.loadGeoSceneModules;
-  window.loadGeoSceneModules=function(){return originalModules().then(function(m){m.config.assetsPath=new URL('vendor/arcgis/esri/assets/',D.base).href;return m;});};
+  window.loadGeoSceneModules=function(){return originalModules().then(function(m){m.config.assetsPath=assetsURL;m.config.workers=Object.assign({},m.config.workers,workerSettings);return m;});};
   window.probeGeoSceneVectorBasemap=function(){return Promise.resolve(false);};
   window.probeTiandituBasemap=function(){return Promise.resolve(false);};
   window.createGeoSceneBasemap=function(m){
