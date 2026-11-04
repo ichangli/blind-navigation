@@ -4,6 +4,8 @@
 
 面向深圳福田的无障碍出行与城市治理项目，包含 Web 三维管理端、移动端、Python 业务后端和 GIS 数据制作工具。
 
+本项目获 2026 年易智瑞杯 GIS 应用开发组三等奖，比赛作品经整理后公开源码，并提供独立静态演示。
+
 **技术栈：** 原生 JavaScript · ArcGIS Maps SDK for JavaScript · Leaflet · FastAPI · SQLAlchemy · Python / ArcGIS GIS 数据处理工具。
 
 核心工作包括：
